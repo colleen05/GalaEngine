@@ -8,11 +8,13 @@ echo "Creating directories..."
 mkdir -p Engine/bin/linux64
 mkdir -p Engine/tmp
 
+# Compiling
 echo "Compiling object files..."
 clang++ -c -o Engine/tmp/GalaEngine.o Engine/src/*.cpp -IEngine/include -std=c++17
 
 echo "Building static libraries..."
 ar rcs Engine/bin/linux64/libGalaEngine.a Engine/tmp/GalaEngine.o
 
+# Cleaning up
 echo "Removing temporary directories..."
 rm -r Engine/tmp
