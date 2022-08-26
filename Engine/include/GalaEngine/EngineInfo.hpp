@@ -1,3 +1,10 @@
+// Project: GalaEngine
+// File: EngineInfo.hpp
+// Description: Engine information definitions and function.
+// Authors: Colleen (@colleen05)
+// https://github.com/colleen05/GalaEngine
+// Distributed under the zlib license.
+
 #pragma once
 
 #define GALAENGINE_VERSION_MAJOR 1
