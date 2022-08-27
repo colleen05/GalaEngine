@@ -26,4 +26,4 @@ GalaEngine::Window::Window(std::string title, int width, int height, int targeFP
     _targetFPS = targeFPS;
 }
 
-GalaEngine::Window::Window() : Window("GalaEngine Game", 640, 480) { }
+GalaEngine::Window::Window() : Window("Window", 640, 480) { }
