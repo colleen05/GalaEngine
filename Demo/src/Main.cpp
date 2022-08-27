@@ -6,7 +6,7 @@
 int main() {
     std::cout << "Using " << GalaEngine::GetEngineInfo() << "." << std::endl;
 
-    GalaEngine::Window window("GalaEngine Demo", 1280, 720);
+    GalaEngine::Window window("GalaEngine Demo (GalaEngine v" GALAENGINE_VERSION_STRING ")", 1280, 720);
     window.Init();
 
     while(!window.ShouldClose()) {
