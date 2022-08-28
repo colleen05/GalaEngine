@@ -27,7 +27,6 @@ namespace GalaEngine {
 
         public:
             Window *window;         // Game window
-            Surface mainSurface;    // Main surface
 
             virtual void OnLoad();
             virtual void OnUpdate();

@@ -9,6 +9,7 @@
 
 #include <raylib.h>
 #include <string>
+#include <GalaEngine/Surface.hpp>
 
 namespace GalaEngine {
     class Window {
@@ -18,12 +19,17 @@ namespace GalaEngine {
             int _targetFPS;
 
         public:
-            // Initialisation & destruction
+            Surface surface;
+
+            // Initialisation, drawing, and destruction
             void Init();
+            void Render();
             void Exit();
 
             // Status getters
             bool ShouldClose();
+            int GetWidth();
+            int GetHeight();
 
             // Constructors
             Window(std::string title, int width, int height, int targetFPS = 60);

@@ -5,7 +5,32 @@ void GalaEngine::Window::Init() {
     InitWindow(_width, _height, _title.c_str());
     SetTargetFPS(_targetFPS);
 
+    surface = Surface(_width, _height);
+
     InitAudioDevice();
+}
+
+void GalaEngine::Window::Render() {
+    BeginDrawing();
+
+    DrawTexturePro(
+        surface.texture.texture,
+        Rectangle {
+            0.0f, (float)surface.texture.texture.height,
+            (float)surface.texture.texture.width,
+            -(float)surface.texture.texture.height
+        },
+        Rectangle {
+            0.0f, 0.0f,
+            (float)GetWidth(),
+            (float)GetHeight()
+        },
+        {0.0f, 0.0f},
+        0.0f,
+        C_WHITE
+    );
+
+    EndDrawing();
 }
 
 void GalaEngine::Window::Exit() {
@@ -16,6 +41,14 @@ void GalaEngine::Window::Exit() {
 // Status getters
 bool GalaEngine::Window::ShouldClose() {
     return WindowShouldClose();
+}
+
+int GalaEngine::Window::GetWidth() {
+    return GetScreenWidth();
+}
+
+int GalaEngine::Window::GetHeight() {
+    return GetScreenHeight();
 }
 
 // Constructors

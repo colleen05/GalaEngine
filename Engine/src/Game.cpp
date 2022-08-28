@@ -9,11 +9,17 @@ void GalaEngine::Game::Start() {
     window->Init();
 
     while(!(window->ShouldClose() || _shouldEnd)) {
+        // Update
         OnUpdate();
 
+        // Drawing
+        window->surface.Clear();
+
         BeginDrawing();
-        OnDraw();
+        OnDraw(); // Call draw code from child class
         EndDrawing();
+
+        window->Render();
     }
 
     OnUnload();

@@ -2,13 +2,12 @@
 #include <GalaEngine/Game.hpp>
 #include <GalaEngine/Colour.hpp>
 #include <iostream>
-#include <vector>
-#include <cmath>
 
 class MyGame : public GalaEngine::Game {
     public:
         void OnDraw() {
-            
+            window->surface.Clear(C_GALARED);
+            window->surface.DrawText("Hello, world!", 32, 32);
         }
 
         void OnUpdate() {
@@ -29,8 +28,6 @@ class MyGame : public GalaEngine::Game {
 };
 
 int main() {
-    std::cout << "Using " << GalaEngine::GetEngineInfo() << "." << std::endl;
-
     GalaEngine::Game *game = new MyGame();
     game->Start();
 
