@@ -1,6 +1,6 @@
 // Project: GalaEngine
-// File: DrawTarget.hpp
-// Description: Class for a surface-like texture container that supports drawing functions
+// File: Surface.hpp
+// Description: Surface class with drawing functions for sprites; an advanced wrapper for textures.
 // Authors: Colleen (@colleen05)
 // https://github.com/colleen05/GalaEngine
 // Distributed under the zlib license.
@@ -10,7 +10,7 @@
 #include <GalaEngine/Colour.hpp>
 
 namespace GalaEngine {
-    class DrawTarget {
+    class Surface {
         public:
             Texture texture;
 
@@ -19,7 +19,7 @@ namespace GalaEngine {
             void Update();
             Image GetImage();
 
-            DrawTarget(int width, int height);
-            DrawTarget();
+            Surface(int width, int height);
+            Surface();
     };
 }

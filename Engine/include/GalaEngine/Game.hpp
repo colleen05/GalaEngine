@@ -6,7 +6,7 @@
 // Distributed under the zlib license.
 
 #include <GalaEngine/Window.hpp>
-#include <GalaEngine/DrawTarget.hpp>
+#include <GalaEngine/Surface.hpp>
 
 namespace GalaEngine {
     struct GameInfo {
@@ -27,7 +27,7 @@ namespace GalaEngine {
 
         public:
             Window *window;         // Game window
-            DrawTarget drawTarget;  // Main draw target
+            Surface mainSurface;    // Main surface
 
             virtual void OnLoad();
             virtual void OnUpdate();
