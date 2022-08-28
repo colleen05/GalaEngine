@@ -8,6 +8,8 @@ void GalaEngine::Game::OnUnload () {};
 void GalaEngine::Game::Start() {
     window->Init();
 
+    OnLoad();
+
     while(!(window->ShouldClose() || _shouldEnd)) {
         // Update
         OnUpdate();

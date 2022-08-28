@@ -28,7 +28,6 @@ namespace GalaEngine {
 
             void Clear(Colour colour);
             void Clear();
-            void Update();
             Image GetImage();
 
             Surface(int width, int height, Colour colour = C_BLACK);

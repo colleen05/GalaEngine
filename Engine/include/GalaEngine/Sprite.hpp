@@ -10,7 +10,8 @@
 
 namespace GalaEngine {
     struct Sprite {
-        Texture &texture; // Source texture
-        std::vector<Rectangle> frameRects; // Frame rectangles
+        Texture texture;                   // Source texture
+        Vector2 origin;                     // Origin
+        std::vector<Rectangle> frameRects;  // Frame rectangles
     };
 }
