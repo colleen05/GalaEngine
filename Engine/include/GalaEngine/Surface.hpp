@@ -18,13 +18,21 @@ namespace GalaEngine {
             RenderTexture texture;
             Colour clearColour;
 
-            // Point
+            // Points & lines
             void DrawPixel(int x, int y, Colour colour = C_WHITE);
+            void DrawLine(int x1, int y1, int x2, int y2, Colour colour = C_WHITE);
+            void DrawLine(int x1, int y1, int x2, int y2, float thickness, Colour colour = C_WHITE);
 
             // Primitives
-            void DrawRectangle(int x, int y, int width, int height, Colour colour = C_WHITE);
+            void DrawRectangle(int x, int y, int width, int height, Colour colour = C_WHITE, bool outline = false, float thickness = 1.0f);
             void DrawRectangle(int x, int y, int width, int height, float rotation, Vector2 origin = {0.0f, 0.0f}, Colour colour = C_WHITE);
-            
+            void DrawRectangleColours(int x, int y, int width, int height, Colour c1, Colour c2, Colour c3, Colour c4);
+            void DrawRectangleRounded(int x, int y, int width, int height, Colour colour = C_WHITE, bool outline = false, float thickness = 1.0f);
+
+            void DrawCircle(int x, int y, float radius, Colour colour = C_WHITE, bool outline = false, float thickness = 1.0f);
+            void DrawCircle(int x, int y, float radius, Colour innerColour, Colour outerColour);
+            void DrawEllipse(int x, int y, float radiusH, float radiusV, Colour colour = C_WHITE, bool outline = false, float thickness = 1.0f);
+
             // Text
             void DrawText(std::string text, int x, int y, int size = 20, Colour colour = C_WHITE);
             

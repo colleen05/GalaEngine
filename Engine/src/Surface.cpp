@@ -7,10 +7,39 @@ void GalaEngine::Surface::DrawPixel(int x, int y, Colour colour) {
     EndTextureMode();
 }
 
-// Primitives
-void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, Colour colour) {
+void GalaEngine::Surface::DrawLine(int x1, int y1, int x2, int y2, Colour colour) {
     BeginTextureMode(texture);
-    ::DrawRectangle(x, y, width, height, colour);
+    ::DrawLine(x1, y1, x2, y2, colour);
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawLine(int x1, int y1, int x2, int y2, float thickness, Colour colour) {
+    BeginTextureMode(texture);
+    ::DrawLineEx(
+        {(float)x1, (float)y1},
+        {(float)x2, (float)y2},
+        thickness, colour
+    );
+    EndTextureMode();
+}
+
+// Primitives
+void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, Colour colour, bool outline, float thickness) {
+    BeginTextureMode(texture);
+
+    if(outline){
+        ::DrawRectangleLinesEx(
+            Rectangle {
+                (float) x, (float) y,
+                (float) width, (float) height
+            },
+            thickness,
+            colour
+        );
+    }else {
+        ::DrawRectangle(x, y, width, height, colour);
+    }
+
     EndTextureMode();
 }
 
@@ -23,6 +52,65 @@ void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, flo
         },
         origin, rotation, colour
     );
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawRectangleColours(int x, int y, int width, int height, Colour c1, Colour c2, Colour c3, Colour c4) {
+    BeginTextureMode(texture);
+    ::DrawRectangleGradientEx(
+        Rectangle {
+            (float)x, (float)y,
+            (float)width, (float)height
+        },
+        c1, c2, c3, c4
+    );
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawRectangleRounded(int x, int y, int width, int height, Colour colour, bool outline, float thickness) {
+    
+}
+
+void GalaEngine::Surface::DrawCircle(int x, int y, float radius, Colour colour, bool outline, float thickness) {
+    BeginTextureMode(texture);
+
+    if(outline) {
+        ::DrawRing(
+            {(float)x, (float)y},
+            radius - thickness,
+            radius,
+            0.0f, 360.0f,
+            128.0f,
+            colour
+        );
+    }else {
+        ::DrawCircle(x, y, radius, colour);
+    }
+
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawCircle(int x, int y, float radius, Colour innerColour, Colour outerColour) {
+    BeginTextureMode(texture);
+    ::DrawCircleGradient(x, y, radius, innerColour, outerColour);
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawEllipse(int x, int y, float radiusH, float radiusV, Colour colour, bool outline, float thickness) {
+    BeginTextureMode(texture);
+    
+    if(outline) {
+        if(thickness == 1.0f) {
+            ::DrawEllipseLines(x, y, radiusH, radiusV, colour);
+        }else {
+            for(int i = 0; i < thickness * 2; i++) {
+                ::DrawEllipseLines(x, y, radiusH - (float)(i) / 2.0f, radiusV - (float)(i) / 2.0f, colour);
+            }
+        }
+    }else {
+        ::DrawEllipse(x, y, radiusH, radiusV, colour);
+    }
+    
     EndTextureMode();
 }
 

@@ -13,11 +13,21 @@ class MyGame : public GalaEngine::Game {
         int id_origin = 0,
             id_frame = 0;
 
-        float   rotation = 0.0f,
+        float   spr_rot = 0.0f,
                 spr_x = 0.0f,
                 spr_y = 0.0f,
                 spr_scalex = 1.0f,
-                spr_scaley = 1.0f;
+                spr_scaley = 1.0f,
+                rec_x = 0.0f,
+                rec_y = 232.0f,
+                rec_o = 1.0f,
+                rec_rot = 0.0f,
+                circ_x = 0.0f,
+                circ_x2 = 0.0f,
+                circ_y = 720.0f - 128.0f,
+                circ_r = 64.0f,
+                circ_r2 = 64.0f,
+                ell_o = 1.0f;
 
         int keypresses_raylib = 0,
             keypresses_mymethod = 0;
@@ -40,25 +50,61 @@ class MyGame : public GalaEngine::Game {
 
         void OnDraw() {
             window->surface.Clear(clearColour);
+
+            for(int i = 0; i < 8; i++) {
+                bool outline = true;
+
+                if(IsKeyDown(KEY_O)) {
+                    outline = !(i == 7);
+                }
+
+                window->surface.DrawEllipse(
+                    1280.0f / 2.0f, 720.0f / 2.0f,
+                    1280.0f / 4.0f * (rec_o / i),
+                    720.0f / 4.0f * (rec_o / i),
+                    Colours::Crimson, outline,
+                    IsKeyDown(KEY_O) ? 2.0f : 1.0f
+                );
+            }
+
+            window->surface.DrawCircle(32.0f, 720.0f - 32.0f, 32.0f, Colours::Cyan, true, ell_o);
+            window->surface.DrawEllipse(128.0f, 720.0f - 32.0f, 32.0f, 32.0f, Colours::SeaGreen, true, ell_o);
+
+            window->surface.DrawLine(1280.0f / 2.0f, 0.0f, rec_x, rec_y, Colours::SeaGreen);
+            window->surface.DrawLine(1280.0f / 2.0f, 720.0f, rec_x, rec_y, 4.0f, Colours::ForestGreen);
+
+            window->surface.DrawRectangleColours(1024.0f, rec_x * (720.0f / 1280.0f), circ_r2 * 2.0f, circ_r * 2.0f, C_RED, C_GREEN, C_BLUE, C_YELLOW);
+            window->surface.DrawRectangle(rec_x, rec_y, 256.0f, 128.0f, Colours::CornflowerBlue);
+            window->surface.DrawRectangle(rec_x-16, rec_y-16, 256.0f + 32.0f, 128.0f + 32.0f, Colours::Gold, true, rec_o);
+            window->surface.DrawRectangle(rec_x, rec_y, 256.0f, 128.0f, rec_rot * 2.0f, {0.0f, 0.0f}, Colours::BlueViolet);
+            window->surface.DrawRectangle(rec_x+128.0f, rec_y+64.0f, 256.0f, 128.0f, rec_rot * 3.0f, {128.0f, 64.0f}, Colours::Purple);
+
+            window->surface.DrawCircle(circ_x2, circ_y, circ_r2 * 1.25f, Colours::Blue);
+            window->surface.DrawCircle(circ_x2, circ_y, circ_r2 * 1.5f, Colours::LawnGreen, true, 4.0f);
+            window->surface.DrawCircle(circ_x2, circ_y, circ_r2 * 1.5f, Colours::Blue, true, 2.0f);
+            window->surface.DrawCircle(circ_x, circ_y, circ_r, Colours::DarkGoldenrod, Colours::Yellow);
+
+            window->surface.DrawSprite(spr_test, id_frame, spr_x, spr_y, spr_scalex, spr_scaley, spr_rot);
             
             window->surface.DrawText("Frame: " + std::to_string(id_frame), 640, 8 + 20 * 0, 20, C_GALAWHITE);
             window->surface.DrawText("Origin: " + std::to_string(spr_test.origin.x) + ", " + std::to_string(spr_test.origin.y), 640, 8 + 20 * 1, 20, C_GALAWHITE);
-
-            window->surface.DrawText("IsKeyPressed(KEY_SPACE): " + std::to_string(keypresses_raylib), 640, 8 + 20 * 3, 20, C_GALAWHITE);
-            window->surface.DrawText("Manual: " + std::to_string(keypresses_mymethod), 640, 8 + 20 * 4, 20, C_GALAWHITE);
-
-            window->surface.DrawSprite(spr_test, id_frame, spr_x, spr_y, spr_scalex, spr_scaley, rotation);
-
             window->surface.DrawText("FPS: " + std::to_string(1.0f / GetFrameTime()), 8.0f, 8.0f, 20);
         }
 
         void OnUpdate() {
-            clearColour = GalaEngine::Colour::Lerp(Colours::GalaRed, Colours::GalaBlack, (std::sin(GetTime()) + 1.0f) / 2.0f);
+            // Animation
+            if(IsKeyUp(KEY_P)){
+                clearColour = GalaEngine::Colour::Lerp(Colours::GalaRed, Colours::GalaBlack, (std::sin(GetTime()) + 1.0f) / 2.0f);
 
-            std::cout << std::to_string(clearColour.Normalised().x) << std::endl;
+                rec_x   = (std::cos(GetTime()) + 1.0f) / 2.0f * (1280.0f - 256.0f);
+                rec_rot = (std::cos(GetTime()) + 1.0f) / 2.0f * (360.0f);
 
-            if(IsKeyPressed(KEY_SPACE)) {
-                keypresses_raylib += 1;
+                circ_x  = (std::cos(GetTime()) + 1.0f) / 2.0f * (1280.0f - 128.0f) + 64.0f;
+                circ_x2 = (std::sin(GetTime()) + 1.0f) / 2.0f * (1280.0f - 128.0f) + 64.0f;
+                circ_r  = (std::sin(GetTime()) + 1.0f) / 2.0f * (56.0f) + 8.0f;
+                circ_r2 = (std::cos(GetTime()) + 1.0f) / 2.0f * (56.0f) + 8.0f;
+
+                rec_o = (std::sin(GetTime() * 4.0f) + 1.0f) / 2.0f * 4.0f + 1.0f;
             }
 
             // Frames
@@ -70,9 +116,9 @@ class MyGame : public GalaEngine::Game {
 
             // Rotation
             if(IsKeyDown(KEY_G)) {
-                rotation += 90.0f * GetFrameTime();
+                spr_rot += 90.0f * GetFrameTime();
             }else if(IsKeyDown(KEY_R)) {
-                rotation -= 90.0f * GetFrameTime();
+                spr_rot -= 90.0f * GetFrameTime();
             }
 
             // Movement
@@ -102,6 +148,13 @@ class MyGame : public GalaEngine::Game {
             }else if(IsKeyDown(KEY_V)) {
                 spr_scalex += 1.0f * GetFrameTime();
                 spr_scaley += 1.0f * GetFrameTime();
+            }
+
+            // Ellipse outline
+            if(IsKeyPressed(KEY_N)) {
+                ell_o -= 1.0f;
+            }else if(IsKeyPressed(KEY_M)) {
+                ell_o += 1.0f;
             }
         }
 
