@@ -27,7 +27,8 @@ class MyGame : public GalaEngine::Game {
                 circ_y = 720.0f - 128.0f,
                 circ_r = 64.0f,
                 circ_r2 = 64.0f,
-                ell_o = 1.0f;
+                ell_o = 1.0f,
+                rrec_r = 8.0f;
 
         int keypresses_raylib = 0,
             keypresses_mymethod = 0;
@@ -67,8 +68,11 @@ class MyGame : public GalaEngine::Game {
                 );
             }
 
-            window->surface.DrawCircle(32.0f, 720.0f - 32.0f, 32.0f, Colours::Cyan, true, ell_o);
-            window->surface.DrawEllipse(128.0f, 720.0f - 32.0f, 32.0f, 32.0f, Colours::SeaGreen, true, ell_o);
+            window->surface.DrawCircle(32.0f, 720.0f - 32.0f, 32.0f, Colours::Orange, true, ell_o);
+            window->surface.DrawEllipse(128.0f, 720.0f - 32.0f, 32.0f, 32.0f, Colours::Yellow, true, ell_o);
+            window->surface.DrawEllipse(128.0f, 720.0f - 96.0f, 64.0f, 32.0f, Colours::Yellow, true, ell_o);
+            window->surface.DrawRectangle(192.0f, 720.0f - 48.0f, 64.0f, 32.0f, Colours::YellowGreen, true, ell_o);
+            window->surface.DrawRectangleRounded(288.0f, 720.0f - 64.0f, 96.0f, 48.0f, rrec_r, Colours::Green, IsKeyUp(KEY_O), ell_o);
 
             window->surface.DrawLine(1280.0f / 2.0f, 0.0f, rec_x, rec_y, Colours::SeaGreen);
             window->surface.DrawLine(1280.0f / 2.0f, 720.0f, rec_x, rec_y, 4.0f, Colours::ForestGreen);
@@ -155,6 +159,13 @@ class MyGame : public GalaEngine::Game {
                 ell_o -= 1.0f;
             }else if(IsKeyPressed(KEY_M)) {
                 ell_o += 1.0f;
+            }
+
+            // Roundrec radius
+            if(IsKeyPressed(KEY_J)) {
+                rrec_r -= 1.0f;
+            }else if(IsKeyPressed(KEY_K)) {
+                rrec_r += 1.0f;
             }
         }
 

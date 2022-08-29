@@ -27,7 +27,7 @@ namespace GalaEngine {
             void DrawRectangle(int x, int y, int width, int height, Colour colour = C_WHITE, bool outline = false, float thickness = 1.0f);
             void DrawRectangle(int x, int y, int width, int height, float rotation, Vector2 origin = {0.0f, 0.0f}, Colour colour = C_WHITE);
             void DrawRectangleColours(int x, int y, int width, int height, Colour c1, Colour c2, Colour c3, Colour c4);
-            void DrawRectangleRounded(int x, int y, int width, int height, Colour colour = C_WHITE, bool outline = false, float thickness = 1.0f);
+            void DrawRectangleRounded(int x, int y, int width, int height, float radius = 8.0f, Colour colour = C_WHITE, bool outline = false, float thickness = 1.0f);
 
             void DrawCircle(int x, int y, float radius, Colour colour = C_WHITE, bool outline = false, float thickness = 1.0f);
             void DrawCircle(int x, int y, float radius, Colour innerColour, Colour outerColour);

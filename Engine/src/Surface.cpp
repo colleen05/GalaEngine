@@ -24,18 +24,29 @@ void GalaEngine::Surface::DrawLine(int x1, int y1, int x2, int y2, float thickne
 }
 
 // Primitives
-void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, Colour colour, bool outline, float thickness) {
+void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, Colour colour, bool outline, float thickness) {    
     BeginTextureMode(texture);
 
     if(outline){
-        ::DrawRectangleLinesEx(
-            Rectangle {
-                (float) x, (float) y,
-                (float) width, (float) height
-            },
-            thickness,
-            colour
-        );
+        if(thickness >= 0.0f) { // Draw inner outline
+            ::DrawRectangleLinesEx(
+                Rectangle {
+                    (float) x, (float) y,
+                    (float) width, (float) height
+                },
+                thickness,
+                colour
+            );
+        }else { // Draw outer outline
+            ::DrawRectangleLinesEx(
+                Rectangle {
+                    (float) x + thickness, (float) y + thickness,
+                    (float) width - thickness * 2.0f, (float) height - thickness * 2.0f
+                },
+                -thickness,
+                colour
+            );
+        }
     }else {
         ::DrawRectangle(x, y, width, height, colour);
     }
@@ -67,8 +78,46 @@ void GalaEngine::Surface::DrawRectangleColours(int x, int y, int width, int heig
     EndTextureMode();
 }
 
-void GalaEngine::Surface::DrawRectangleRounded(int x, int y, int width, int height, Colour colour, bool outline, float thickness) {
-    
+void GalaEngine::Surface::DrawRectangleRounded(int x, int y, int width, int height, float radius, Colour colour, bool outline, float thickness) {
+    BeginTextureMode(texture);
+
+    float roundness = (2.0f * radius) / std::min(width, height);
+    roundness = Clamp(roundness, 0.0f, 1.0f);
+
+    if(outline){
+        if(thickness >= 0.0f) { // Draw inner outline
+            ::DrawRectangleRoundedLines(
+                Rectangle {
+                    (float) x + thickness, (float) y + thickness,
+                    (float) width - thickness * 2.0f, (float) height - thickness * 2.0f
+                },
+                roundness, 16,
+                thickness,
+                colour
+            );
+        }else { // Draw outer outline
+            ::DrawRectangleRoundedLines(
+                Rectangle {
+                    (float) x, (float) y,
+                    (float) width, (float) height
+                },
+                roundness, 16,
+                -thickness,
+                colour
+            );
+        }
+    }else {
+        ::DrawRectangleRounded(
+                Rectangle {
+                    (float) x, (float) y,
+                    (float) width, (float) height
+                },
+                roundness, 16,
+                colour
+        );
+    }
+
+    EndTextureMode();
 }
 
 void GalaEngine::Surface::DrawCircle(int x, int y, float radius, Colour colour, bool outline, float thickness) {
@@ -100,11 +149,19 @@ void GalaEngine::Surface::DrawEllipse(int x, int y, float radiusH, float radiusV
     BeginTextureMode(texture);
     
     if(outline) {
-        if(thickness == 1.0f) {
+        if(thickness > std::min(radiusH, radiusV)) { // Draw solid ellipse
+            ::DrawEllipse(x, y, radiusH, radiusV, colour);
+        }else if(thickness == 1.0f) { // Draw single outline
             ::DrawEllipseLines(x, y, radiusH, radiusV, colour);
         }else {
-            for(int i = 0; i < thickness * 2; i++) {
-                ::DrawEllipseLines(x, y, radiusH - (float)(i) / 2.0f, radiusV - (float)(i) / 2.0f, colour);
+            if(thickness > 0.0f) { // Draw inner outline
+                for(int i = 0; i < thickness * 2; i++) {
+                    ::DrawEllipseLines(x, y, radiusH - (float)(i) / 2.0f, radiusV - (float)(i) / 2.0f, colour);
+                }
+            }else { // Draw outer outline
+                for(int i = 0; i < -thickness * 2; i++) {
+                    ::DrawEllipseLines(x, y, radiusH + (float)(i) / 2.0f, radiusV + (float)(i) / 2.0f, colour);
+                }
             }
         }
     }else {
