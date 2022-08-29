@@ -8,14 +8,19 @@ class MyGame : public GalaEngine::Game {
     public:
         Texture tex_sprite;
         GalaEngine::Sprite spr_test;
-        GalaEngine::Colour clearColour = C_GALARED;
+        GalaEngine::Colour clearColour = C_RED;
 
         int id_origin = 0,
-            id_frame = 0,
-            spr_x = 0,
-            spr_y = 0;
+            id_frame = 0;
 
-        float rotation = 0.0f;
+        float   rotation = 0.0f,
+                spr_x = 0.0f,
+                spr_y = 0.0f,
+                spr_scalex = 1.0f,
+                spr_scaley = 1.0f;
+
+        int keypresses_raylib = 0,
+            keypresses_mymethod = 0;
         
         void OnLoad() {
             tex_sprite = LoadTexture("./res/tex/spr_test.png");
@@ -27,7 +32,8 @@ class MyGame : public GalaEngine::Game {
                     {0.0f, 0.0f,    64.0f, 64.0f},
                     {64.0f, 0.0f,   64.0f, 64.0f},
                     {0.0f, 64.0f,   64.0f, 64.0f},
-                    {64.0f, 64.0f,  64.0f, 64.0f}
+                    {64.0f, 64.0f,  64.0f, 64.0f},
+                    {32.0f, 32.0f,  64.0f, 64.0f}
                 }
             };
         }
@@ -38,12 +44,23 @@ class MyGame : public GalaEngine::Game {
             window->surface.DrawText("Frame: " + std::to_string(id_frame), 640, 8 + 20 * 0, 20, C_GALAWHITE);
             window->surface.DrawText("Origin: " + std::to_string(spr_test.origin.x) + ", " + std::to_string(spr_test.origin.y), 640, 8 + 20 * 1, 20, C_GALAWHITE);
 
-            window->surface.DrawSprite(spr_test, id_frame, spr_x, spr_y, 1.0f, 1.0f, rotation);
+            window->surface.DrawText("IsKeyPressed(KEY_SPACE): " + std::to_string(keypresses_raylib), 640, 8 + 20 * 3, 20, C_GALAWHITE);
+            window->surface.DrawText("Manual: " + std::to_string(keypresses_mymethod), 640, 8 + 20 * 4, 20, C_GALAWHITE);
 
-            window->surface.DrawText("FPS: " + std::to_string(GetFPS()), 8.0f, 8.0f, 20);
+            window->surface.DrawSprite(spr_test, id_frame, spr_x, spr_y, spr_scalex, spr_scaley, rotation);
+
+            window->surface.DrawText("FPS: " + std::to_string(1.0f / GetFrameTime()), 8.0f, 8.0f, 20);
         }
 
         void OnUpdate() {
+            clearColour = GalaEngine::Colour::Lerp(Colours::GalaRed, Colours::GalaBlack, (std::sin(GetTime()) + 1.0f) / 2.0f);
+
+            std::cout << std::to_string(clearColour.Normalised().x) << std::endl;
+
+            if(IsKeyPressed(KEY_SPACE)) {
+                keypresses_raylib += 1;
+            }
+
             // Frames
             if(IsKeyPressed(KEY_Q)) {
                 id_frame -= 1;
@@ -59,16 +76,32 @@ class MyGame : public GalaEngine::Game {
             }
 
             // Movement
-            if(IsKeyDown(KEY_UP)) {
-                spr_y -= 128.0f * GetFrameTime();
-            }else if(IsKeyDown(KEY_DOWN)) {
-                spr_y += 128.0f * GetFrameTime();
+            if(IsKeyDown(KEY_W)) {
+                spr_y -= 128.0f * GetFrameTime() * spr_scaley;
+            }else if(IsKeyDown(KEY_S)) {
+                spr_y += 128.0f * GetFrameTime() * spr_scaley;
             }
 
-            if(IsKeyDown(KEY_LEFT)) {
-                spr_x -= 64.0f * GetFrameTime();
-            }else if(IsKeyDown(KEY_RIGHT)) {
-                spr_x += 64.0f * GetFrameTime();
+            if(IsKeyDown(KEY_A)) {
+                spr_x -= 128.0f * GetFrameTime() * spr_scalex;
+            }else if(IsKeyDown(KEY_D)) {
+                spr_x += 128.0f * GetFrameTime() * spr_scalex;
+            }
+
+            // Origin
+            if(IsKeyPressed(KEY_Z)) {
+                spr_test.origin = {0.0f, 0.0f};
+            }else if(IsKeyPressed(KEY_X)) {
+                spr_test.origin = {32.0f, 32.0f};
+            }
+
+            // Scale
+            if(IsKeyDown(KEY_C)) {
+                spr_scalex -= 1.0f * GetFrameTime();
+                spr_scaley -= 1.0f * GetFrameTime();
+            }else if(IsKeyDown(KEY_V)) {
+                spr_scalex += 1.0f * GetFrameTime();
+                spr_scaley += 1.0f * GetFrameTime();
             }
         }
 
@@ -90,7 +123,7 @@ class MyGame : public GalaEngine::Game {
 };
 
 int main() {
-    GalaEngine::Game *game = new MyGame();
+    MyGame *game = new MyGame();
     game->Start();
 
     return 0;

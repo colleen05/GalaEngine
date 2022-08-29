@@ -9,6 +9,7 @@
 
 #include <raylib.h>
 #include <string>
+#include <array>
 #include <GalaEngine/Surface.hpp>
 
 namespace GalaEngine {
@@ -17,12 +18,18 @@ namespace GalaEngine {
             std::string _title;
             int _width, _height;
             int _targetFPS;
+            std::array<bool, KEY_KP_EQUAL> _keyStates;
 
         public:
             Surface surface;
 
+            // bool GetKeyDown(KeyboardKey key);
+            // bool GetKeyPressed(KeyboardKey key);
+            // bool GetKeyReleased(KeyboardKey key);
+
             // Initialisation, drawing, and destruction
             void Init();
+            // void UpdateInput();
             void Render();
             void Exit();
 

@@ -7,6 +7,8 @@
 
 #include <GalaEngine/Window.hpp>
 #include <GalaEngine/Surface.hpp>
+#include <iostream>
+#include <array>
 
 namespace GalaEngine {
     struct GameInfo {
@@ -24,6 +26,7 @@ namespace GalaEngine {
         protected:
             GameInfo _info;
             bool _shouldEnd = false;
+            std::array<bool, KEY_KP_EQUAL> _keyStates;
 
         public:
             Window *window;         // Game window

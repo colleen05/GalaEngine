@@ -1,11 +1,39 @@
 #include <GalaEngine/Surface.hpp>
 
+// Point
+void GalaEngine::Surface::DrawPixel(int x, int y, Colour colour) {
+    BeginTextureMode(texture);
+    ::DrawPixel(x, y, colour);
+    EndTextureMode();
+}
+
+// Primitives
+void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, Colour colour) {
+    BeginTextureMode(texture);
+    ::DrawRectangle(x, y, width, height, colour);
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, float rotation, Vector2 origin, Colour colour) {
+    BeginTextureMode(texture);
+    ::DrawRectanglePro(
+        Rectangle {
+            (float)x, (float)y,
+            (float)width, (float)height
+        },
+        origin, rotation, colour
+    );
+    EndTextureMode();
+}
+
+// Text
 void GalaEngine::Surface::DrawText(std::string text, int x, int y, int size, Colour colour) {
     BeginTextureMode(texture);
     ::DrawText(text.c_str(), x, y, size, colour);
     EndTextureMode();
 }
 
+// Sprites
 void GalaEngine::Surface::DrawSprite(Sprite sprite, int frame, int x, int y, float scaleX, float scaleY, float rotation, Colour blendColour) {
     BeginTextureMode(texture);
     ::DrawTexturePro(
@@ -17,7 +45,7 @@ void GalaEngine::Surface::DrawSprite(Sprite sprite, int frame, int x, int y, flo
             sprite.frameRects[frame].width * scaleX,
             sprite.frameRects[frame].height * scaleY
         },
-        sprite.origin,
+        Vector2Multiply(sprite.origin, {scaleX, scaleY}),
         rotation,
         blendColour
     );

@@ -10,9 +10,25 @@ void GalaEngine::Window::Init() {
     InitAudioDevice();
 }
 
-void GalaEngine::Window::Render() {
-    BeginDrawing();
+// bool GalaEngine::Window::GetKeyDown(KeyboardKey key) {
+//     return IsKeyDown(key);
+// }
 
+// bool GalaEngine::Window::GetKeyPressed(KeyboardKey key) {
+//     return (!_keyStates[key]) && IsKeyDown(key);
+// }
+
+// bool GalaEngine::Window::GetKeyReleased(KeyboardKey key) {
+//     return _keyStates[key] && (!IsKeyDown(key));
+// }
+
+// void GalaEngine::Window::UpdateInput() {
+//     for(int i = 0; i < _keyStates.size(); i++) {
+//         _keyStates[i] = IsKeyDown((KeyboardKey)i);
+//     }
+// }
+
+void GalaEngine::Window::Render() {
     DrawTexturePro(
         surface.texture.texture,
         Rectangle {
@@ -29,8 +45,6 @@ void GalaEngine::Window::Render() {
         0.0f,
         C_WHITE
     );
-
-    EndDrawing();
 }
 
 void GalaEngine::Window::Exit() {
