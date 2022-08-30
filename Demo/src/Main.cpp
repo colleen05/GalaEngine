@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 
-#include <Demos.hpp>
+#include <Demo_Drawing.hpp>
 
 int main() {
     GalaEngine::Game *game = new Demo_Drawing();

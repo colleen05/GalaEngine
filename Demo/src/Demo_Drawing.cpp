@@ -1,4 +1,4 @@
-#include <Demos.hpp>
+#include <Demo_Drawing.hpp>
 
 void Demo_Drawing::OnLoad() {
     tex_sprite = LoadTexture("./res/tex/spr_test.png");
