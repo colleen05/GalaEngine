@@ -51,9 +51,11 @@ namespace GalaEngine {
             void Clear(Colour colour);
             void Clear();
             Image GetImage();
+            void Destroy();
 
             // Constructors
             Surface(int width, int height, Colour colour = C_BLACK);
             Surface();
+            ~Surface();
     };
 }

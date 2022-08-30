@@ -242,11 +242,18 @@ Image GalaEngine::Surface::GetImage() {
     return img;
 }
 
+void GalaEngine::Surface::Destroy() {
+    UnloadRenderTexture(texture);
+    texture.id = 0;
+}
+
 GalaEngine::Surface::Surface(int width, int height, Colour colour) {
     texture = LoadRenderTexture(width, height);
     clearColour = colour;
 }
 
-GalaEngine::Surface::Surface() {
-    
+GalaEngine::Surface::Surface() : Surface(256, 256, C_BLACK) {}
+
+GalaEngine::Surface::~Surface() {
+    Destroy();
 }
