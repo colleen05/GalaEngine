@@ -33,6 +33,8 @@ namespace GalaEngine {
             void DrawCircle(int x, int y, float radius, Colour innerColour, Colour outerColour);
             void DrawEllipse(int x, int y, float radiusH, float radiusV, Colour colour = C_WHITE, bool outline = false, float thickness = 1.0f);
 
+            void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, Colour = C_WHITE, bool outline = false);
+
             // Text
             void DrawText(std::string text, int x, int y, int size = 20, Colour colour = C_WHITE);
             

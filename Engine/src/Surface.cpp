@@ -146,6 +146,8 @@ void GalaEngine::Surface::DrawCircle(int x, int y, float radius, Colour innerCol
 }
 
 void GalaEngine::Surface::DrawEllipse(int x, int y, float radiusH, float radiusV, Colour colour, bool outline, float thickness) {
+    if(outline && thickness == 0.0f) return;
+    
     BeginTextureMode(texture);
     
     if(outline) {
@@ -168,6 +170,28 @@ void GalaEngine::Surface::DrawEllipse(int x, int y, float radiusH, float radiusV
         ::DrawEllipse(x, y, radiusH, radiusV, colour);
     }
     
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, Colour colour, bool outline) {
+    BeginTextureMode(texture);
+    
+    if(outline){
+        ::DrawTriangleLines(
+            {(float) x1, (float) y1},
+            {(float) x2, (float) y2},
+            {(float) x3, (float) y3},
+            colour
+        );
+    }else {
+        ::DrawTriangle(
+            {(float) x1, (float) y1},
+            {(float) x2, (float) y2},
+            {(float) x3, (float) y3},
+            colour
+        );
+    }
+
     EndTextureMode();
 }
 
