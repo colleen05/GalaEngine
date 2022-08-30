@@ -5,6 +5,8 @@
 // https://github.com/colleen05/GalaEngine
 // Distributed under the zlib license.
 
+#pragma once
+
 #include <GalaEngine/Window.hpp>
 #include <GalaEngine/Surface.hpp>
 #include <iostream>
