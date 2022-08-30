@@ -79,6 +79,8 @@ void GalaEngine::Surface::DrawRectangleColours(int x, int y, int width, int heig
 }
 
 void GalaEngine::Surface::DrawRectangleRounded(int x, int y, int width, int height, float radius, Colour colour, bool outline, float thickness) {
+    if(outline && thickness == 0.0f) return;
+    
     BeginTextureMode(texture);
 
     float roundness = (2.0f * radius) / std::min(width, height);
