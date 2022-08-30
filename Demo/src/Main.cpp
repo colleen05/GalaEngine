@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <map>
 
-#include <Demo_Drawing.hpp>
+#include <Demos.hpp>
 
 #define RAYGUI_IMPLEMENTATION
 #include <raygui.h>
@@ -35,22 +35,10 @@ int main(int argc, char **argv) {
                 "Drawing to surfaces with\nGalaEngine::Surface::Draw*() functions."
             }
         },
-        {"layers",
+        {"scene",
             DemoProfile {
-                "Scene Layers",
-                "Demonstrates scene layers and effects."}
-        },
-        {"entities", 
-            DemoProfile {
-                "Entities",
-                "Demonstrates entity logic."
-            }
-        },
-        {"pixelcam",
-            DemoProfile {
-                "Pixelated Graphics",
-                "Demonstrates pixelated graphics achieved with\nwindow surface scaling."
-            }
+                "Scene",
+                "Demonstrates scene layers and entities."}
         }
     };
 
@@ -138,6 +126,8 @@ int main(int argc, char **argv) {
         if(btn_launch || skipmenu) {
             if(currentProfile == "drawing") {
                 game = new Demo_Drawing();
+            }else if(currentProfile == "scene") {
+                game = new Demo_Scene();
             }
         }
 

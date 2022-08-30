@@ -8,3 +8,4 @@
 #pragma once
 
 #include <Demo_Drawing.hpp>
+#include <Demo_Scene.hpp>

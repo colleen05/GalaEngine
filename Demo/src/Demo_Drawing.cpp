@@ -157,7 +157,7 @@ void Demo_Drawing::OnUnload() {
 
 Demo_Drawing::Demo_Drawing() : Game(
     GalaEngine::GameInfo {
-        "GalaEngine Demo (GalaEngine v" GALAENGINE_VERSION_STRING ")",
+        "GalaEngine Drawing Demo (GalaEngine v" GALAENGINE_VERSION_STRING ")",
         "GalaEngine example project.",
         "Colleen (colleen05)",
 

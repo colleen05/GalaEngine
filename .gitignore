@@ -7,6 +7,8 @@ Engine/tmp/**
 
 # Demo
 Demo/bin/**
+!Demo/bin/linux64/res/**
+
 Demo/tmp/**
 
 # Keep .gitkeeps
