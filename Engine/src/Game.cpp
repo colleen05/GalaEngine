@@ -7,11 +7,13 @@ void GalaEngine::Game::OnUnload () {};
 
 void GalaEngine::Game::Start() {
     window->Init();
+    scene = new GalaEngine::Scene(&window->surface);
 
     OnLoad();
 
     while(!(window->ShouldClose() || _shouldEnd)) {
         // Update
+        scene->Update();
         OnUpdate();
         // window->UpdateInput();
 

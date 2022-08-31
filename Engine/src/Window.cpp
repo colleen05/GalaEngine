@@ -48,6 +48,7 @@ void GalaEngine::Window::Render() {
 }
 
 void GalaEngine::Window::Exit() {
+    surface.Destroy();
     CloseWindow();
     CloseAudioDevice();
 }

@@ -9,6 +9,7 @@
 
 #include <GalaEngine/Window.hpp>
 #include <GalaEngine/Surface.hpp>
+#include <GalaEngine/Scene.hpp>
 #include <iostream>
 #include <array>
 
@@ -32,6 +33,7 @@ namespace GalaEngine {
 
         public:
             Window *window;         // Game window
+            Scene *scene;
 
             virtual void OnLoad();
             virtual void OnUpdate();

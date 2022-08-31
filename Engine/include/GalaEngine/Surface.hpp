@@ -20,6 +20,7 @@ namespace GalaEngine {
 
             // Points & lines
             void DrawPixel(int x, int y, Colour colour = C_WHITE);
+
             void DrawLine(int x1, int y1, int x2, int y2, Colour colour = C_WHITE);
             void DrawLine(int x1, int y1, int x2, int y2, float thickness, Colour colour = C_WHITE);
 
@@ -38,6 +39,31 @@ namespace GalaEngine {
             // Text
             void DrawText(std::string text, int x, int y, int size = 20, Colour colour = C_WHITE);
             
+            // Textures
+            void DrawTexture(
+                Texture texture,
+                int x, int y,
+                float scaleX, float scaleY,
+                float rotation,
+                Vector2 origin,
+                Colour blendColour = C_WHITE
+            );
+
+            void DrawTexture(
+                Texture texture,
+                int x, int y,
+                float scaleX = 1.0f, float scaleY = 1.0f,
+                float rotation = 0.0f,
+                Colour blendColour = C_WHITE
+            );
+
+            void DrawTexture(
+                Texture texture,
+                Rectangle src,
+                Rectangle dest,
+                Colour blendColour = C_WHITE
+            );
+
             // Sprites
             void DrawSprite(
                 Sprite sprite, int frame,
@@ -56,6 +82,5 @@ namespace GalaEngine {
             // Constructors
             Surface(int width, int height, Colour colour = C_BLACK);
             Surface();
-            ~Surface();
     };
 }

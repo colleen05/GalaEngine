@@ -2,6 +2,7 @@
 
 void Demo_Drawing::OnLoad() {
     tex_sprite = LoadTexture("./res/tex/spr_test.png");
+    tex_colourX = LoadTexture("./res/tex/tex_colourX.png");
 
     spr_test = GalaEngine::Sprite {
         tex_sprite,
@@ -18,6 +19,24 @@ void Demo_Drawing::OnLoad() {
 
 void Demo_Drawing::OnDraw() {
     window->surface.Clear(clearColour);
+
+    // Texture tests
+    window->surface.DrawTexture(
+        window->surface.texture.texture,
+        0, 0,
+        0.5f, 0.5f,
+        0.0f,
+        {0.0f, 0.0f},
+        C_WHITE
+    );
+
+    window->surface.DrawTexture(
+        tex_colourX,
+        rec_x, 32,
+        spr_scalex, spr_scaley,
+        spr_rot,
+        Vector2Multiply(spr_test.origin, {2.0f, 2.0f})
+    );
 
     // Elipse tests
     for(int i = 0; i < 8; i++) {
@@ -153,6 +172,7 @@ void Demo_Drawing::OnUpdate() {
 
 void Demo_Drawing::OnUnload() {
     UnloadTexture(tex_sprite);
+    UnloadTexture(tex_colourX);
 }
 
 Demo_Drawing::Demo_Drawing() : Game(

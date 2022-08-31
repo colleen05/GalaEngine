@@ -5,6 +5,8 @@
 // https://github.com/colleen05/GalaEngine
 // Distributed under the zlib license.
 
+#pragma once
+
 #include <raylib.h>
 #include <vector>
 

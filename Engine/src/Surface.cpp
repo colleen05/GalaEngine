@@ -204,6 +204,46 @@ void GalaEngine::Surface::DrawText(std::string text, int x, int y, int size, Col
     EndTextureMode();
 }
 
+// Textures
+void GalaEngine::Surface::DrawTexture(Texture texture, int x, int y, float scaleX, float scaleY, float rotation, Vector2 origin, Colour blendColour) {
+    BeginTextureMode(this->texture);
+    ::DrawTexturePro(
+        texture,
+        Rectangle {
+            0.0f, 0.0f,
+            (float) texture.width,
+            (float) texture.height
+        },
+        Rectangle {
+            (float)x,
+            (float)y,
+            texture.width * scaleX,
+            texture.height * scaleY
+        },
+        Vector2Multiply(origin, {scaleX, scaleY}),
+        rotation,
+        blendColour
+    );
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawTexture(Texture texture, int x, int y, float scaleX, float scaleY, float rotation, Colour blendColour) {
+    DrawTexture(texture, x, y, scaleX, scaleY, rotation, {0.0f, 0.0f}, blendColour);
+}
+
+void GalaEngine::Surface::DrawTexture(Texture texture, Rectangle src, Rectangle dest, Colour blendColour) {
+    BeginTextureMode(this->texture);
+    ::DrawTexturePro(
+        texture,
+        src,
+        dest,
+        {0.0f, 0.0f},
+        0.0f,
+        blendColour
+    );
+    EndTextureMode();
+}
+
 // Sprites
 void GalaEngine::Surface::DrawSprite(Sprite sprite, int frame, int x, int y, float scaleX, float scaleY, float rotation, Colour blendColour) {
     BeginTextureMode(texture);
@@ -252,8 +292,4 @@ GalaEngine::Surface::Surface(int width, int height, Colour colour) {
     clearColour = colour;
 }
 
-GalaEngine::Surface::Surface() : Surface(256, 256, C_BLACK) {}
-
-GalaEngine::Surface::~Surface() {
-    Destroy();
-}
+GalaEngine::Surface::Surface() {}
