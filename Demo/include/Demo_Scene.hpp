@@ -11,6 +11,8 @@
 #include <GalaEngine/Game.hpp>
 #include <GalaEngine/Colour.hpp>
 #include <GalaEngine/BackgroundLayer.hpp>
+#include <GalaEngine/TileLayer.hpp>
+#include <GalaEngine/Tileset.hpp>
 #include <iostream>
 #include <cmath>
 
@@ -18,6 +20,8 @@ class Demo_Scene : public GalaEngine::Game {
     public:
         Texture tex_background;
         GalaEngine::BackgroundLayer *lay_background;
+        GalaEngine::TileLayer *lay_tiles;
+        GalaEngine::Tileset ts_test;
 
         // Game class overrides
         void OnLoad();

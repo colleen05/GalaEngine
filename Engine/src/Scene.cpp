@@ -5,6 +5,8 @@ void GalaEngine::Scene::PushLayer(Layer *layer) {
         _layers.size(),
         layer
     ));
+
+    layer->OnStart();
 }
 
 void GalaEngine::Scene::Update() {
