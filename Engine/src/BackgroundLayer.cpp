@@ -9,7 +9,7 @@ void GalaEngine::BackgroundLayer::OnUpdate() {
     offset.y += scrollSpeed.y * GetFrameTime();
 }
 
-void GalaEngine::BackgroundLayer::OnDraw() {
+void GalaEngine::BackgroundLayer::OnDraw(GalaEngine::Camera camera) {
     surface->DrawTexture(
         background,
         Rectangle {

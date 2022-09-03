@@ -21,7 +21,7 @@ void GalaEngine::Scene::RenderLayers() {
     for(auto &p : _layers) {
         auto &layerTexture = p.second->surface->texture.texture;
 
-        p.second->OnDraw();
+        p.second->OnDraw(mainCamera);
 
         BeginTextureMode(targetSurface->texture);
         DrawTexturePro(

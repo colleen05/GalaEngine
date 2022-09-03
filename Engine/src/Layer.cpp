@@ -2,7 +2,7 @@
 
 void GalaEngine::Layer::OnStart     () {}
 void GalaEngine::Layer::OnUpdate    () {}
-void GalaEngine::Layer::OnDraw      () {}
+void GalaEngine::Layer::OnDraw      (GalaEngine::Camera camera) {}
 void GalaEngine::Layer::OnDestroy   () {}
 
 GalaEngine::Layer::Layer(Surface *surface) {

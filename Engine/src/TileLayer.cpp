@@ -37,7 +37,7 @@ void GalaEngine::TileLayer::OnUpdate() {
     
 }
 
-void GalaEngine::TileLayer::OnDraw() {
+void GalaEngine::TileLayer::OnDraw(GalaEngine::Camera camera) {
     surface->DrawTexture(
         texture, 0, 0
     );

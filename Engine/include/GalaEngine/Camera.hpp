@@ -12,9 +12,10 @@
 namespace GalaEngine {
     class Camera {
         public:
-            Vector2 position;
-            Vector2 size;
+            Vector2 position = {0.0f, 0.0f};
+            Vector2 size = {640.0f, 480.0f};
 
+            Camera(int x, int y, int width, int height);
             Camera();
     };
 }

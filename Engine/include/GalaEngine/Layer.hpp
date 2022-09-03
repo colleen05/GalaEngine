@@ -8,6 +8,7 @@
 #pragma once
 
 #include <GalaEngine/Surface.hpp>
+#include <GalaEngine/Camera.hpp>
 #include <iostream>
 
 namespace GalaEngine {
@@ -18,7 +19,7 @@ namespace GalaEngine {
 
             virtual void OnStart();
             virtual void OnUpdate();
-            virtual void OnDraw();
+            virtual void OnDraw(GalaEngine::Camera camera);
             virtual void OnDestroy();
 
             Layer(Surface *surface);

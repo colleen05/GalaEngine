@@ -20,7 +20,7 @@ namespace GalaEngine {
 
             void OnStart();
             void OnUpdate();
-            void OnDraw();
+            void OnDraw(GalaEngine::Camera camera);
             void OnDestroy();
 
             TileLayer(Tileset tileset, std::vector<uint16_t> tiles, int tilesX, int tilesY, int surfaceWidth, int surfaceHeight);

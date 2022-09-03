@@ -9,6 +9,7 @@
 
 #include <GalaEngine/Entity.hpp>
 #include <GalaEngine/Layer.hpp>
+#include <GalaEngine/Camera.hpp>
 #include <iostream>
 #include <map>
 #include <stdint.h>
@@ -24,6 +25,7 @@ namespace GalaEngine {
 
         public:
             Surface *targetSurface = nullptr;
+            GalaEngine::Camera mainCamera;
 
             void PushLayer(Layer *layer);
 
