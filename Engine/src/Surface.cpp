@@ -228,7 +228,9 @@ void GalaEngine::Surface::DrawTexture(Texture texture, int x, int y, float scale
 }
 
 void GalaEngine::Surface::DrawTexture(Texture texture, int x, int y, float scaleX, float scaleY, float rotation, Colour blendColour) {
+    BeginTextureMode(this->texture);
     DrawTexture(texture, x, y, scaleX, scaleY, rotation, {0.0f, 0.0f}, blendColour);
+    EndTextureMode();
 }
 
 void GalaEngine::Surface::DrawTexture(Texture texture, Rectangle src, Rectangle dest, Colour blendColour) {

@@ -3,7 +3,10 @@
 void Demo_Scene::OnLoad() {
     tex_background = LoadTexture("./res/tex/bg_clouds.png");
 
-    lay_background = new GalaEngine::BackgroundLayer(1024, 576, tex_background);
+    scene->mainCamera.position  = {0.0f, 0.0f};
+    scene->mainCamera.size      = {1024.0f, 576.0f};
+
+    lay_background = new GalaEngine::BackgroundLayer(1024 * 2, 576 * 2, tex_background);
     lay_background->scrollSpeed = {64.0f, 24.0f};
 
     scene->PushLayer(lay_background);
@@ -32,7 +35,7 @@ void Demo_Scene::OnLoad() {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     };
 
-    lay_tiles = new GalaEngine::TileLayer(ts_test, tiles, 32, 18, 1024, 576);
+    lay_tiles = new GalaEngine::TileLayer(ts_test, tiles, 32, 18);
 
     scene->PushLayer(lay_tiles);
 }
@@ -40,23 +43,34 @@ void Demo_Scene::OnLoad() {
 void Demo_Scene::OnDraw() {
     scene->RenderLayers();
 
-    window->surface.DrawText(
-        std::to_string(lay_tiles->surface->texture.texture.width) + ", " + 
-        std::to_string(lay_tiles->surface->texture.texture.height), 0, 32, 20, C_BLACK);
     window->surface.DrawText("FPS: " + std::to_string(1.0f / GetFrameTime()), 8.0f, 8.0f, 20, Colours::GalaBlack);
+
+    window->surface.DrawText(
+        "TileLayer size: " +
+        std::to_string(lay_tiles->surface->texture.texture.width) + ", " + 
+        std::to_string(lay_tiles->surface->texture.texture.height) + "\n" +
+        "Camera position: " + std::to_string(scene->mainCamera.position.x) + ", " + std::to_string(scene->mainCamera.position.y) + "\n" +
+        "Camera size:     " + std::to_string(scene->mainCamera.size.x) + ", " + std::to_string(scene->mainCamera.size.y),
+        8, 32, 20, C_BLACK);
 }
 
 void Demo_Scene::OnUpdate() {
     if(IsKeyDown(KEY_UP)) {
-        lay_background->scale.y += GetFrameTime();
+        scene->mainCamera.position.y -= 512.0f * GetFrameTime();
     }else if(IsKeyDown(KEY_DOWN)) {
-        lay_background->scale.y -= GetFrameTime();
+        scene->mainCamera.position.y += 512.0f * GetFrameTime();
     }
 
     if(IsKeyDown(KEY_LEFT)) {
-        lay_background->scale.x -= GetFrameTime();
+        scene->mainCamera.position.x -= 512.0f * GetFrameTime();
     }else if(IsKeyDown(KEY_RIGHT)) {
-        lay_background->scale.x += GetFrameTime();
+        scene->mainCamera.position.x += 512.0f * GetFrameTime();
+    }
+
+    if(IsKeyDown(KEY_RIGHT_BRACKET)) {
+        scene->mainCamera.size = Vector2Add(scene->mainCamera.size, {16.0f, 9.0f});
+    }else if(IsKeyDown(KEY_LEFT_BRACKET)) {
+        scene->mainCamera.size = Vector2Subtract(scene->mainCamera.size, {16.0f, 9.0f});
     }
 }
 

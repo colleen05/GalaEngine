@@ -27,12 +27,14 @@ void GalaEngine::Scene::RenderLayers() {
         DrawTexturePro(
             layerTexture,
             Rectangle {
-                0.0f, (float)layerTexture.height,
-                (float)layerTexture.width,
-                -(float)layerTexture.height
+                mainCamera.position.x,
+                layerTexture.height - (mainCamera.size.y + mainCamera.position.y),
+                mainCamera.size.x,
+                -mainCamera.size.y
             },
             Rectangle {
-                0.0f, 0.0f,
+                0.0f,
+                0.0f,
                 (float)targetSurface->texture.texture.width,
                 (float)targetSurface->texture.texture.height
             },

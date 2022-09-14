@@ -38,9 +38,7 @@ void GalaEngine::TileLayer::OnUpdate() {
 }
 
 void GalaEngine::TileLayer::OnDraw(GalaEngine::Camera camera) {
-    surface->DrawTexture(
-        texture, 0, 0
-    );
+    surface->DrawTexture(texture, 0, 0);
 }
 
 void GalaEngine::TileLayer::OnDestroy() {
@@ -49,9 +47,8 @@ void GalaEngine::TileLayer::OnDestroy() {
 
 GalaEngine::TileLayer::TileLayer(
     Tileset tileset, std::vector<uint16_t> tiles,
-    int tilesX, int tilesY,
-    int surfaceWidth, int surfaceHeight
-): Layer(surfaceWidth, surfaceHeight, C_CLEAR) {
+    int tilesX, int tilesY
+): Layer(tileset.tileSize * tilesX, tileset.tileSize * tilesY, C_CLEAR) {
     this->tileset = tileset;
     this->tiles = tiles;
     this->width = tilesX;

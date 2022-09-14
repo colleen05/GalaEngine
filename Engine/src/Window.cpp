@@ -32,12 +32,14 @@ void GalaEngine::Window::Render() {
     DrawTexturePro(
         surface.texture.texture,
         Rectangle {
-            0.0f, (float)surface.texture.texture.height,
+            0.0f,
+            (float)surface.texture.texture.height,
             (float)surface.texture.texture.width,
             -(float)surface.texture.texture.height
         },
         Rectangle {
-            0.0f, 0.0f,
+            0.0f,
+            0.0f,
             (float)GetWidth(),
             (float)GetHeight()
         },
