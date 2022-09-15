@@ -1,12 +1,29 @@
 #include <GalaEngine/Scene.hpp>
 
-void GalaEngine::Scene::PushLayer(Layer *layer) {
+void GalaEngine::Scene::PushLayer(Layer *layer, int position) {
     _layers.insert(std::pair<uint8_t, Layer*>(
-        _layers.size(),
+        (position >= 0) ? position : _layers.size(),
         layer
     ));
 
     layer->OnStart();
+}
+
+GalaEngine::BackgroundLayer *GalaEngine::Scene::AddBackgroundLayer(Texture texture, Colour clearColour, int position) {
+    auto layer = new GalaEngine::BackgroundLayer(_width, _height, texture, clearColour);
+    PushLayer(layer, position);
+    return layer;
+}
+
+GalaEngine::TileLayer *GalaEngine::Scene::AddTileLayer(Tileset tileset, std::vector<uint16_t> tiles, int width, int height, Colour clearColour, int position){
+    auto layer = new GalaEngine::TileLayer(tileset, tiles, width, height);
+    PushLayer(layer, position);
+    return layer;
+}
+
+void GalaEngine::Scene::Resize(int width, int height) {
+    _width = width;
+    _height = height;
 }
 
 void GalaEngine::Scene::Update() {
@@ -46,8 +63,10 @@ void GalaEngine::Scene::RenderLayers() {
     }
 }
 
-GalaEngine::Scene::Scene(Surface *targetSurface) {
+GalaEngine::Scene::Scene(Surface *targetSurface, int width, int height) {
     this->targetSurface = targetSurface;
+    this->_width        = width;
+    this->_height       = height;
 }
 
 GalaEngine::Scene::Scene() {

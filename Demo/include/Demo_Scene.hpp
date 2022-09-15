@@ -18,8 +18,12 @@
 
 class Demo_Scene : public GalaEngine::Game {
     public:
-        Texture tex_background;
-        GalaEngine::BackgroundLayer *lay_background;
+        Texture tex_bgSky;
+        Texture tex_bgOverlay;
+        
+        GalaEngine::BackgroundLayer *lay_background0;
+        GalaEngine::BackgroundLayer *lay_background1;
+        GalaEngine::BackgroundLayer *lay_foreground;
         GalaEngine::TileLayer *lay_tiles;
         GalaEngine::Tileset ts_test;
 

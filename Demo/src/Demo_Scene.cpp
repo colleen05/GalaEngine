@@ -1,15 +1,20 @@
 #include <Demo_Scene.hpp>
 
 void Demo_Scene::OnLoad() {
-    tex_background = LoadTexture("./res/tex/bg_clouds.png");
+    scene->Resize(2048, 1152);
+
+    tex_bgSky = LoadTexture("./res/tex/bg_clouds.png");
+    tex_bgOverlay = LoadTexture("./res/tex/bg_clouds_overlay.png");
 
     scene->mainCamera.position  = {0.0f, 0.0f};
     scene->mainCamera.size      = {1024.0f, 576.0f};
 
-    lay_background = new GalaEngine::BackgroundLayer(1024 * 2, 576 * 2, tex_background);
-    lay_background->scrollSpeed = {64.0f, 24.0f};
+    lay_background0 = scene->AddBackgroundLayer(tex_bgSky, C_BLACK);
+    lay_background0->scrollSpeed = {32.0f, 12.0f};
 
-    scene->PushLayer(lay_background);
+    lay_background1 = scene->AddBackgroundLayer(tex_bgSky, C_CLEAR);
+    lay_background1->scrollSpeed = {48.0f, 18.0f};
+    lay_background1->blendColour = {0xff, 0xff, 0xff, 0x7f};
 
     ts_test.texture = LoadTexture("./res/tex/ts_testtiles.png");
     ts_test.tileSize = 64;
@@ -35,23 +40,17 @@ void Demo_Scene::OnLoad() {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     };
 
-    lay_tiles = new GalaEngine::TileLayer(ts_test, tiles, 32, 18);
+    lay_tiles = scene->AddTileLayer(ts_test, tiles, 32, 18);
 
-    scene->PushLayer(lay_tiles);
+    lay_foreground = scene->AddBackgroundLayer(tex_bgOverlay, C_CLEAR);
+    lay_foreground->scrollSpeed = {96.0f, -48.0f};
+    lay_foreground->blendColour = {0xff, 0xff, 0xff, 0xff};
 }
 
 void Demo_Scene::OnDraw() {
     scene->RenderLayers();
 
     window->surface.DrawText("FPS: " + std::to_string(1.0f / GetFrameTime()), 8.0f, 8.0f, 20, Colours::GalaBlack);
-
-    window->surface.DrawText(
-        "TileLayer size: " +
-        std::to_string(lay_tiles->surface->texture.texture.width) + ", " + 
-        std::to_string(lay_tiles->surface->texture.texture.height) + "\n" +
-        "Camera position: " + std::to_string(scene->mainCamera.position.x) + ", " + std::to_string(scene->mainCamera.position.y) + "\n" +
-        "Camera size:     " + std::to_string(scene->mainCamera.size.x) + ", " + std::to_string(scene->mainCamera.size.y),
-        8, 32, 20, C_BLACK);
 }
 
 void Demo_Scene::OnUpdate() {
@@ -67,15 +66,12 @@ void Demo_Scene::OnUpdate() {
         scene->mainCamera.position.x += 512.0f * GetFrameTime();
     }
 
-    if(IsKeyDown(KEY_RIGHT_BRACKET)) {
-        scene->mainCamera.size = Vector2Add(scene->mainCamera.size, {16.0f, 9.0f});
-    }else if(IsKeyDown(KEY_LEFT_BRACKET)) {
-        scene->mainCamera.size = Vector2Subtract(scene->mainCamera.size, {16.0f, 9.0f});
-    }
+    scene->mainCamera.size = Vector2Subtract(scene->mainCamera.size, Vector2Multiply({32.0f, 18.0f}, {GetMouseWheelMove(), GetMouseWheelMove()}));
 }
 
 void Demo_Scene::OnUnload() {
-    UnloadTexture(tex_background);
+    UnloadTexture(tex_bgSky);
+    UnloadTexture(tex_bgOverlay);
 }
 
 Demo_Scene::Demo_Scene() : Game(

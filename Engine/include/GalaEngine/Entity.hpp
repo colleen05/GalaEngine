@@ -14,9 +14,9 @@
 namespace GalaEngine {
     class Entity {
         public:
-            Vector2 position;
-            Sprite *sprite;
-            Colour blendColour;
+            Vector2 position = {0.0f, 0.0f};
+            Sprite *sprite = nullptr;
+            Colour blendColour = C_WHITE;
 
             virtual void OnStart();
             virtual void OnUpdate();

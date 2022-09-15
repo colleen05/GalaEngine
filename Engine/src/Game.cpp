@@ -7,7 +7,7 @@ void GalaEngine::Game::OnUnload () {};
 
 void GalaEngine::Game::Start() {
     window->Init();
-    scene = new GalaEngine::Scene(&window->surface);
+    scene = new GalaEngine::Scene(&window->surface, _info.defaultWidth, _info.defaultHeight);
 
     OnLoad();
 

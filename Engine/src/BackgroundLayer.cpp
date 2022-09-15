@@ -10,6 +10,8 @@ void GalaEngine::BackgroundLayer::OnUpdate() {
 }
 
 void GalaEngine::BackgroundLayer::OnDraw(GalaEngine::Camera camera) {
+    surface->Clear();
+    
     surface->DrawTexture(
         background,
         Rectangle {
