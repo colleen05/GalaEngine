@@ -11,6 +11,7 @@
 #include <GalaEngine/Game.hpp>
 #include <GalaEngine/Colour.hpp>
 #include <GalaEngine/BackgroundLayer.hpp>
+#include <GalaEngine/EntityLayer.hpp>
 #include <GalaEngine/TileLayer.hpp>
 #include <GalaEngine/Tileset.hpp>
 #include <iostream>
@@ -20,12 +21,17 @@ class Demo_Scene : public GalaEngine::Game {
     public:
         Texture tex_bgSky;
         Texture tex_bgOverlay;
-        
+
+        GalaEngine::Tileset ts_test;
+
         GalaEngine::BackgroundLayer *lay_background0;
         GalaEngine::BackgroundLayer *lay_background1;
+        GalaEngine::EntityLayer     *lay_entities;
         GalaEngine::BackgroundLayer *lay_foreground;
         GalaEngine::TileLayer *lay_tiles;
-        GalaEngine::Tileset ts_test;
+
+        GalaEngine::Sprite spr_entTest;
+        GalaEngine::Entity *ent_test;
 
         // Game class overrides
         void OnLoad();

@@ -14,9 +14,13 @@
 namespace GalaEngine {
     class Entity {
         public:
-            Vector2 position = {0.0f, 0.0f};
-            Sprite *sprite = nullptr;
-            Colour blendColour = C_WHITE;
+            Vector2 position    = {0.0f, 0.0f};
+            Vector2 scale       = {1.0f, 1.0f};
+            float   rotation    = 0.0f;
+
+            Sprite *sprite      = nullptr;
+            int     spriteFrame = 0;
+            Colour  blendColour = C_WHITE;
 
             virtual void OnStart();
             virtual void OnUpdate();

@@ -1,5 +1,15 @@
 #include <GalaEngine/Scene.hpp>
 
+uint32_t GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, std::string name) {
+    uint32_t id = _entities.size();
+
+    _entities.insert(std::pair<uint32_t, Entity*>(id, entity));
+    
+    if(!name.empty()) _entityNames.insert_or_assign(name, id);
+
+    return id;
+}
+
 void GalaEngine::Scene::PushLayer(Layer *layer, int position) {
     _layers.insert(std::pair<uint8_t, Layer*>(
         (position >= 0) ? position : _layers.size(),
@@ -11,6 +21,12 @@ void GalaEngine::Scene::PushLayer(Layer *layer, int position) {
 
 GalaEngine::BackgroundLayer *GalaEngine::Scene::AddBackgroundLayer(Texture texture, Colour clearColour, int position) {
     auto layer = new GalaEngine::BackgroundLayer(_width, _height, texture, clearColour);
+    PushLayer(layer, position);
+    return layer;
+}
+
+GalaEngine::EntityLayer *GalaEngine::Scene::AddEntityLayer(Colour clearColour, int position) {
+    auto layer = new GalaEngine::EntityLayer(_width, _height, clearColour);
     PushLayer(layer, position);
     return layer;
 }

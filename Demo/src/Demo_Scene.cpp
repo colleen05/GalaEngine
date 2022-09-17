@@ -16,6 +16,8 @@ void Demo_Scene::OnLoad() {
     lay_background1->scrollSpeed = {48.0f, 18.0f};
     lay_background1->blendColour = {0xff, 0xff, 0xff, 0x7f};
 
+    lay_entities = scene->AddEntityLayer();
+
     ts_test.texture = LoadTexture("./res/tex/ts_testtiles.png");
     ts_test.tileSize = 64;
 
