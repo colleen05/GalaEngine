@@ -26,6 +26,8 @@ namespace GalaEngine {
             std::map<std::string, uint8_t>  _layerNames;
             std::map<std::string, uint32_t> _entityNames;
 
+            Image clearImage;
+
             int _width  = 640;
             int _height = 480;
 
@@ -35,7 +37,8 @@ namespace GalaEngine {
             GalaEngine::Camera  mainCamera;
 
             // Entity & layers
-            uint32_t    PushEntity  (GalaEngine::Entity *entity, std::string name = "");
+            uint32_t    PushEntity  (Entity *entity, std::string name = "");
+            Entity      *GetEntity  (std::string name);
             void        PushLayer   (Layer *layer, int position = -1);
 
             // Add default layer types

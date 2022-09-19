@@ -4,10 +4,17 @@ uint32_t GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, std::string n
     uint32_t id = _entities.size();
 
     _entities.insert(std::pair<uint32_t, Entity*>(id, entity));
-    
+
     if(!name.empty()) _entityNames.insert_or_assign(name, id);
 
+    entity->OnStart();
+
     return id;
+}
+
+GalaEngine::Entity *GalaEngine::Scene::GetEntity(std::string name) {
+    auto ent = _entityNames.find(name);
+    return (ent != _entityNames.end()) ? _entities[(*ent).second] : nullptr;
 }
 
 void GalaEngine::Scene::PushLayer(Layer *layer, int position) {
@@ -43,6 +50,13 @@ void GalaEngine::Scene::Resize(int width, int height) {
 }
 
 void GalaEngine::Scene::Update() {
+    for(auto &e : _entities) {
+        auto &ent = e.second;
+
+        ent->worldMousePosition = Vector2Add(GetMousePosition(), mainCamera.position);
+        ent->bbox = Rectangle {ent->position.x, ent->position.y, ent->bboxSize.x, ent->bboxSize.y};
+    }
+
     for(auto &p : _layers) {
         p.second->OnUpdate();
     }
@@ -83,6 +97,8 @@ GalaEngine::Scene::Scene(Surface *targetSurface, int width, int height) {
     this->targetSurface = targetSurface;
     this->_width        = width;
     this->_height       = height;
+
+    this->clearImage = GenImageColor(width, height, (Color) {0x00, 0x00, 0x00, 0x00});
 }
 
 GalaEngine::Scene::Scene() {

@@ -8,6 +8,7 @@
 #pragma once
 
 #include <raylib.h>
+#include <iostream>
 #include <GalaEngine/Sprite.hpp>
 #include <GalaEngine/Colour.hpp>
 
@@ -22,11 +23,18 @@ namespace GalaEngine {
             int     spriteFrame = 0;
             Colour  blendColour = C_WHITE;
 
+            Vector2     worldMousePosition = {0.0f, 0.0f};
+            Vector2     bboxSize = {32.0f, 32.0f};
+            Rectangle   bbox = {0.0f, 0.0f, 32.0f, 32.0f};
+
+            // Events
+            virtual void OnSignal(std::string message);
             virtual void OnStart();
             virtual void OnUpdate();
             virtual void OnDraw();
             virtual void OnDestroy();
 
+            Entity(int x, int y);
             Entity();
     };
 }
