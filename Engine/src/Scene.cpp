@@ -54,8 +54,8 @@ void GalaEngine::Scene::Update() {
         auto &ent = e.second;
 
         ent->worldMousePosition = Vector2 {
-            (float) (GetMouseX() + mainCamera.position.x),
-            (float) (GetMouseY() + mainCamera.position.y)
+            (float) (GetMouseX()) / GetScreenWidth()  * mainCamera.size.x + mainCamera.position.x,
+            (float) (GetMouseY()) / GetScreenHeight() * mainCamera.size.y + mainCamera.position.y
         };
 
         ent->bbox = Rectangle {ent->position.x, ent->position.y, ent->bboxSize.x, ent->bboxSize.y};
