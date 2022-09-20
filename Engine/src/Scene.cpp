@@ -53,7 +53,11 @@ void GalaEngine::Scene::Update() {
     for(auto &e : _entities) {
         auto &ent = e.second;
 
-        ent->worldMousePosition = Vector2Add(GetMousePosition(), mainCamera.position);
+        ent->worldMousePosition = Vector2 {
+            (float) (GetMouseX() + mainCamera.position.x),
+            (float) (GetMouseY() + mainCamera.position.y)
+        };
+
         ent->bbox = Rectangle {ent->position.x, ent->position.y, ent->bboxSize.x, ent->bboxSize.y};
     }
 
@@ -97,8 +101,6 @@ GalaEngine::Scene::Scene(Surface *targetSurface, int width, int height) {
     this->targetSurface = targetSurface;
     this->_width        = width;
     this->_height       = height;
-
-    this->clearImage = GenImageColor(width, height, (Color) {0x00, 0x00, 0x00, 0x00});
 }
 
 GalaEngine::Scene::Scene() {

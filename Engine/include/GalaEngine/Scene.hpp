@@ -26,8 +26,6 @@ namespace GalaEngine {
             std::map<std::string, uint8_t>  _layerNames;
             std::map<std::string, uint32_t> _entityNames;
 
-            Image clearImage;
-
             int _width  = 640;
             int _height = 480;
 

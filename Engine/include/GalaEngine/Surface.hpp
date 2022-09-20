@@ -16,7 +16,7 @@ namespace GalaEngine {
     class Surface {
         public:
             RenderTexture texture;
-            Colour clearColour;
+            Colour clearColour = C_BLACK;
 
             // Points & lines
             void DrawPixel(int x, int y, Colour colour = C_WHITE);

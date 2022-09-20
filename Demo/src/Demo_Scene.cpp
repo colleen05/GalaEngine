@@ -24,10 +24,6 @@ void Demo_Scene::OnLoad() {
     lay_background0 = scene->AddBackgroundLayer(tex_bgSky, C_BLACK);
     lay_background0->scrollSpeed = {32.0f, 12.0f};
 
-    lay_background1 = scene->AddBackgroundLayer(tex_bgSky, C_CLEAR);
-    lay_background1->scrollSpeed = {48.0f, 18.0f};
-    lay_background1->blendColour = {0xff, 0xff, 0xff, 0x7f};
-
     ts_test.texture = LoadTexture("./res/tex/ts_testtiles.png");
     ts_test.tileSize = 64;
 

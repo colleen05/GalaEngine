@@ -29,8 +29,6 @@ void GalaEngine::EntityLayer::OnDraw(GalaEngine::Camera camera) {
             e->rotation,
             e->blendColour
         );
-
-        surface->DrawRectangle(e->bbox.x, e->bbox.y, e->bbox.width, e->bbox.height, C_RED, true, 1.0f);
     }
 }
 

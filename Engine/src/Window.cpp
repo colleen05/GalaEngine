@@ -5,7 +5,7 @@ void GalaEngine::Window::Init() {
     InitWindow(_width, _height, _title.c_str());
     SetTargetFPS(_targetFPS);
 
-    surface = Surface(_width, _height);
+    surface = Surface(_width, _height, C_BLACK);
 
     InitAudioDevice();
 }
