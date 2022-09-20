@@ -1,0 +1,13 @@
+# vscode
+.vscode/*
+
+# Engine
+Engine/bin/**
+Engine/tmp/**
+
+# Demo
+Demo/bin/linux64/Demo
+Demo/tmp/**
+
+# Keep .gitkeeps
+!/**/.gitkeep
