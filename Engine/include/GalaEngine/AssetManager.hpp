@@ -21,23 +21,28 @@ namespace GalaEngine {
 
     class AssetManager {
         public:
+            // Layout
             AssetPathLayout pathLayout;
 
+            // Containers
             std::map<std::string, Texture>  textures;
             std::map<std::string, Sound>    sounds;
             std::map<std::string, Font>     fonts;
 
+            // Getters
             Texture GetTexture  (std::string name);
             Sound   GetSound    (std::string name);
             Font    GetFont     (std::string name);
 
-            void LoadTexture (std::string name, std::string path);
-            void LoadSound   (std::string name, std::string path);
-            void LoadFont    (std::string name, std::string path);
+            // Loading
+            Texture LoadTexture (std::string name, std::string path);
+            Sound   LoadSound   (std::string name, std::string path);
+            Font    LoadFont    (std::string name, std::string path);
 
-            void UnloadTexture  (std::string name, std::string path);
-            void UnloadSound    (std::string name, std::string path);
-            void UnloadFont     (std::string name, std::string path);
+            // Unloading
+            void UnloadTexture  (std::string name);
+            void UnloadSound    (std::string name);
+            void UnloadFont     (std::string name);
 
             void UnloadAllTextures  ();
             void UnloadAllSounds    ();
@@ -45,6 +50,7 @@ namespace GalaEngine {
             
             void UnloadAll();
 
+            // Constructor
             AssetManager(AssetPathLayout pathLayout = {
                 "./base/",
                 "./textures/",
