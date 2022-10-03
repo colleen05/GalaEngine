@@ -22,7 +22,7 @@ void Demo_Drawing::OnDraw() {
 
     // Texture tests
     window->surface.DrawTexture(
-        window->surface.texture.texture,
+        window->surface.renderTexture.texture,
         0, 0,
         0.5f, 0.5f,
         0.0f,

@@ -16,13 +16,13 @@ void GalaEngine::BackgroundLayer::OnDraw(GalaEngine::Camera camera) {
         background,
         Rectangle {
             offset.x, offset.y,
-            (float)surface->texture.texture.width * scale.x,
-            (float)surface->texture.texture.height * scale.y
+            (float)surface->renderTexture.texture.width * scale.x,
+            (float)surface->renderTexture.texture.height * scale.y
         },
         Rectangle {
             0.0f, 0.0f,
-            (float)surface->texture.texture.width,
-            (float)surface->texture.texture.height
+            (float)surface->renderTexture.texture.width,
+            (float)surface->renderTexture.texture.height
         }
     );
 }

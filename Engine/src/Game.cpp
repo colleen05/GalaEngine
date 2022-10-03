@@ -25,7 +25,7 @@ void GalaEngine::Game::Start() {
         EndDrawing();
 
         if(IsKeyPressed(KEY_F9)) {
-            Image img_screen = LoadImageFromTexture(window->surface.texture.texture);
+            Image img_screen = LoadImageFromTexture(window->surface.renderTexture.texture);
             ExportImage(img_screen, "window_surface.png");
             UnloadImage(img_screen);
         }

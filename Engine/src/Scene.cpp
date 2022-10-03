@@ -70,11 +70,11 @@ void GalaEngine::Scene::RenderLayers() {
     if(targetSurface == nullptr) return;
 
     for(auto &p : _layers) {
-        auto &layerTexture = p.second->surface->texture.texture;
+        auto &layerTexture = p.second->surface->renderTexture.texture;
 
         p.second->OnDraw(mainCamera);
 
-        BeginTextureMode(targetSurface->texture);
+        BeginTextureMode(targetSurface->renderTexture);
         DrawTexturePro(
             layerTexture,
             Rectangle {
@@ -86,8 +86,8 @@ void GalaEngine::Scene::RenderLayers() {
             Rectangle {
                 0.0f,
                 0.0f,
-                (float)targetSurface->texture.texture.width,
-                (float)targetSurface->texture.texture.height
+                (float)targetSurface->renderTexture.texture.width,
+                (float)targetSurface->renderTexture.texture.height
             },
             {0.0f, 0.0f},
             0.0f,

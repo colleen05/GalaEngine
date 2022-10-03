@@ -15,7 +15,7 @@
 namespace GalaEngine {
     class Surface {
         public:
-            RenderTexture texture;
+            RenderTexture renderTexture;
             Colour clearColour = C_BLACK;
 
             // Points & lines
