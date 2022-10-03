@@ -37,6 +37,7 @@ namespace GalaEngine {
             void DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, Colour = C_WHITE, bool outline = false);
 
             // Text
+            void DrawText(Font font, std::string text, int x, int y, int size = 20, Colour colour = C_WHITE);
             void DrawText(std::string text, int x, int y, int size = 20, Colour colour = C_WHITE);
             
             // Textures
