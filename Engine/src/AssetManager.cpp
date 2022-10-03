@@ -2,26 +2,17 @@
 
 // Getters
 Texture GalaEngine::AssetManager::GetTexture(std::string name) {
-    if(textures.count(name)) {
-        return textures[name];
-    }
-
+    if(textures.count(name)) return textures[name];
     return Texture {0};
 }
 
 Sound GalaEngine::AssetManager::GetSound(std::string name) {
-    if(sounds.count(name)) {
-        return sounds[name];
-    }
-
+    if(sounds.count(name)) return sounds[name];
     return Sound {0};
 }
 
 Font GalaEngine::AssetManager::GetFont(std::string name) {
-    if(fonts.count(name)) {
-        return fonts[name];
-    }
-
+    if(fonts.count(name)) return fonts[name];
     return Font {0};
 }
 
@@ -29,7 +20,7 @@ Font GalaEngine::AssetManager::GetFont(std::string name) {
 Texture GalaEngine::AssetManager::LoadTexture(std::string name, std::string path) {
     Texture tex = ::LoadTexture(path.c_str());
 
-    if(textures.count(name)) { ::UnloadTexture(textures[name]); }
+    if(textures.count(name)) ::UnloadTexture(textures[name]);
     textures.insert_or_assign(name, tex);
 
     return tex;
@@ -38,7 +29,7 @@ Texture GalaEngine::AssetManager::LoadTexture(std::string name, std::string path
 Sound GalaEngine::AssetManager::LoadSound(std::string name, std::string path) {
     Sound snd = ::LoadSound(path.c_str());
 
-    if(sounds.count(name)) { ::UnloadSound(sounds[name]); }
+    if(sounds.count(name)) ::UnloadSound(sounds[name]);
     sounds.insert_or_assign(name, snd);
 
     return snd;
@@ -47,7 +38,7 @@ Sound GalaEngine::AssetManager::LoadSound(std::string name, std::string path) {
 Font GalaEngine::AssetManager::LoadFont(std::string name, std::string path) {
     Font fnt = ::LoadFont(path.c_str());
 
-    if(fonts.count(name)) { ::UnloadFont(fonts[name]); }
+    if(fonts.count(name)) ::UnloadFont(fonts[name]);
     fonts.insert_or_assign(name, fnt);
 
     return fnt;
