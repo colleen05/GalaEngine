@@ -3,13 +3,13 @@
 void Demo_Scene::OnLoad() {
     scene->Resize(2048, 1152);
 
-    tex_bgSky = LoadTexture("./res/tex/bg_clouds.png");
-    tex_bgOverlay = LoadTexture("./res/tex/bg_clouds_overlay.png");
+    tex_bgSky = scene->assets.LoadTexture("bg_clouds", "./res/tex/bg_clouds.png");
+    tex_bgOverlay = scene->assets.LoadTexture("bg_cloudsOverlay", "./res/tex/bg_clouds_overlay.png");
 
     scene->mainCamera.position  = {0.0f, 0.0f};
     scene->mainCamera.size      = {1024.0f, 576.0f};
 
-    tex_sprFlower = LoadTexture("./res/tex/spr_flower.png");
+    tex_sprFlower = scene->assets.LoadTexture("sprites/flower", "./res/tex/spr_flower.png");
     spr_flower = GalaEngine::Sprite {
         tex_sprFlower,
         {0.0f, 0.0f},
@@ -104,9 +104,7 @@ void Demo_Scene::OnUpdate() {
 }
 
 void Demo_Scene::OnUnload() {
-    UnloadTexture(tex_bgSky);
-    UnloadTexture(tex_bgOverlay);
-    UnloadTexture(tex_sprFlower);
+    scene->assets.UnloadAll();
 }
 
 Demo_Scene::Demo_Scene() : Game(
