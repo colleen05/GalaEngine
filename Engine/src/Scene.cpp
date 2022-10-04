@@ -3,7 +3,7 @@
 uint32_t GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, std::string name) {
     uint32_t id = _entities.size();
 
-    entity->assets = &assets;
+    entity->assets = assets;
     _entities.insert(std::pair<uint32_t, Entity*>(id, entity));
 
     if(!name.empty()) _entityNames.insert_or_assign(name, id);

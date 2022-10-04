@@ -33,8 +33,8 @@ namespace GalaEngine {
         public:
             // Surface, camera, and asset manager
             Surface *targetSurface = nullptr;
-            GalaEngine::Camera  mainCamera;
-            GalaEngine::AssetManager assets;
+            GalaEngine::Camera mainCamera;
+            GalaEngine::AssetManager *assets;
 
             // Entity & layers
             uint32_t    PushEntity  (Entity *entity, std::string name = "");
