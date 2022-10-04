@@ -13,6 +13,7 @@
 #include <GalaEngine/EntityLayer.hpp>
 #include <GalaEngine/TileLayer.hpp>
 #include <GalaEngine/Camera.hpp>
+#include <GalaEngine/AssetManager.hpp>
 #include <iostream>
 #include <map>
 #include <stdint.h>
@@ -30,9 +31,10 @@ namespace GalaEngine {
             int _height = 480;
 
         public:
-            // Surface & camera
-            Surface             *targetSurface = nullptr;
+            // Surface, camera, and asset manager
+            Surface *targetSurface = nullptr;
             GalaEngine::Camera  mainCamera;
+            GalaEngine::AssetManager assets;
 
             // Entity & layers
             uint32_t    PushEntity  (Entity *entity, std::string name = "");
