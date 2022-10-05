@@ -254,6 +254,8 @@ void GalaEngine::Surface::DrawTexture(Texture texture, Rectangle src, Rectangle 
 
 // Sprites
 void GalaEngine::Surface::DrawSprite(Sprite sprite, int frame, int x, int y, float scaleX, float scaleY, float rotation, Colour blendColour) {
+    frame = frame % sprite.frameRects.size();
+
     BeginTextureMode(renderTexture);
     ::DrawTexturePro(
         sprite.texture,
