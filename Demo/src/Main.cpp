@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
 
     GuiLoadStyle("./res/guistyles/dark.rgs");
 
-    Texture tex_banner = LoadTexture("./res/tex/spr_banner.png");
+    Texture tex_banner = LoadTexture("./res/textures/spr_banner.png");
 
     std::map<std::string, DemoProfile> profiles = {
         {"drawing", 
