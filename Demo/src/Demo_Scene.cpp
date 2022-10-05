@@ -5,28 +5,20 @@ void Demo_Scene::OnLoad() {
 
     assets->LoadSound("sfx/chime", "./res/sounds/sfx_chime.ogg");
 
-    tex_bgSky = assets->LoadTexture("backgrounds/clouds", "./res/tex/bg_clouds.png");
-    tex_bgOverlay = assets->LoadTexture("backgrounds/clouds_overlay", "./res/tex/bg_clouds_overlay.png");
+    tex_bgSky = assets->LoadTexture("backgrounds/clouds", "./res/textures/bg_clouds.png");
+    tex_bgOverlay = assets->LoadTexture("backgrounds/clouds_overlay", "./res/textures/bg_clouds_overlay.png");
+
+    assets->LoadTexture("sprites/flower", "./res/textures/spr_flower.png");
+    
+    assets->LoadSprite("flower", "./res/sprites/flower.yml");
 
     scene->mainCamera.position  = {0.0f, 0.0f};
     scene->mainCamera.size      = {1024.0f, 576.0f};
 
-    tex_sprFlower = assets->LoadTexture("sprites/flower", "./res/tex/spr_flower.png");
-    spr_flower = GalaEngine::Sprite {
-        tex_sprFlower,
-        {0.0f, 0.0f},
-        {
-            {0.0f,  0.0f,   64.0f, 64.0f},
-            {64.0f, 0.0f,   64.0f, 64.0f},
-            {0.0f,  64.0f,  64.0f, 64.0f},
-            {64.0f, 64.0f,  64.0f, 64.0f}
-        }
-    };
-
     lay_background0 = scene->AddBackgroundLayer(tex_bgSky, C_BLACK);
     lay_background0->scrollSpeed = {32.0f, 12.0f};
 
-    ts_test.texture = assets->LoadTexture("tilesets/testtiles", "./res/tex/ts_testtiles.png");
+    ts_test.texture = assets->LoadTexture("tilesets/testtiles", "./res/textures/ts_testtiles.png");
     ts_test.tileSize = 64;
 
     std::vector<uint16_t> tiles = {
@@ -55,25 +47,21 @@ void Demo_Scene::OnLoad() {
     lay_entities = scene->AddEntityLayer();
     
     ent_flower0 = new Ent_Flower(360, 256);
-    ent_flower0->sprite = &spr_flower;
     ent_flower0->spriteFrame = 0;
     scene->PushEntity(ent_flower0, "flower_0");
     lay_entities->AddEntity(ent_flower0);
 
     ent_flower1 = new Ent_Flower(440, 256);
-    ent_flower1->sprite = &spr_flower;
     ent_flower1->spriteFrame = 1;
     scene->PushEntity(ent_flower1, "flower_1");
     lay_entities->AddEntity(ent_flower1);
 
     ent_flower2 = new Ent_Flower(520, 256);
-    ent_flower2->sprite = &spr_flower;
     ent_flower2->spriteFrame = 2;
     scene->PushEntity(ent_flower2, "flower_2");
     lay_entities->AddEntity(ent_flower2);
 
     ent_flower3 = new Ent_Flower(600, 256);
-    ent_flower3->sprite = &spr_flower;
     ent_flower3->spriteFrame = 3;
     scene->PushEntity(ent_flower3, "flower_3");
     lay_entities->AddEntity(ent_flower3);
