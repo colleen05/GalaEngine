@@ -1,6 +1,7 @@
 #include <Ent_Flower.hpp>
 
 void Ent_Flower::OnStart() {
+    sprite = assets->GetSprite("flower");
     bboxSize = {64.0f, 64.0f};
 }
 
