@@ -32,8 +32,6 @@ class Demo_Scene : public GalaEngine::Game {
         GalaEngine::BackgroundLayer *lay_foreground;
         GalaEngine::TileLayer *lay_tiles;
 
-        Texture tex_sprFlower;
-        GalaEngine::Sprite spr_flower;
         GalaEngine::Entity *ent_flower0, *ent_flower1, *ent_flower2, *ent_flower3;
 
         // Game class overrides
