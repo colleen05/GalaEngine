@@ -1,0 +1,9 @@
+# res/sprites/flower.yml
+
+texture: "sprites/flower"
+origin: [32, 32]
+frames:
+  - [0, 0, 32, 32]
+  - [32, 0, 32, 32]
+  - [0, 32, 32, 32]
+  - [32, 32, 32, 32]
