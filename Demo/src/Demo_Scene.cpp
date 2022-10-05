@@ -3,13 +3,15 @@
 void Demo_Scene::OnLoad() {
     scene->Resize(2048, 1152);
 
-    tex_bgSky = scene->assets.LoadTexture("bg_clouds", "./res/tex/bg_clouds.png");
-    tex_bgOverlay = scene->assets.LoadTexture("bg_cloudsOverlay", "./res/tex/bg_clouds_overlay.png");
+    assets->LoadSound("sfx/chime", "./res/sounds/sfx_chime.ogg");
+
+    tex_bgSky = assets->LoadTexture("backgrounds/clouds", "./res/tex/bg_clouds.png");
+    tex_bgOverlay = assets->LoadTexture("backgrounds/clouds_overlay", "./res/tex/bg_clouds_overlay.png");
 
     scene->mainCamera.position  = {0.0f, 0.0f};
     scene->mainCamera.size      = {1024.0f, 576.0f};
 
-    tex_sprFlower = scene->assets.LoadTexture("sprites/flower", "./res/tex/spr_flower.png");
+    tex_sprFlower = assets->LoadTexture("sprites/flower", "./res/tex/spr_flower.png");
     spr_flower = GalaEngine::Sprite {
         tex_sprFlower,
         {0.0f, 0.0f},
@@ -24,7 +26,7 @@ void Demo_Scene::OnLoad() {
     lay_background0 = scene->AddBackgroundLayer(tex_bgSky, C_BLACK);
     lay_background0->scrollSpeed = {32.0f, 12.0f};
 
-    ts_test.texture = LoadTexture("./res/tex/ts_testtiles.png");
+    ts_test.texture = assets->LoadTexture("tilesets/testtiles", "./res/tex/ts_testtiles.png");
     ts_test.tileSize = 64;
 
     std::vector<uint16_t> tiles = {
@@ -104,7 +106,7 @@ void Demo_Scene::OnUpdate() {
 }
 
 void Demo_Scene::OnUnload() {
-    scene->assets.UnloadAll();
+    scene->assets->UnloadAll();
 }
 
 Demo_Scene::Demo_Scene() : Game(
@@ -112,9 +114,13 @@ Demo_Scene::Demo_Scene() : Game(
         "GalaEngine Scene Demo (GalaEngine v" GALAENGINE_VERSION_STRING ")",
         "GalaEngine example project.",
         "Colleen (colleen05)",
-
-        1024, 576,
-
-        "./res/"
+        1024,
+        576,
+        GalaEngine::AssetPathLayout {
+            "./base/",
+            "./textures/",
+            "./sounds/",
+            "./fonts/"
+        }
     }
 ) {}
