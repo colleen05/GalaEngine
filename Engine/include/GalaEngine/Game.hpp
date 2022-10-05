@@ -22,7 +22,7 @@ namespace GalaEngine {
         int defaultWidth;   // Default width for game window.
         int defaultHeight;  // Default height for game window.
 
-        std::string resourcePath;   // Path in which the game class will look for resources.
+        AssetPathLayout assetPaths; // Path layout for assets.
     };
 
     class Game {
@@ -33,7 +33,8 @@ namespace GalaEngine {
 
         public:
             Window *window;         // Game window
-            Scene *scene;
+            Scene *scene;           // Scene
+            AssetManager *assets;    // AssetManager
 
             virtual void OnLoad();
             virtual void OnUpdate();

@@ -7,7 +7,9 @@ void GalaEngine::Game::OnUnload () {};
 
 void GalaEngine::Game::Start() {
     window->Init();
+
     scene = new GalaEngine::Scene(&window->surface, _info.defaultWidth, _info.defaultHeight);
+    scene->assets = assets;
 
     OnLoad();
 
@@ -42,6 +44,7 @@ void GalaEngine::Game::End() {
 GalaEngine::Game::Game(GameInfo info) {
     _info = info;
     window = new GalaEngine::Window(_info.title, _info.defaultWidth, _info.defaultHeight);
+    assets = new GalaEngine::AssetManager(info.assetPaths);
 }
 
 GalaEngine::Game::Game() : Game(
@@ -49,7 +52,13 @@ GalaEngine::Game::Game() : Game(
         "GalaEngine Game",
         "GalaEngine Game",
         "",
-        640, 480,
-        "./res/"
+        640,
+        480,
+        AssetPathLayout {
+            "./base/",
+            "./textures/",
+            "./sounds/",
+            "./fonts/"
+        }
     }
 ) { }
