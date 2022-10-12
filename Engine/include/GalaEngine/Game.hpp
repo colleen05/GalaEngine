@@ -32,9 +32,10 @@ namespace GalaEngine {
             std::array<bool, KEY_KP_EQUAL> _keyStates;
 
         public:
-            Window *window;         // Game window
-            Scene *scene;           // Scene
-            AssetManager *assets;    // AssetManager
+            GalaEngine::Window       *window;   // Game window
+            GalaEngine::Scene        *scene;    // Scene
+            GalaEngine::AssetManager *assets;   // AssetManager
+            GalaEngine::InputManager *input;    // InputManager
 
             virtual void OnLoad();
             virtual void OnUpdate();

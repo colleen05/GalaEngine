@@ -8,8 +8,10 @@ void GalaEngine::Game::OnUnload () {};
 void GalaEngine::Game::Start() {
     window->Init();
 
+    // Create scene and bind assets, input manager, etc..
     scene = new GalaEngine::Scene(&window->surface, _info.defaultWidth, _info.defaultHeight);
-    scene->assets = assets;
+    scene->assets   = assets;
+    scene->input    = input;
 
     OnLoad();
 
@@ -43,8 +45,9 @@ void GalaEngine::Game::End() {
 
 GalaEngine::Game::Game(GameInfo info) {
     _info = info;
-    window = new GalaEngine::Window(_info.title, _info.defaultWidth, _info.defaultHeight);
-    assets = new GalaEngine::AssetManager(info.assetPaths);
+    window  = new GalaEngine::Window(_info.title, _info.defaultWidth, _info.defaultHeight);
+    assets  = new GalaEngine::AssetManager(info.assetPaths);
+    input   = new GalaEngine::InputManager();
 }
 
 GalaEngine::Game::Game() : Game(

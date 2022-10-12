@@ -14,6 +14,7 @@
 #include <GalaEngine/TileLayer.hpp>
 #include <GalaEngine/Camera.hpp>
 #include <GalaEngine/AssetManager.hpp>
+#include <GalaEngine/InputManager.hpp>
 #include <iostream>
 #include <map>
 #include <stdint.h>
@@ -34,7 +35,9 @@ namespace GalaEngine {
             // Surface, camera, and asset manager
             Surface *targetSurface = nullptr;
             GalaEngine::Camera mainCamera;
+
             GalaEngine::AssetManager *assets;
+            GalaEngine::InputManager *input;
 
             // Entity & layers
             uint32_t    PushEntity  (Entity *entity, std::string name = "");
