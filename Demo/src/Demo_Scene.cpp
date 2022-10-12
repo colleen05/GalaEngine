@@ -3,6 +3,30 @@
 void Demo_Scene::OnLoad() {
     scene->Resize(2048, 1152);
 
+    input->binds.insert_or_assign(
+        "flower_click",
+        GalaEngine::Input {
+            {KEY_A, KEY_Q},
+            {MOUSE_BUTTON_LEFT},
+            {},
+
+            false,
+            GAMEPAD_AXIS_LEFT_X
+        }
+    );
+
+    input->binds.insert_or_assign(
+        "flower_drag",
+        GalaEngine::Input {
+            {KEY_D, KEY_E},
+            {MOUSE_BUTTON_MIDDLE},
+            {},
+
+            false,
+            GAMEPAD_AXIS_LEFT_X
+        }
+    );
+
     assets->LoadSound("sfx/chime", "./res/sounds/sfx_chime.ogg");
 
     tex_bgSky = assets->LoadTexture("backgrounds/clouds", "./res/textures/bg_clouds.png");

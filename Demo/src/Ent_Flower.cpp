@@ -7,12 +7,12 @@ void Ent_Flower::OnStart() {
 
 void Ent_Flower::OnUpdate() {
     if(CheckCollisionPointRec(worldMousePosition, bbox)) {
-        if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        if(input->IsPressed("flower_click")) {
             spriteFrame = (spriteFrame + 1) % 4;
             PlaySound(assets->GetSound("sfx/chime"));
         }
     
-        if(IsMouseButtonDown(MOUSE_BUTTON_MIDDLE)) position = {worldMousePosition.x - 32.0f, worldMousePosition.y - 32.0f};
+        if(input->IsDown("flower_drag")) position = {worldMousePosition.x - 32.0f, worldMousePosition.y - 32.0f};
     }
 }
 
