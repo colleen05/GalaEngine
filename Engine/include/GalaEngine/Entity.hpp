@@ -12,11 +12,13 @@
 #include <GalaEngine/Sprite.hpp>
 #include <GalaEngine/Colour.hpp>
 #include <GalaEngine/AssetManager.hpp>
+#include <GalaEngine/InputManager.hpp>
 
 namespace GalaEngine {
     class Entity {
         public:
-            AssetManager *assets;
+            GalaEngine::AssetManager *assets;
+            GalaEngine::InputManager *input;
 
             Vector2 position    = {0.0f, 0.0f};
             Vector2 scale       = {1.0f, 1.0f};
