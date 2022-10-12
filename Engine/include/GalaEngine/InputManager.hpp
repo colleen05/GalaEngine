@@ -29,20 +29,20 @@ namespace GalaEngine {
             std::map<std::string, Input> binds;
 
             // Binds
-            static bool IsPressed   (Input input);
-            static bool IsDown      (Input input);
-            static bool IsReleased  (Input input);
+            static bool IsPressed   (Input input, int device = 0);
+            static bool IsDown      (Input input, int device = 0);
+            static bool IsReleased  (Input input, int device = 0);
 
-            bool        IsPressed   (std::string inputName);
-            bool        IsDown      (std::string inputName);
-            bool        IsReleased  (std::string inputName);
+            bool        IsPressed   (std::string inputName, int device = 0);
+            bool        IsDown      (std::string inputName, int device = 0);
+            bool        IsReleased  (std::string inputName, int device = 0);
 
-            static float GetFloat   (Input input);
-            float        GetFloat   (std::string inputName);
+            // Joysticks
+            static float GetFloat   (Input input, int device = 0);
+            float        GetFloat   (std::string inputName, int device = 0);
 
-            // Joystick
-            static Vector2 GetLeftJoystick  (int controller = 0);
-            static Vector2 GetRightJoystick (int controller = 0);
+            static Vector2 GetLeftJoystick  (int device = 0);
+            static Vector2 GetRightJoystick (int device = 0);
 
             // Constructors
             InputManager(std::map<std::string, Input> binds);
