@@ -23,6 +23,7 @@ class Demo_Scene : public GalaEngine::Game {
     public:
         Texture tex_bgSky;
         Texture tex_bgOverlay;
+        Texture tex_cursor;
 
         GalaEngine::Tileset ts_test;
 

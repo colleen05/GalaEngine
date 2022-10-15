@@ -1,36 +1,40 @@
 #include <Demo_Scene.hpp>
 
 void Demo_Scene::OnLoad() {
+    HideCursor();
+
     scene->Resize(2048, 1152);
 
-    input->binds.insert_or_assign(
-        "flower_click",
-        GalaEngine::Input {
-            {KEY_A, KEY_Q},
-            {MOUSE_BUTTON_LEFT},
-            {},
+    // Setup flower_click binds
+    input->BindKeyboard("flower_click", {KEY_A, KEY_Q});
+    input->BindMouse("flower_click", {MOUSE_BUTTON_LEFT});
 
-            false,
-            GAMEPAD_AXIS_LEFT_X
-        }
-    );
+    // Setup default flower_drag binds
+    input->BindInput("flower_drag", {{KEY_SPACE}, {MOUSE_BUTTON_RIGHT}, {}, false, GAMEPAD_AXIS_LEFT_X});
 
-    input->binds.insert_or_assign(
-        "flower_drag",
-        GalaEngine::Input {
-            {KEY_D, KEY_E},
-            {MOUSE_BUTTON_MIDDLE},
-            {},
+    // Overwrite keyboard binds individually
+    input->BindKeyboard("flower_drag", {KEY_D}, true);
+    input->BindKeyboard("flower_drag", {KEY_E}, false);
 
-            false,
-            GAMEPAD_AXIS_LEFT_X
-        }
-    );
+    // Add mouse binds
+    input->BindMouse("flower_drag", {MOUSE_BUTTON_MIDDLE});
 
+    // Add gamepad binds
+    input->BindGamepadButtons("flower_click", {GAMEPAD_BUTTON_RIGHT_FACE_DOWN});
+    input->BindGamepadButtons("flower_drag", {GAMEPAD_BUTTON_RIGHT_FACE_RIGHT});
+
+    input->BindGamepadAxis("cam_x", GAMEPAD_AXIS_RIGHT_X);
+    input->BindGamepadAxis("cam_y", GAMEPAD_AXIS_RIGHT_Y);
+
+    input->BindGamepadAxis("cur_x", GAMEPAD_AXIS_LEFT_X);
+    input->BindGamepadAxis("cur_y", GAMEPAD_AXIS_LEFT_Y);
+
+    // Load assets
     assets->LoadSound("sfx/chime", "./res/sounds/sfx_chime.ogg");
 
     tex_bgSky = assets->LoadTexture("backgrounds/clouds", "./res/textures/bg_clouds.png");
     tex_bgOverlay = assets->LoadTexture("backgrounds/clouds_overlay", "./res/textures/bg_clouds_overlay.png");
+    tex_cursor = assets->LoadTexture("curosr", "./res/textures/cursor.png");
 
     assets->LoadTexture("sprites/flower", "./res/textures/spr_flower.png");
     
@@ -99,6 +103,8 @@ void Demo_Scene::OnDraw() {
     scene->RenderLayers();
 
     window->surface.DrawText("FPS: " + std::to_string(1.0f / GetFrameTime()), 8.0f, 8.0f, 20, Colours::GalaBlack);
+
+    window->surface.DrawTexture(tex_cursor, GetMouseX()-16.0f, GetMouseY()-16.0f);
 }
 
 void Demo_Scene::OnUpdate() {
@@ -113,6 +119,15 @@ void Demo_Scene::OnUpdate() {
     }else if(IsKeyDown(KEY_RIGHT)) {
         scene->mainCamera.position.x += 512.0f * GetFrameTime();
     }
+
+    scene->mainCamera.position.x += 720.0f * input->GetFloat("cam_x") * GetFrameTime();
+    scene->mainCamera.position.y += 720.0f * input->GetFloat("cam_y") * GetFrameTime();
+
+    auto mousePos = GetMousePosition();
+    SetMousePosition(
+        mousePos.x + (480.0f * input->GetFloat("cur_x") * GetFrameTime()),
+        mousePos.y + (480.0f * input->GetFloat("cur_y") * GetFrameTime())
+    );
 
     scene->mainCamera.size = Vector2Subtract(scene->mainCamera.size, Vector2Multiply({32.0f, 18.0f}, {GetMouseWheelMove(), GetMouseWheelMove()}));
 }
