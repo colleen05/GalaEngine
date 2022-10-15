@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <algorithm>
 
 namespace GalaEngine {
     struct Input {
@@ -28,7 +29,7 @@ namespace GalaEngine {
             // Variables
             std::map<std::string, Input> binds;
 
-            // Binds
+            // State-getting
             static bool IsPressed   (Input input, int device = 0);
             static bool IsDown      (Input input, int device = 0);
             static bool IsReleased  (Input input, int device = 0);
@@ -43,6 +44,15 @@ namespace GalaEngine {
 
             static Vector2 GetLeftJoystick  (int device = 0);
             static Vector2 GetRightJoystick (int device = 0);
+
+            // Binding
+            void BindInput          (std::string inputName, Input input);
+            void BindKeyboard       (std::string inputName, std::vector<KeyboardKey> keys, bool overwrite = true);
+            void BindMouse          (std::string inputName, std::vector<MouseButton> buttons, bool overwrite = true);
+            void BindGamepadButtons (std::string inputName, std::vector<GamepadButton> buttons, bool overwrite = true);
+            void BindGamepadAxis    (std::string inputName, GamepadAxis axis);
+
+            void ClearBinds (std::string inputName);
 
             // Constructors
             InputManager(std::map<std::string, Input> binds);
