@@ -29,6 +29,9 @@ void Demo_Scene::OnLoad() {
     input->BindGamepadAxis("cur_x", GAMEPAD_AXIS_LEFT_X);
     input->BindGamepadAxis("cur_y", GAMEPAD_AXIS_LEFT_Y);
 
+    input->BindGamepadAxis("zoom_in", GAMEPAD_AXIS_RIGHT_TRIGGER);
+    input->BindGamepadAxis("zoom_out", GAMEPAD_AXIS_LEFT_TRIGGER);
+
     // Load assets
     assets->LoadSound("sfx/chime", "./res/sounds/sfx_chime.ogg");
 
@@ -129,7 +132,21 @@ void Demo_Scene::OnUpdate() {
         mousePos.y + (480.0f * input->GetFloat("cur_y") * GetFrameTime())
     );
 
-    scene->mainCamera.size = Vector2Subtract(scene->mainCamera.size, Vector2Multiply({32.0f, 18.0f}, {GetMouseWheelMove(), GetMouseWheelMove()}));
+    auto zoomAmt = 0.0f;
+
+    if(std::abs(GetMouseWheelMove() - 0.0f) > __FLT_EPSILON__) {
+        zoomAmt = GetMouseWheelMove();
+    }else {
+        zoomAmt = (input->GetFloat("zoom_in") - input->GetFloat("zoom_out")) / 2.0f;
+    }
+
+    scene->mainCamera.size = Vector2Subtract(
+        scene->mainCamera.size,
+        Vector2Multiply(
+            Vector2 {32.0f, 18.0f},
+            Vector2 {zoomAmt, zoomAmt}
+        )
+    );
 }
 
 void Demo_Scene::OnUnload() {
