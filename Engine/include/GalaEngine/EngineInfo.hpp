@@ -12,9 +12,9 @@
 #define GALANEGINE_VERSION_PATCH 0
 
 // r = release, a = alpha, b = beta, d = in-development
-#define GALAENGINE_VERSION_RELEASE 'd'
+#define GALAENGINE_VERSION_RELEASE 'r'
 
-#define GALAENGINE_VERSION_STRING "0.1.0-d"
+#define GALAENGINE_VERSION_STRING "0.1.0-r"
 
 namespace GalaEngine {
     const char* GetEngineInfo();
