@@ -23,7 +23,7 @@ GalaEngine::Sprite *GalaEngine::AssetManager::GetSprite(std::string name) {
 
 // Loading
 Texture GalaEngine::AssetManager::LoadTexture(std::string name, std::string path) {
-    Texture tex = ::LoadTexture(path.c_str());
+    Texture tex = ::LoadTexture((pathLayout.base + "/" + pathLayout.textures + "/" + path).c_str());
 
     if(textures.count(name)) ::UnloadTexture(textures[name]);
     textures.insert_or_assign(name, tex);
@@ -32,7 +32,7 @@ Texture GalaEngine::AssetManager::LoadTexture(std::string name, std::string path
 }
 
 Sound GalaEngine::AssetManager::LoadSound(std::string name, std::string path) {
-    Sound snd = ::LoadSound(path.c_str());
+    Sound snd = ::LoadSound((pathLayout.base + "/" + pathLayout.sounds + "/" + path).c_str());
 
     if(sounds.count(name)) ::UnloadSound(sounds[name]);
     sounds.insert_or_assign(name, snd);
@@ -41,7 +41,7 @@ Sound GalaEngine::AssetManager::LoadSound(std::string name, std::string path) {
 }
 
 Font GalaEngine::AssetManager::LoadFont(std::string name, std::string path) {
-    Font fnt = ::LoadFont(path.c_str());
+    Font fnt = ::LoadFont((pathLayout.base + "/" + pathLayout.fonts + "/" + path).c_str());
 
     if(fonts.count(name)) ::UnloadFont(fonts[name]);
     fonts.insert_or_assign(name, fnt);
