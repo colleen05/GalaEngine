@@ -33,15 +33,15 @@ void Demo_Scene::OnLoad() {
     input->BindGamepadAxis("zoom_out", GAMEPAD_AXIS_LEFT_TRIGGER);
 
     // Load assets
-    assets->LoadSound("sfx/chime", "./res/sounds/sfx_chime.ogg");
+    assets->LoadSound("sfx/chime", "sfx_chime.ogg");
 
-    tex_bgSky = assets->LoadTexture("backgrounds/clouds", "./res/textures/bg_clouds.png");
-    tex_bgOverlay = assets->LoadTexture("backgrounds/clouds_overlay", "./res/textures/bg_clouds_overlay.png");
-    tex_cursor = assets->LoadTexture("curosr", "./res/textures/cursor.png");
+    tex_bgSky = assets->LoadTexture("backgrounds/clouds", "bg_clouds.png");
+    tex_bgOverlay = assets->LoadTexture("backgrounds/clouds_overlay", "bg_clouds_overlay.png");
+    tex_cursor = assets->LoadTexture("curosr", "cursor.png");
 
-    assets->LoadTexture("sprites/flower", "./res/textures/spr_flower.png");
+    assets->LoadTexture("sprites/flower", "spr_flower.png");
     
-    assets->LoadSprite("flower", "./res/sprites/flower.yml");
+    assets->LoadSprite("flower", "flower.yml");
 
     scene->mainCamera.position  = {0.0f, 0.0f};
     scene->mainCamera.size      = {1024.0f, 576.0f};
@@ -49,7 +49,7 @@ void Demo_Scene::OnLoad() {
     lay_background0 = scene->AddBackgroundLayer(tex_bgSky, C_BLACK);
     lay_background0->scrollSpeed = {32.0f, 12.0f};
 
-    ts_test.texture = assets->LoadTexture("tilesets/testtiles", "./res/textures/ts_testtiles.png");
+    ts_test.texture = assets->LoadTexture("tilesets/testtiles", "ts_testtiles.png");
     ts_test.tileSize = 64;
 
     std::vector<uint16_t> tiles = {
@@ -161,10 +161,10 @@ Demo_Scene::Demo_Scene() : Game(
         1024,
         576,
         GalaEngine::AssetPathLayout {
-            "./base/",
-            "./textures/",
-            "./sounds/",
-            "./fonts/"
+            "./res/",
+            "textures/",
+            "sounds/",
+            "fonts/"
         }
     }
 ) {}
