@@ -23,15 +23,10 @@ namespace GalaEngine {
         public:
             Surface surface;
 
-            // bool GetKeyDown(KeyboardKey key);
-            // bool GetKeyPressed(KeyboardKey key);
-            // bool GetKeyReleased(KeyboardKey key);
-
             // Initialisation, drawing, and destruction
             void Init();
-            // void UpdateInput();
             void Render();
-            void Exit();
+            void Close();
 
             // Status getters
             bool ShouldClose();

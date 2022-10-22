@@ -36,7 +36,7 @@ void GalaEngine::Game::Start() {
     }
 
     OnUnload();
-    window->Exit();
+    window->Close();
 }
 
 void GalaEngine::Game::End() {
