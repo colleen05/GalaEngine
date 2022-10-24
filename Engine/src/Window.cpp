@@ -35,11 +35,40 @@ void GalaEngine::Window::Close() {
     surface.Destroy();
     CloseWindow();
     CloseAudioDevice();
+    
 }
 
-// Status getters
+// Getters
 bool GalaEngine::Window::ShouldClose() {
     return WindowShouldClose();
+}
+
+bool GalaEngine::Window::IsReady() {
+    return ::IsWindowReady();
+}
+
+bool GalaEngine::Window::IsFullscreen() {
+    return ::IsWindowFullscreen();
+}
+
+bool GalaEngine::Window::IsMinimised() {
+    return ::IsWindowMinimized();
+}
+
+bool GalaEngine::Window::IsMaximised() {
+    return ::IsWindowMaximized();
+}
+
+bool GalaEngine::Window::IsFocused() {
+    return ::IsWindowFocused();
+}
+
+float GalaEngine::Window::GetFPS() {
+    return (float)::GetFPS();
+}
+
+bool GalaEngine::Window::IsResized() {
+    return ::IsWindowResized();
 }
 
 int GalaEngine::Window::GetWidth() {
@@ -48,6 +77,104 @@ int GalaEngine::Window::GetWidth() {
 
 int GalaEngine::Window::GetHeight() {
     return GetScreenHeight();
+}
+
+Vector2 GalaEngine::Window::GetSize() {
+    return (Vector2) {
+        GetWidth(),
+        GetHeight()
+    };
+}
+
+Vector2 GalaEngine::Window::GetPosition() {
+    return GetWindowPosition();
+}
+
+int GalaEngine::Window::GetMonitorCount() {
+    return ::GetMonitorCount();
+}
+
+int GalaEngine::Window::GetCurrentMonitor() {
+    return ::GetCurrentMonitor();
+}
+
+int GalaEngine::Window::GetMonitorWidth(int monitor) {
+    return ::GetMonitorWidth(monitor >= 0 ? monitor : GetCurrentMonitor());
+}
+
+int GalaEngine::Window::GetMonitorHeight(int monitor) {
+    return ::GetMonitorHeight(monitor >= 0 ? monitor : GetCurrentMonitor());
+}
+
+Vector2 GalaEngine::Window::GetMonitorSize(int monitor) {
+    int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+
+    return (Vector2) {
+        ::GetMonitorWidth(m),
+        ::GetMonitorHeight(m)
+    };
+}
+
+float GalaEngine::Window::GetMonitorPhysicalWidth(int monitor) {
+    return ::GetMonitorPhysicalWidth(monitor >= 0 ? monitor : GetCurrentMonitor());
+}
+
+float GalaEngine::Window::GetMonitorPhysicalHeight(int monitor) {
+    return ::GetMonitorPhysicalHeight(monitor >= 0 ? monitor : GetCurrentMonitor());
+}
+
+Vector2 GalaEngine::Window::GetMonitorPhysicalSize(int monitor) {
+    int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+
+    return (Vector2) {
+        ::GetMonitorPhysicalWidth(m),
+        ::GetMonitorPhysicalHeight(m)
+    };
+}
+
+float GalaEngine::Window::GetMonitorRefreshRate(int monitor) {
+    return ::GetMonitorRefreshRate(monitor >= 0 ? monitor : GetCurrentMonitor());
+}
+
+std::string GalaEngine::Window::GetMonitorName(int monitor = -1) {
+    return std::string(::GetMonitorName(monitor >= 0 ? monitor : GetCurrentMonitor()));
+}
+
+// Setters
+void GalaEngine::Window::SetTitle(std::string title) {
+    SetWindowTitle(title.c_str());
+}
+
+void GalaEngine::Window::ToggleFullscreen() {
+    ::ToggleFullscreen();
+}
+
+void GalaEngine::Window::SetMinimised(bool minimised) {
+    if(minimised) ::MinimizeWindow();
+}
+
+void GalaEngine::Window::SetMaximised(bool maximised) {
+    if(maximised) ::MaximizeWindow();
+}
+
+void GalaEngine::Window::SetWidth(int width) {
+    ::SetWindowSize(width, GetHeight());
+}
+
+void GalaEngine::Window::SetHeight(int height) {
+    ::SetWindowSize(GetWidth(), height);
+}
+
+void GalaEngine::Window::SetSize(int width, int height) {
+    ::SetWindowSize(width, height);
+}
+
+void GalaEngine::Window::SetPosition(int x, int y) {
+    ::SetWindowPosition(x, y);
+}
+
+void GalaEngine::Window::SetTargetFPS(float fps) {
+    ::SetTargetFPS((int) fps);
 }
 
 // Constructors
