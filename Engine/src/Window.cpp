@@ -132,7 +132,7 @@ float GalaEngine::Window::GetMonitorPhysicalHeight(int monitor) {
 }
 
 Vector2 GalaEngine::Window::GetMonitorPhysicalSize(int monitor) {
-    int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+    const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return (Vector2) {
         (float) ::GetMonitorPhysicalWidth(m),
