@@ -15,11 +15,14 @@ Rectangle GalaEngine::Tileset::GetTileRect(int tileID) {
     return GetTileRect(tileID % tilesX, tileID / tilesX);
 }
 
-GalaEngine::Tileset::Tileset(Texture texture, int tileSize) {
+GalaEngine::Tileset::Tileset(Texture texture, int tileSize, std::vector<uint8_t> flags) {
     if(!texture.id) return;
 
     this->texture = texture;
     this->tileSize = tileSize;
+
+    if(flags.size() == 0) flags = std::vector<uint8_t>((texture.width / tileSize) * (texture.height / tileSize));
+    this->flags = flags;
 }
 
 GalaEngine::Tileset::Tileset() : Tileset({}, 16) { }
