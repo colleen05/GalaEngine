@@ -81,8 +81,8 @@ int GalaEngine::Window::GetHeight() {
 
 Vector2 GalaEngine::Window::GetSize() {
     return (Vector2) {
-        GetWidth(),
-        GetHeight()
+        (float) GetWidth(),
+        (float) GetHeight()
     };
 }
 
@@ -110,33 +110,33 @@ Vector2 GalaEngine::Window::GetMonitorSize(int monitor) {
     int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return (Vector2) {
-        ::GetMonitorWidth(m),
-        ::GetMonitorHeight(m)
+        (float) ::GetMonitorWidth(m),
+        (float) ::GetMonitorHeight(m)
     };
 }
 
 float GalaEngine::Window::GetMonitorPhysicalWidth(int monitor) {
-    return ::GetMonitorPhysicalWidth(monitor >= 0 ? monitor : GetCurrentMonitor());
+    return (float) ::GetMonitorPhysicalWidth(monitor >= 0 ? monitor : GetCurrentMonitor());
 }
 
 float GalaEngine::Window::GetMonitorPhysicalHeight(int monitor) {
-    return ::GetMonitorPhysicalHeight(monitor >= 0 ? monitor : GetCurrentMonitor());
+    return (float) ::GetMonitorPhysicalHeight(monitor >= 0 ? monitor : GetCurrentMonitor());
 }
 
 Vector2 GalaEngine::Window::GetMonitorPhysicalSize(int monitor) {
     int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return (Vector2) {
-        ::GetMonitorPhysicalWidth(m),
-        ::GetMonitorPhysicalHeight(m)
+        (float) ::GetMonitorPhysicalWidth(m),
+        (float) ::GetMonitorPhysicalHeight(m)
     };
 }
 
 float GalaEngine::Window::GetMonitorRefreshRate(int monitor) {
-    return ::GetMonitorRefreshRate(monitor >= 0 ? monitor : GetCurrentMonitor());
+    return (float) ::GetMonitorRefreshRate(monitor >= 0 ? monitor : GetCurrentMonitor());
 }
 
-std::string GalaEngine::Window::GetMonitorName(int monitor = -1) {
+std::string GalaEngine::Window::GetMonitorName(int monitor) {
     return std::string(::GetMonitorName(monitor >= 0 ? monitor : GetCurrentMonitor()));
 }
 
