@@ -179,13 +179,13 @@ void GalaEngine::Window::SetTargetFPS(float fps) {
 }
 
 // Constructors
-GalaEngine::Window::Window(std::string title, int width, int height, int targeFPS) {
+GalaEngine::Window::Window(std::string title, int width, int height, int targetFPS) {
     if(targetFPS < 0) targetFPS = 60; // Guard against negative target FPS.
 
     _title = title;
     _width = width;
     _height = height;
-    _targetFPS = targeFPS;
+    _targetFPS = targetFPS;
 }
 
 GalaEngine::Window::Window() : Window("Window", 640, 480) { }
