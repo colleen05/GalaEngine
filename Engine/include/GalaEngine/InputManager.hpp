@@ -54,6 +54,10 @@ namespace GalaEngine {
 
             void ClearBinds (std::string inputName);
 
+            // Mouse
+            Vector2 GetMouseDelta();
+            Vector2 GetMousePosition();
+
             // Constructors
             InputManager(std::map<std::string, Input> binds);
             InputManager();

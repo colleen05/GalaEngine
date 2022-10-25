@@ -207,6 +207,15 @@ void GalaEngine::InputManager::ClearBinds(std::string inputName) {
     if(binds.find(inputName) != binds.end()) binds.clear();
 }
 
+// Misc.
+Vector2 GalaEngine::InputManager::GetMouseDelta() {
+    return ::GetMouseDelta();
+}
+
+Vector2 GalaEngine::InputManager::GetMousePosition() {
+    return ::GetMousePosition();
+}
+
 // Constructors
 GalaEngine::InputManager::InputManager(std::map<std::string, Input> binds) {
     this->binds = binds;
