@@ -8,6 +8,7 @@
 #pragma once
 
 #include <GalaEngine/Sprite.hpp>
+#include <GalaEngine/Tileset.hpp>
 
 #include <raylib.h>
 #include <string>
@@ -31,6 +32,7 @@ namespace GalaEngine {
             std::map<std::string, Sound>    sounds;
             std::map<std::string, Font>     fonts;
             std::map<std::string, Sprite*>  sprites;
+            std::map<std::string, Tileset>  tilesets;
 
             // Getters
             Texture GetTexture  (std::string name);
