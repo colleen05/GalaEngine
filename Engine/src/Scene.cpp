@@ -5,6 +5,7 @@ uint32_t GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, std::string n
 
     entity->assets  = assets;
     entity->input   = input;
+    entity->window  = window;
 
     _entities.insert(std::pair<uint32_t, Entity*>(id, entity));
 

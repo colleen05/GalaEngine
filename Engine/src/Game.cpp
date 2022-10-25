@@ -12,6 +12,7 @@ void GalaEngine::Game::Start() {
     scene = new GalaEngine::Scene(&window->surface, _info.defaultWidth, _info.defaultHeight);
     scene->assets   = assets;
     scene->input    = input;
+    scene->window   = window;
 
     OnLoad();
 

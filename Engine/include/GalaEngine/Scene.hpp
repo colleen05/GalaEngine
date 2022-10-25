@@ -15,6 +15,7 @@
 #include <GalaEngine/Camera.hpp>
 #include <GalaEngine/AssetManager.hpp>
 #include <GalaEngine/InputManager.hpp>
+#include <GalaEngine/Window.hpp>
 #include <iostream>
 #include <map>
 #include <stdint.h>
@@ -38,6 +39,7 @@ namespace GalaEngine {
 
             GalaEngine::AssetManager *assets;
             GalaEngine::InputManager *input;
+            GalaEngine::Window       *window;
 
             // Entity & layers
             uint32_t    PushEntity  (Entity *entity, std::string name = "");
