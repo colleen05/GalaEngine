@@ -99,15 +99,19 @@ int GalaEngine::Window::GetCurrentMonitor() {
 }
 
 int GalaEngine::Window::GetMonitorWidth(int monitor) {
-    return ::GetMonitorWidth(monitor >= 0 ? monitor : GetCurrentMonitor());
+    const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+
+    return ::GetMonitorWidth(m);
 }
 
 int GalaEngine::Window::GetMonitorHeight(int monitor) {
-    return ::GetMonitorHeight(monitor >= 0 ? monitor : GetCurrentMonitor());
+    const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+
+    return ::GetMonitorHeight(m);
 }
 
 Vector2 GalaEngine::Window::GetMonitorSize(int monitor) {
-    int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+    const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return (Vector2) {
         (float) ::GetMonitorWidth(m),
@@ -116,11 +120,15 @@ Vector2 GalaEngine::Window::GetMonitorSize(int monitor) {
 }
 
 float GalaEngine::Window::GetMonitorPhysicalWidth(int monitor) {
-    return (float) ::GetMonitorPhysicalWidth(monitor >= 0 ? monitor : GetCurrentMonitor());
+    const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+
+    return (float) ::GetMonitorPhysicalWidth(m);
 }
 
 float GalaEngine::Window::GetMonitorPhysicalHeight(int monitor) {
-    return (float) ::GetMonitorPhysicalHeight(monitor >= 0 ? monitor : GetCurrentMonitor());
+    const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+
+    return (float) ::GetMonitorPhysicalHeight(m);
 }
 
 Vector2 GalaEngine::Window::GetMonitorPhysicalSize(int monitor) {
@@ -133,11 +141,15 @@ Vector2 GalaEngine::Window::GetMonitorPhysicalSize(int monitor) {
 }
 
 float GalaEngine::Window::GetMonitorRefreshRate(int monitor) {
-    return (float) ::GetMonitorRefreshRate(monitor >= 0 ? monitor : GetCurrentMonitor());
+    const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+
+    return (float) ::GetMonitorRefreshRate(m);
 }
 
 std::string GalaEngine::Window::GetMonitorName(int monitor) {
-    return std::string(::GetMonitorName(monitor >= 0 ? monitor : GetCurrentMonitor()));
+    const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
+
+    return std::string(::GetMonitorName(m));
 }
 
 // Setters
