@@ -245,8 +245,22 @@ void GalaEngine::Surface::DrawTexture(Texture texture, Rectangle src, Rectangle 
         texture,
         src,
         dest,
-        {0.0f, 0.0f},
+        Vector2 {0.0f, 0.0f},
         0.0f,
+        blendColour
+    );
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawTextureTiled(Texture texture, Rectangle src, Rectangle dest, Vector2 origin, float scale, float rotation, Colour blendColour) {
+    BeginTextureMode(this->renderTexture);
+    ::DrawTextureTiled(
+        texture,
+        src,
+        dest,
+        Vector2Multiply(origin, {scale, scale}),
+        rotation,
+        scale,
         blendColour
     );
     EndTextureMode();
@@ -273,6 +287,11 @@ void GalaEngine::Surface::DrawSprite(Sprite sprite, int frame, int x, int y, flo
     EndTextureMode();
 }
 
+void GalaEngine::Surface::Resize(int width, int height) {
+    UnloadRenderTexture(renderTexture);
+    renderTexture = LoadRenderTexture(width, height);
+}
+
 void GalaEngine::Surface::Clear(Colour colour) {
     BeginTextureMode(renderTexture);
     ClearBackground(colour);
@@ -280,9 +299,7 @@ void GalaEngine::Surface::Clear(Colour colour) {
 }
 
 void GalaEngine::Surface::Clear() {
-    BeginTextureMode(renderTexture);
-    ClearBackground(clearColour);
-    EndTextureMode();
+    Clear(clearColour);
 }
 
 Image GalaEngine::Surface::GetImage() {

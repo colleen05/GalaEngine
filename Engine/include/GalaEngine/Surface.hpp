@@ -65,6 +65,16 @@ namespace GalaEngine {
                 Colour blendColour = C_WHITE
             );
 
+            void DrawTextureTiled(
+                Texture texture,
+                Rectangle src,
+                Rectangle dest,
+                Vector2 origin = {0.0f, 0.0f},
+                float scale = 1.0f,
+                float rotation = 0.0f,
+                Colour blendColour = C_WHITE
+            );
+
             // Sprites
             void DrawSprite(
                 Sprite sprite, int frame,
@@ -75,6 +85,7 @@ namespace GalaEngine {
             );
 
             // Misc
+            void Resize(int width, int height);
             void Clear(Colour colour);
             void Clear();
             Image GetImage();
