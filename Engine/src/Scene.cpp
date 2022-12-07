@@ -62,7 +62,12 @@ void GalaEngine::Scene::Update() {
             (float) (GetMouseY()) / GetScreenHeight() * mainCamera.size.y + mainCamera.position.y
         };
 
-        ent->bbox = Rectangle {ent->position.x, ent->position.y, ent->bboxSize.x, ent->bboxSize.y};
+        ent->bbox = Rectangle {
+            ent->position.x,
+            ent->position.y,
+            ent->bboxSize.x,
+            ent->bboxSize.y
+        };
     }
 
     for(auto &p : _layers) {
@@ -82,8 +87,8 @@ void GalaEngine::Scene::RenderLayers() {
         DrawTexturePro(
             layerTexture,
             Rectangle {
-                mainCamera.position.x,
-                layerTexture.height - (mainCamera.size.y + mainCamera.position.y),
+                std::floor(mainCamera.position.x),
+                layerTexture.height - (mainCamera.size.y + std::floor(mainCamera.position.y)),
                 mainCamera.size.x,
                 -mainCamera.size.y
             },
