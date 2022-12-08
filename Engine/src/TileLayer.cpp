@@ -1,11 +1,22 @@
 #include <GalaEngine/TileLayer.hpp>
 
-void GalaEngine::TileLayer::OnStart() {
+int GalaEngine::TileLayer::GetTileIndex(int x, int y) {
+    int tx = (x / tileset.tileSize) % width;
+    int ty = (y / tileset.tileSize) % height;
+
+    return (ty * width) + tx;
+}
+
+uint16_t GalaEngine::TileLayer::GetTile(int x, int y) {
+    return tiles[GetTileIndex(x, y)];
+}
+
+void GalaEngine::TileLayer::Render() {
     // Initialise image for map render
     Image img = GenImageColor(
         width * tileset.tileSize,
         height * tileset.tileSize,
-        C_CLEAR
+        surface->clearColour
     );
 
     Image img_tiles = LoadImageFromTexture(tileset.texture);
@@ -33,6 +44,10 @@ void GalaEngine::TileLayer::OnStart() {
     UnloadImage(img_tiles);
 }
 
+void GalaEngine::TileLayer::OnStart() {
+    Render();
+}
+
 void GalaEngine::TileLayer::OnUpdate() {
     
 }
@@ -47,8 +62,9 @@ void GalaEngine::TileLayer::OnDestroy() {
 
 GalaEngine::TileLayer::TileLayer(
     Tileset tileset, std::vector<uint16_t> tiles,
-    int tilesX, int tilesY
-): Layer(tileset.tileSize * tilesX, tileset.tileSize * tilesY, C_CLEAR) {
+    int tilesX, int tilesY,
+    Colour clearColour
+): Layer(tileset.tileSize * tilesX, tileset.tileSize * tilesY, clearColour) {
     this->tileset = tileset;
     this->tiles = tiles;
     this->width = tilesX;

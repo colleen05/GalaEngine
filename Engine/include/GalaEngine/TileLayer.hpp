@@ -18,12 +18,17 @@ namespace GalaEngine {
             std::vector<uint16_t> tiles;
             Texture texture;
 
+            int GetTileIndex(int x, int y);
+            uint16_t GetTile(int x, int y);
+
+            void Render();
+
             void OnStart();
             void OnUpdate();
             void OnDraw(GalaEngine::Camera camera);
             void OnDestroy();
 
-            TileLayer(Tileset tileset, std::vector<uint16_t> tiles, int tilesX, int tilesY);
+            TileLayer(Tileset tileset, std::vector<uint16_t> tiles, int tilesX, int tilesY, Colour clearColour = C_BLACK);
             TileLayer();
     };
 }
