@@ -18,12 +18,12 @@ namespace GalaEngine {
             Texture texture;
             int tileSize;
             
-            std::vector<uint8_t> flags;
+            std::vector<uint16_t> flags;
 
             Rectangle GetTileRect(int tileX, int tileY);
             Rectangle GetTileRect(int tileID);
 
-            Tileset(Texture texture, int tileSize, std::vector<uint8_t> flags = {});
+            Tileset(Texture texture, int tileSize, std::vector<uint16_t> flags = {});
             Tileset();
     };
 }

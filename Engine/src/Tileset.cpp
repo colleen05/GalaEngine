@@ -15,7 +15,7 @@ Rectangle GalaEngine::Tileset::GetTileRect(int tileID) {
     return GetTileRect(tileID % tilesX, tileID / tilesX);
 }
 
-GalaEngine::Tileset::Tileset(Texture texture, int tileSize, std::vector<uint8_t> flags) {
+GalaEngine::Tileset::Tileset(Texture texture, int tileSize, std::vector<uint16_t> flags) {
     if(!texture.id) return;
 
     this->texture = texture;
