@@ -11,6 +11,7 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 namespace GalaEngine {
     class Tileset {
@@ -22,6 +23,9 @@ namespace GalaEngine {
 
             Rectangle GetTileRect(int tileX, int tileY);
             Rectangle GetTileRect(int tileID);
+
+            uint16_t GetTileFlags(int tileX, int tileY);
+            uint16_t GetTileFlags(int tileID);
 
             Tileset(Texture texture, int tileSize, std::vector<uint16_t> flags = {});
             Tileset();

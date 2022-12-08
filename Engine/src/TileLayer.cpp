@@ -11,6 +11,10 @@ uint16_t GalaEngine::TileLayer::GetTile(int x, int y) {
     return tiles[GetTileIndex(x, y)];
 }
 
+uint16_t GalaEngine::TileLayer::GetTileFlags(int x, int y) {
+    return tileset.GetTileFlags(GetTileIndex(x, y));
+}
+
 void GalaEngine::TileLayer::Render() {
     // Initialise image for map render
     Image img = GenImageColor(

@@ -19,7 +19,9 @@ namespace GalaEngine {
             Texture texture;
 
             int GetTileIndex(int x, int y);
+
             uint16_t GetTile(int x, int y);
+            uint16_t GetTileFlags(int x, int y);
 
             void Render();
 
