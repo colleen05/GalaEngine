@@ -21,7 +21,7 @@ GalaEngine::Tileset::Tileset(Texture texture, int tileSize, std::vector<uint8_t>
     this->texture = texture;
     this->tileSize = tileSize;
 
-    if(flags.size() == 0) flags = std::vector<uint8_t>((texture.width / tileSize) * (texture.height / tileSize));
+    flags.resize((texture.width / tileSize) * (texture.height / tileSize), 0);
     this->flags = flags;
 }
 
