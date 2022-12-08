@@ -43,7 +43,7 @@ GalaEngine::EntityLayer *GalaEngine::Scene::AddEntityLayer(Colour clearColour, i
 }
 
 GalaEngine::TileLayer *GalaEngine::Scene::AddTileLayer(Tileset tileset, std::vector<uint16_t> tiles, int width, int height, Colour clearColour, int position){
-    auto layer = new GalaEngine::TileLayer(tileset, tiles, width, height);
+    auto layer = new GalaEngine::TileLayer(tileset, tiles, width, height, clearColour);
     PushLayer(layer, position);
     return layer;
 }
