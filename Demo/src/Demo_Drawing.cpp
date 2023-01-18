@@ -183,6 +183,12 @@ Demo_Drawing::Demo_Drawing() : Game(
 
         1280, 720,
 
-        "./res/"
+        GalaEngine::AssetPathLayout {
+            "./resources/",
+            "textures/",
+            "sprites/"
+            "sounds/",
+            "fonts/"
+        }
     }
 ) {}
