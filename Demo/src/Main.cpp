@@ -39,6 +39,11 @@ int main(int argc, char **argv) {
             DemoProfile {
                 "Scene",
                 "Demonstrates scene layers and entities."}
+        },
+        {"tiles",
+            DemoProfile {
+                "Tiles",
+                "Demonstrates tileset and tilemap features."}
         }
     };
 
@@ -128,6 +133,8 @@ int main(int argc, char **argv) {
                 game = new Demo_Drawing();
             }else if(currentProfile == "scene") {
                 game = new Demo_Scene();
+            }else if(currentProfile == "tiles") {
+                game = new Demo_Tiles();
             }
         }
 
