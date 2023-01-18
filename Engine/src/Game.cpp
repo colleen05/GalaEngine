@@ -60,9 +60,10 @@ GalaEngine::Game::Game() : Game(
         480,
         AssetPathLayout {
             "./base/",
-            "./textures/",
-            "./sounds/",
-            "./fonts/"
+            "textures/",
+            "sprites",
+            "sounds/",
+            "fonts/"
         }
     }
 ) { }
