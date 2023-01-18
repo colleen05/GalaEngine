@@ -18,7 +18,7 @@ Font GalaEngine::AssetManager::GetFont(std::string name) {
 
 GalaEngine::Sprite *GalaEngine::AssetManager::GetSprite(std::string name) {
     if(sprites.count(name)) return sprites[name];
-    return nullptr;
+    return LoadSprite(name, name + ".gres");
 }
 
 // Loading
@@ -50,9 +50,9 @@ Font GalaEngine::AssetManager::LoadFont(std::string name, std::string path) {
 }
 
 GalaEngine::Sprite *GalaEngine::AssetManager::LoadSprite(std::string name, std::string path) {
-    // TODO: Load sprite from YML file.
+    // TODO: Load sprite from GRES file.
     Sprite *sprite = new Sprite {
-        textures["sprites/" + name],
+        LoadTexture("$res:sprites/" + name, "spr_" + name + ".png"),
         {0, 0},
         {{0, 0, 64, 64}}
     };
@@ -88,7 +88,7 @@ void GalaEngine::AssetManager::UnloadFont(std::string name) {
 void GalaEngine::AssetManager::UnloadSprite(std::string name, bool unloadTexture) {
     if(!sprites.count(name)) return;
 
-    if(unloadTexture) UnloadTexture("sprites/" + name);
+    if(unloadTexture) UnloadTexture("$res:sprites/" + name);
     delete sprites[name];
     sprites.erase(name);
 }

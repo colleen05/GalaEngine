@@ -18,6 +18,7 @@ namespace GalaEngine {
     struct AssetPathLayout {
         std::string base,
                     textures,
+                    sprites,
                     sounds,
                     fonts;
     };
@@ -44,7 +45,7 @@ namespace GalaEngine {
             Texture LoadTexture (std::string name, std::string path);
             Sound   LoadSound   (std::string name, std::string path);
             Font    LoadFont    (std::string name, std::string path);
-            Sprite *LoadSprite  (std::string name, std::string path);
+            Sprite  *LoadSprite (std::string name, std::string path);
 
             // Unloading
             void UnloadTexture  (std::string name);
@@ -63,6 +64,7 @@ namespace GalaEngine {
             AssetManager(AssetPathLayout pathLayout = {
                 "./base/",
                 "./textures/",
+                "./sprites/",
                 "./sounds/",
                 "./fonts/"
             });
