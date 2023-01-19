@@ -54,14 +54,15 @@ GalaEngine::Game::Game(GameInfo info) {
 GalaEngine::Game::Game() : Game(
     GameInfo {
         "GalaEngine Game",
-        "GalaEngine Game",
+        "Made with GalaEngine.",
         "",
         640,
         480,
         AssetPathLayout {
-            "./base/",
+            "./resources/",
             "textures/",
             "sprites",
+            "tilesets/",
             "sounds/",
             "fonts/"
         }

@@ -161,7 +161,8 @@ Demo_Scene::Demo_Scene() : Game(
         GalaEngine::AssetPathLayout {
             "./resources/",
             "textures/",
-            "sprites/"
+            "sprites/",
+            "tilesets/",
             "sounds/",
             "fonts/"
         }

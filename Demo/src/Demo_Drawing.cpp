@@ -186,7 +186,8 @@ Demo_Drawing::Demo_Drawing() : Game(
         GalaEngine::AssetPathLayout {
             "./resources/",
             "textures/",
-            "sprites/"
+            "sprites/",
+            "tilesets/",
             "sounds/",
             "fonts/"
         }

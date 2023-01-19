@@ -24,7 +24,8 @@ Demo_Tiles::Demo_Tiles() : Game(
         GalaEngine::AssetPathLayout {
             "./resources/",
             "textures/",
-            "sprites/"
+            "sprites/",
+            "tilesets/",
             "sounds/",
             "fonts/"
         }
