@@ -9,10 +9,13 @@
 
 #include <GalaEngine/Sprite.hpp>
 #include <GalaEngine/Tileset.hpp>
+#include <GalaEngine/Colour.hpp>
+#include <GalaEngine/Data.hpp>
 
 #include <raylib.h>
 #include <string>
 #include <map>
+#include <iostream>
 
 namespace GalaEngine {
     struct AssetPathLayout {

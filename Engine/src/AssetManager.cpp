@@ -25,6 +25,11 @@ Font GalaEngine::AssetManager::GetFont(std::string name) {
 Texture GalaEngine::AssetManager::LoadTexture(std::string name, std::string path) {
     Texture tex = ::LoadTexture((pathLayout.base + "/" + pathLayout.textures + "/" + path).c_str());
 
+    if(tex.id == 0) {
+        ::UnloadTexture(tex);
+        tex = LoadTextureFromImage(Data::MissingTextureImg);
+    }
+
     if(textures.count(name)) ::UnloadTexture(textures[name]);
     textures.insert_or_assign(name, tex);
 
