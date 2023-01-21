@@ -11,12 +11,14 @@ Rectangle GalaEngine::Tileset::GetTileRect(int tileX, int tileY) {
 
 Rectangle GalaEngine::Tileset::GetTileRect(int tileID) {
     int tilesX = texture.width / tileSize;
+    tilesX = (tilesX > 0) ? tilesX : 1;
 
     return GetTileRect(tileID % tilesX, tileID / tilesX);
 }
 
 uint16_t GalaEngine::Tileset::GetTileFlags(int tileX, int tileY) {
     int tilesX = texture.width / tileSize;
+    tilesX = (tilesX > 0) ? tilesX : 1;
 
     return GetTileFlags((tileY * tilesX) + tileX);
 }
@@ -31,7 +33,7 @@ GalaEngine::Tileset::Tileset(Texture texture, int tileSize, std::vector<uint16_t
     if(!texture.id) return;
 
     this->texture = texture;
-    this->tileSize = tileSize;
+    this->tileSize = (tileSize >= 1 ? tileSize : 1);
 
     flags.resize((texture.width / tileSize) * (texture.height / tileSize), 0);
     this->flags = flags;
