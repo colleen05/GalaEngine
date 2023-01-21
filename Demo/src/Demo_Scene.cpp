@@ -35,11 +35,11 @@ void Demo_Scene::OnLoad() {
 
 
     // Load assets
-    assets->LoadSound("sfx/chime", "sfx_chime.ogg");
+    assets->LoadSound("sfx_chime");
 
-    tex_bgSky = assets->LoadTexture("backgrounds/clouds", "bg_clouds.png");
-    tex_bgOverlay = assets->LoadTexture("backgrounds/clouds_overlay", "bg_clouds_overlay.png");
-    tex_cursor = assets->LoadTexture("curosr", "cursor.png");
+    tex_bgSky = assets->LoadTexture("bg_clouds");
+    tex_bgOverlay = assets->LoadTexture("bg_clouds_overlay");
+    tex_cursor = assets->LoadTexture("cursor");
 
     scene->mainCamera.position  = {0.0f, 0.0f};
     scene->mainCamera.size      = {1024.0f, 576.0f};
@@ -47,7 +47,7 @@ void Demo_Scene::OnLoad() {
     lay_background0 = scene->AddBackgroundLayer(tex_bgSky, C_BLACK);
     lay_background0->scrollSpeed = {32.0f, 12.0f};
 
-    ts_test.texture = assets->LoadTexture("tilesets/testtiles", "ts_testtiles.png");
+    ts_test.texture = assets->LoadTexture("ts_testtiles");
     ts_test.tileSize = 64;
 
     std::vector<uint16_t> tiles = {
