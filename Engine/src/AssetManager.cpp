@@ -8,7 +8,7 @@ Texture GalaEngine::AssetManager::GetTexture(std::string name) {
 
 GalaEngine::Sprite *GalaEngine::AssetManager::GetSprite(std::string name) {
     if(sprites.count(name)) return sprites[name];
-    return LoadSprite(name, name + ".gres");
+    return LoadSprite(name);
 }
 
 Sound GalaEngine::AssetManager::GetSound(std::string name) {
@@ -22,8 +22,8 @@ Font GalaEngine::AssetManager::GetFont(std::string name) {
 }
 
 // Loading
-Texture GalaEngine::AssetManager::LoadTexture(std::string name, std::string path) {
-    Texture tex = ::LoadTexture((pathLayout.base + "/" + pathLayout.textures + "/" + path).c_str());
+Texture GalaEngine::AssetManager::LoadTexture(std::string name) {
+    Texture tex = Gres::LoadTexture(pathLayout.base + "/" + pathLayout.textures + "/" + name + ".gres");
 
     if(tex.id == 0) {
         ::UnloadTexture(tex);
@@ -36,10 +36,10 @@ Texture GalaEngine::AssetManager::LoadTexture(std::string name, std::string path
     return tex;
 }
 
-GalaEngine::Sprite *GalaEngine::AssetManager::LoadSprite(std::string name, std::string path) {
+GalaEngine::Sprite *GalaEngine::AssetManager::LoadSprite(std::string name) {
     // TODO: Load sprite from GRES file.
     Sprite *sprite = new Sprite {
-        LoadTexture("$res:sprites/" + name, "spr_" + name + ".png"),
+        LoadTexture(name),
         {0, 0},
         {{0, 0, 64, 64}}
     };
@@ -50,8 +50,8 @@ GalaEngine::Sprite *GalaEngine::AssetManager::LoadSprite(std::string name, std::
     return sprite;
 }
 
-Sound GalaEngine::AssetManager::LoadSound(std::string name, std::string path) {
-    Sound snd = ::LoadSound((pathLayout.base + "/" + pathLayout.sounds + "/" + path).c_str());
+Sound GalaEngine::AssetManager::LoadSound(std::string name) {
+    Sound snd = Gres::LoadSound(pathLayout.base + "/" + pathLayout.sounds + "/" + name + ".gres");
 
     if(sounds.count(name)) ::UnloadSound(sounds[name]);
     sounds.insert_or_assign(name, snd);
@@ -59,8 +59,8 @@ Sound GalaEngine::AssetManager::LoadSound(std::string name, std::string path) {
     return snd;
 }
 
-Font GalaEngine::AssetManager::LoadFont(std::string name, std::string path) {
-    Font fnt = ::LoadFont((pathLayout.base + "/" + pathLayout.fonts + "/" + path).c_str());
+Font GalaEngine::AssetManager::LoadFont(std::string name) {
+    Font fnt = Gres::LoadFont(pathLayout.base + "/" + pathLayout.fonts + "/" + name + ".gres");
 
     if(fonts.count(name)) ::UnloadFont(fonts[name]);
     fonts.insert_or_assign(name, fnt);

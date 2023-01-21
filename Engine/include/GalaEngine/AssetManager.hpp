@@ -11,6 +11,7 @@
 #include <GalaEngine/Tileset.hpp>
 #include <GalaEngine/Colour.hpp>
 #include <GalaEngine/Data.hpp>
+#include <GalaEngine/Gres.hpp>
 
 #include <raylib.h>
 #include <string>
@@ -46,10 +47,10 @@ namespace GalaEngine {
             Font    GetFont     (std::string name);
 
             // Loading
-            Texture LoadTexture (std::string name, std::string path);
-            Sprite  *LoadSprite (std::string name, std::string path);
-            Sound   LoadSound   (std::string name, std::string path);
-            Font    LoadFont    (std::string name, std::string path);
+            Texture LoadTexture (std::string name);
+            Sprite  *LoadSprite (std::string name);
+            Sound   LoadSound   (std::string name);
+            Font    LoadFont    (std::string name);
 
             // Unloading
             void UnloadTexture  (std::string name);
