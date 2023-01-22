@@ -35,8 +35,6 @@ void Demo_Scene::OnLoad() {
 
 
     // Load assets
-    assets->LoadSound("sfx_chime");
-
     tex_bgSky = assets->LoadTexture("bg_clouds");
     tex_bgOverlay = assets->LoadTexture("bg_clouds_overlay");
     tex_cursor = assets->LoadTexture("cursor");
