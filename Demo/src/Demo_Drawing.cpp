@@ -1,20 +1,9 @@
 #include <Demo_Drawing.hpp>
 
 void Demo_Drawing::OnLoad() {
-    tex_sprite = LoadTexture("./res/tex/spr_test.png");
-    tex_colourX = LoadTexture("./res/tex/tex_colourX.png");
+    tex_colourX = assets->LoadTexture("tex_colourX");
 
-    spr_test = GalaEngine::Sprite {
-        tex_sprite,
-        {0.0f, 0.0f},
-        std::vector<Rectangle> {
-            {0.0f, 0.0f,    64.0f, 64.0f},
-            {64.0f, 0.0f,   64.0f, 64.0f},
-            {0.0f, 64.0f,   64.0f, 64.0f},
-            {64.0f, 64.0f,  64.0f, 64.0f},
-            {32.0f, 32.0f,  64.0f, 64.0f}
-        }
-    };
+    spr_test = assets->LoadSprite("spr_test");
 }
 
 void Demo_Drawing::OnDraw() {
@@ -35,7 +24,7 @@ void Demo_Drawing::OnDraw() {
         rec_x, 32,
         spr_scalex, spr_scaley,
         spr_rot,
-        Vector2Multiply(spr_test.origin, {2.0f, 2.0f})
+        Vector2Multiply(spr_test->origin, {2.0f, 2.0f})
     );
 
     // Elipse tests
@@ -89,10 +78,10 @@ void Demo_Drawing::OnDraw() {
     window->surface.DrawCircle(circ_x, circ_y, circ_r, Colours::DarkGoldenrod, Colours::Yellow);
 
     // Sprite test & text tests
-    window->surface.DrawSprite(spr_test, id_frame, spr_x, spr_y, spr_scalex, spr_scaley, spr_rot);
+    window->surface.DrawSprite(*spr_test, id_frame, spr_x, spr_y, spr_scalex, spr_scaley, spr_rot);
     
     window->surface.DrawText("Frame: " + std::to_string(id_frame), 640, 8 + 20 * 0, 20, C_GALAWHITE);
-    window->surface.DrawText("Origin: " + std::to_string(spr_test.origin.x) + ", " + std::to_string(spr_test.origin.y), 640, 8 + 20 * 1, 20, C_GALAWHITE);
+    window->surface.DrawText("Origin: " + std::to_string(spr_test->origin.x) + ", " + std::to_string(spr_test->origin.y), 640, 8 + 20 * 1, 20, C_GALAWHITE);
     window->surface.DrawText("FPS: " + std::to_string(1.0f / GetFrameTime()), 8.0f, 8.0f, 20);
 }
 
@@ -141,9 +130,9 @@ void Demo_Drawing::OnUpdate() {
 
     // Origin
     if(IsKeyPressed(KEY_Z)) {
-        spr_test.origin = {0.0f, 0.0f};
+        spr_test->origin = {0.0f, 0.0f};
     }else if(IsKeyPressed(KEY_X)) {
-        spr_test.origin = {32.0f, 32.0f};
+        spr_test->origin = {32.0f, 32.0f};
     }
 
     // Scale
@@ -171,7 +160,6 @@ void Demo_Drawing::OnUpdate() {
 }
 
 void Demo_Drawing::OnUnload() {
-    UnloadTexture(tex_sprite);
     UnloadTexture(tex_colourX);
 }
 
