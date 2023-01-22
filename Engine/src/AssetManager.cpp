@@ -37,12 +37,7 @@ Texture GalaEngine::AssetManager::LoadTexture(std::string name) {
 }
 
 GalaEngine::Sprite *GalaEngine::AssetManager::LoadSprite(std::string name) {
-    // TODO: Load sprite from GRES file.
-    Sprite *sprite = new Sprite {
-        LoadTexture(name),
-        {0, 0},
-        {{0, 0, 64, 64}}
-    };
+    Sprite *sprite = new Sprite(Gres::LoadSprite(pathLayout.base + "/" + pathLayout.sprites + "/" + name + ".gres"));
 
     if(sprites.count(name)) UnloadSprite(name);
     sprites.insert_or_assign(name, sprite);
