@@ -3,7 +3,7 @@
 // Getters
 Texture GalaEngine::AssetManager::GetTexture(std::string name) {
     if(textures.count(name)) return textures[name];
-    return Texture {0};
+    return LoadTexture(name);
 }
 
 GalaEngine::Sprite *GalaEngine::AssetManager::GetSprite(std::string name) {
@@ -13,12 +13,12 @@ GalaEngine::Sprite *GalaEngine::AssetManager::GetSprite(std::string name) {
 
 Sound GalaEngine::AssetManager::GetSound(std::string name) {
     if(sounds.count(name)) return sounds[name];
-    return Sound {0};
+    return LoadSound(name);
 }
 
 Font GalaEngine::AssetManager::GetFont(std::string name) {
     if(fonts.count(name)) return fonts[name];
-    return Font {0};
+    return LoadFont(name);
 }
 
 // Loading
