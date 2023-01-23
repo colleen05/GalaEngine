@@ -39,14 +39,13 @@ void Demo_Scene::OnLoad() {
     tex_bgOverlay = assets->LoadTexture("bg_clouds_overlay");
     tex_cursor = assets->LoadTexture("cursor");
 
+    ts_test = assets->GetTileset("ts_testtiles");
+
     scene->mainCamera.position  = {0.0f, 0.0f};
     scene->mainCamera.size      = {1024.0f, 576.0f};
 
     lay_background0 = scene->AddBackgroundLayer(tex_bgSky, C_BLACK);
     lay_background0->scrollSpeed = {32.0f, 12.0f};
-
-    ts_test.texture = assets->LoadTexture("ts_testtiles");
-    ts_test.tileSize = 64;
 
     std::vector<uint16_t> tiles = {
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x61, 0x21, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
