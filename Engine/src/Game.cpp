@@ -45,7 +45,7 @@ void GalaEngine::Game::End() {
     _shouldEnd = true;
 }
 
-GalaEngine::Game::Game(GameInfo info) {
+GalaEngine::Game::Game(const GameInfo info) {
     _info = info;
     window  = new GalaEngine::Window(_info.title, _info.defaultWidth, _info.defaultHeight);
     assets  = new GalaEngine::AssetManager(info.assetPaths);

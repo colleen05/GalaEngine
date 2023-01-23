@@ -2,14 +2,14 @@
 
 void GalaEngine::Layer::OnStart     () {}
 void GalaEngine::Layer::OnUpdate    () {}
-void GalaEngine::Layer::OnDraw      (GalaEngine::Camera camera) {}
+void GalaEngine::Layer::OnDraw      (const GalaEngine::Camera &camera) {}
 void GalaEngine::Layer::OnDestroy   () {}
 
-GalaEngine::Layer::Layer(Surface *surface) {
+GalaEngine::Layer::Layer(const Surface *surface) {
     surface = surface;
 }
 
-GalaEngine::Layer::Layer(int width, int height, Colour clearColour) {
+GalaEngine::Layer::Layer(const int width, const int height, const Colour clearColour) {
     surface = new Surface(width, height, clearColour);
     OnStart();
 }

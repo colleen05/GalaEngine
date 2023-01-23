@@ -1,7 +1,7 @@
 #include <GalaEngine/InputManager.hpp>
 
 // State-getting
-bool GalaEngine::InputManager::IsPressed(Input input, int device) {
+bool GalaEngine::InputManager::IsPressed(const Input &input, const int device) {
     for(auto &k : input.keys) {
         if(IsKeyPressed(k)) return true;
     }
@@ -19,7 +19,7 @@ bool GalaEngine::InputManager::IsPressed(Input input, int device) {
     return false;
 }
 
-bool GalaEngine::InputManager::IsDown(Input input, int device) {
+bool GalaEngine::InputManager::IsDown(const Input &input, const int device) {
     for(auto &k : input.keys) {
         if(IsKeyDown(k)) return true;
     }
@@ -37,7 +37,7 @@ bool GalaEngine::InputManager::IsDown(Input input, int device) {
     return false;
 }
 
-bool GalaEngine::InputManager::IsReleased(Input input, int device) {
+bool GalaEngine::InputManager::IsReleased(const Input &input, const int device) {
     for(auto &k : input.keys) {
         if(IsKeyReleased(k)) return true;
     }
@@ -55,7 +55,7 @@ bool GalaEngine::InputManager::IsReleased(Input input, int device) {
     return false;
 }
 
-bool GalaEngine::InputManager::IsPressed(std::string inputName, int device) {
+bool GalaEngine::InputManager::IsPressed(const std::string &inputName, const int device) {
     if(binds.find(inputName) != binds.end()) {
         return IsPressed(binds[inputName], device);
     }
@@ -63,7 +63,7 @@ bool GalaEngine::InputManager::IsPressed(std::string inputName, int device) {
     return false;
 }
 
-bool GalaEngine::InputManager::IsDown(std::string inputName, int device) {
+bool GalaEngine::InputManager::IsDown(const std::string &inputName, const int device) {
     if(binds.find(inputName) != binds.end()) {
         return IsDown(binds[inputName], device);
     }
@@ -71,7 +71,7 @@ bool GalaEngine::InputManager::IsDown(std::string inputName, int device) {
     return false;
 }
 
-bool GalaEngine::InputManager::IsReleased(std::string inputName, int device) {
+bool GalaEngine::InputManager::IsReleased(const std::string &inputName, const int device) {
     if(binds.find(inputName) != binds.end()) {
         return IsReleased(binds[inputName], device);
     }
@@ -80,14 +80,14 @@ bool GalaEngine::InputManager::IsReleased(std::string inputName, int device) {
 }
 
 // Joysticks
-float GalaEngine::InputManager::GetFloat(Input input, int device) {
+float GalaEngine::InputManager::GetFloat(const Input &input, const int device) {
     if(!input.hasAxis) return 0.0f;
     if(!IsGamepadAvailable(device)) return 0.0f;
 
     return GetGamepadAxisMovement(device, input.gamepadAxis);
 }
 
-float GalaEngine::InputManager::GetFloat(std::string inputName, int device) {
+float GalaEngine::InputManager::GetFloat(const std::string &inputName, const int device) {
     if(binds.find(inputName) != binds.end()) {
         return GetFloat(binds[inputName], device);
     }
@@ -95,7 +95,7 @@ float GalaEngine::InputManager::GetFloat(std::string inputName, int device) {
     return 0.0f;
 }
 
-Vector2 GalaEngine::InputManager::GetLeftJoystick(int device) {
+Vector2 GalaEngine::InputManager::GetLeftJoystick(const int device) {
     if(!IsGamepadAvailable(device)) return {0.0f, 0.0f};
 
     return Vector2 {
@@ -104,7 +104,7 @@ Vector2 GalaEngine::InputManager::GetLeftJoystick(int device) {
     };
 }
 
-Vector2 GalaEngine::InputManager::GetRightJoystick(int device) {
+Vector2 GalaEngine::InputManager::GetRightJoystick(const int device) {
     if(!IsGamepadAvailable(device)) return {0.0f, 0.0f};
 
     return Vector2 {
@@ -114,13 +114,13 @@ Vector2 GalaEngine::InputManager::GetRightJoystick(int device) {
 }
 
 // Binding
-void GalaEngine::InputManager::BindInput(std::string inputName, Input input) {
+void GalaEngine::InputManager::BindInput(const std::string &inputName, const Input &input) {
     if(binds.find(inputName) != binds.end()) {
         binds[inputName] = input;
     }
 }
 
-void GalaEngine::InputManager::BindKeyboard(std::string inputName, std::vector<KeyboardKey> keys, bool overwrite) {
+void GalaEngine::InputManager::BindKeyboard(const std::string &inputName, const std::vector<KeyboardKey> &keys, const bool overwrite) {
     if(binds.find(inputName) != binds.end()) {
         auto &bindKeys = binds[inputName].keys;
 
@@ -144,7 +144,7 @@ void GalaEngine::InputManager::BindKeyboard(std::string inputName, std::vector<K
     }
 }
 
-void GalaEngine::InputManager::BindMouse(std::string inputName, std::vector<MouseButton> buttons, bool overwrite) {
+void GalaEngine::InputManager::BindMouse(const std::string &inputName, const std::vector<MouseButton> &buttons, const bool overwrite) {
     if(binds.find(inputName) != binds.end()) {
         auto &bindButtons = binds[inputName].mouseButtons;
 
@@ -168,7 +168,7 @@ void GalaEngine::InputManager::BindMouse(std::string inputName, std::vector<Mous
     }
 }
 
-void GalaEngine::InputManager::BindGamepadButtons(std::string inputName, std::vector<GamepadButton> buttons, bool overwrite) {
+void GalaEngine::InputManager::BindGamepadButtons(const std::string &inputName, const std::vector<GamepadButton> &buttons, const bool overwrite) {
     if(binds.find(inputName) != binds.end()) {
         auto &bindButtons = binds[inputName].gamepadButtons;
 
@@ -192,7 +192,7 @@ void GalaEngine::InputManager::BindGamepadButtons(std::string inputName, std::ve
     }
 }
 
-void GalaEngine::InputManager::BindGamepadAxis(std::string inputName, GamepadAxis axis) {
+void GalaEngine::InputManager::BindGamepadAxis(const std::string &inputName, const GamepadAxis axis) {
     if(binds.find(inputName) != binds.end()) {
         binds[inputName].hasAxis = true;
         binds[inputName].gamepadAxis = axis;
@@ -203,7 +203,7 @@ void GalaEngine::InputManager::BindGamepadAxis(std::string inputName, GamepadAxi
     }
 }
 
-void GalaEngine::InputManager::ClearBinds(std::string inputName) {
+void GalaEngine::InputManager::ClearBinds(const std::string &inputName) {
     if(binds.find(inputName) != binds.end()) binds.clear();
 }
 

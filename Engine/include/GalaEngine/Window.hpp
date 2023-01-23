@@ -46,31 +46,31 @@ namespace GalaEngine {
             Vector2 GetPosition             ();
             int     GetMonitorCount         ();
             int     GetCurrentMonitor       ();
-            int     GetMonitorWidth         (int monitor = -1);
-            int     GetMonitorHeight        (int monitor = -1);
-            Vector2 GetMonitorSize          (int monitor = -1);
-            float   GetMonitorPhysicalWidth (int monitor = -1);
-            float   GetMonitorPhysicalHeight(int monitor = -1);
-            Vector2 GetMonitorPhysicalSize  (int monitor = -1);
-            float   GetMonitorRefreshRate   (int monitor = -1);
+            int     GetMonitorWidth         (const int monitor = -1);
+            int     GetMonitorHeight        (const int monitor = -1);
+            Vector2 GetMonitorSize          (const int monitor = -1);
+            float   GetMonitorPhysicalWidth (const int monitor = -1);
+            float   GetMonitorPhysicalHeight(const int monitor = -1);
+            Vector2 GetMonitorPhysicalSize  (const int monitor = -1);
+            float   GetMonitorRefreshRate   (const int monitor = -1);
 
-            std::string GetMonitorName(int monitor = -1);
+            std::string GetMonitorName(const int monitor = -1);
 
             // Setters
-            void SetTitle(std::string title);
+            void SetTitle(const std::string &title);
 
             void ToggleFullscreen   ();
-            void SetMinimised       (bool minimised);
-            void SetMaximised       (bool maximised);
+            void SetMinimised       (const bool minimised);
+            void SetMaximised       (const bool maximised);
 
-            void SetWidth       (int width);
-            void SetHeight      (int height);
-            void SetSize        (int width, int height);
-            void SetPosition    (int x, int y);
-            void SetTargetFPS   (float fps);
+            void SetWidth       (const int width);
+            void SetHeight      (const int height);
+            void SetSize        (const int width, const int height);
+            void SetPosition    (const int x, const int y);
+            void SetTargetFPS   (const float fps);
 
             // Constructors
-            Window(std::string title, int width, int height, int targetFPS = 60);
+            Window(const std::string &title, const int width, const int height, const int targetFPS = 60);
             Window();
     };
 }

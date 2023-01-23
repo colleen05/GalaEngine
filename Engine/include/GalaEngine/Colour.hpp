@@ -64,10 +64,28 @@ namespace GalaEngine {
 	struct Colour {
 		uint8_t r, g, b, a;
 
-		Colour Lerp(Colour colour, float t);
-		static Colour Lerp(Colour c1, Colour c2, float t);
+		constexpr inline
+		Colour Lerp(const Colour colour, const float t) {
+			return Colour {
+				static_cast<uint8_t>(static_cast<float>(r) + t * static_cast<float>(colour.r - r)),
+				static_cast<uint8_t>(static_cast<float>(g) + t * static_cast<float>(colour.g - g)),
+				static_cast<uint8_t>(static_cast<float>(b) + t * static_cast<float>(colour.b - b)),
+				static_cast<uint8_t>(static_cast<float>(a) + t * static_cast<float>(colour.a - a))
+			};
+		}
 
-		Vector4 Normalised();
+		static Colour Lerp(Colour c1, Colour c2, const float t);
+
+		constexpr inline
+		Vector4 Normalised() {
+			return Vector4 {
+				static_cast<float>(r) / 255.0f,
+				static_cast<float>(g) / 255.0f,
+				static_cast<float>(b) / 255.0f,
+				static_cast<float>(a) / 255.0f
+			};
+		}
+
 		static Vector4 Normalise(Colour colour);
 
 		constexpr operator Color() {

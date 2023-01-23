@@ -41,33 +41,33 @@ namespace GalaEngine {
             std::map<std::string, Font>     fonts;
 
             // Getters
-            Texture GetTexture  (std::string name);
-            Sprite  *GetSprite  (std::string name);
-            Tileset GetTileset  (std::string name);
-            Sound   GetSound    (std::string name);
-            Font    GetFont     (std::string name);
+            Texture GetTexture  (const std::string &name);
+            Sprite  *GetSprite  (const std::string &name);
+            Tileset GetTileset  (const std::string &name);
+            Sound   GetSound    (const std::string &name);
+            Font    GetFont     (const std::string &name);
 
             // Loading
-            Texture LoadTexture (std::string name);
-            Sprite  *LoadSprite (std::string name);
-            Tileset LoadTileset (std::string name);
-            Sound   LoadSound   (std::string name);
-            Font    LoadFont    (std::string name);
+            Texture LoadTexture (const std::string &name);
+            Sprite  *LoadSprite (const std::string &name);
+            Tileset LoadTileset (const std::string &name);
+            Sound   LoadSound   (const std::string &name);
+            Font    LoadFont    (const std::string &name);
 
             // Unloading
-            void UnloadTexture  (std::string name, bool erase = true);
-            void UnloadSprite   (std::string name, bool unloadTexture = true, bool erase = true);
-            void UnloadTileset  (std::string name, bool unloadTexture = true, bool erase = true);
-            void UnloadSound    (std::string name, bool erase = true);
-            void UnloadFont     (std::string name, bool erase = true);
+            void UnloadTexture  (const std::string &name, const bool erase = true);
+            void UnloadSprite   (const std::string &name, const bool unloadTexture = true, const bool erase = true);
+            void UnloadTileset  (const std::string &name, const bool unloadTexture = true, const bool erase = true);
+            void UnloadSound    (const std::string &name, const bool erase = true);
+            void UnloadFont     (const std::string &name, const bool erase = true);
 
             void UnloadAllTextures  ();
-            void UnloadAllSprites   (bool unloadTextures = true);
-            void UnloadAllTilesets  (bool unloadTextures = true);
+            void UnloadAllSprites   (const bool unloadTextures = true);
+            void UnloadAllTilesets  (const bool unloadTextures = true);
             void UnloadAllSounds    ();
             void UnloadAllFonts     ();
             
-            void UnloadAll(bool unloadAllTextures = true);
+            void UnloadAll(const bool unloadAllTextures = true);
 
             // Constructor
             AssetManager(AssetPathLayout pathLayout = {

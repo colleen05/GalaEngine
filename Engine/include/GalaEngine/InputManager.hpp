@@ -30,29 +30,29 @@ namespace GalaEngine {
             std::map<std::string, Input> binds;
 
             // State-getting
-            static bool IsPressed   (Input input, int device = 0);
-            static bool IsDown      (Input input, int device = 0);
-            static bool IsReleased  (Input input, int device = 0);
+            static bool IsPressed   (const Input &input, const int device = 0);
+            static bool IsDown      (const Input &input, const int device = 0);
+            static bool IsReleased  (const Input &input, const int device = 0);
 
-            bool        IsPressed   (std::string inputName, int device = 0);
-            bool        IsDown      (std::string inputName, int device = 0);
-            bool        IsReleased  (std::string inputName, int device = 0);
+            bool        IsPressed   (const std::string &inputName, const int device = 0);
+            bool        IsDown      (const std::string &inputName, const int device = 0);
+            bool        IsReleased  (const std::string &inputName, const int device = 0);
 
             // Joysticks
-            static float GetFloat   (Input input, int device = 0);
-            float        GetFloat   (std::string inputName, int device = 0);
+            static float GetFloat   (const Input &input, const int device = 0);
+            float        GetFloat   (const std::string &inputName, const int device = 0);
 
-            static Vector2 GetLeftJoystick  (int device = 0);
-            static Vector2 GetRightJoystick (int device = 0);
+            static Vector2 GetLeftJoystick  (const int device = 0);
+            static Vector2 GetRightJoystick (const int device = 0);
 
             // Binding
-            void BindInput          (std::string inputName, Input input);
-            void BindKeyboard       (std::string inputName, std::vector<KeyboardKey> keys, bool overwrite = true);
-            void BindMouse          (std::string inputName, std::vector<MouseButton> buttons, bool overwrite = true);
-            void BindGamepadButtons (std::string inputName, std::vector<GamepadButton> buttons, bool overwrite = true);
-            void BindGamepadAxis    (std::string inputName, GamepadAxis axis);
+            void BindInput          (const std::string &inputName, const Input &input);
+            void BindKeyboard       (const std::string &inputName, const std::vector<KeyboardKey> &keys, const bool overwrite = true);
+            void BindMouse          (const std::string &inputName, const std::vector<MouseButton> &buttons, const bool overwrite = true);
+            void BindGamepadButtons (const std::string &inputName, const std::vector<GamepadButton> &buttons, const bool overwrite = true);
+            void BindGamepadAxis    (const std::string &inputName, const GamepadAxis axis);
 
-            void ClearBinds (std::string inputName);
+            void ClearBinds (const std::string &inputName);
 
             // Mouse
             Vector2 GetMouseDelta();

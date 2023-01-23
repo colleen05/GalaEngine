@@ -14,16 +14,16 @@
 namespace GalaEngine {
     class Layer {
         public:
-            Surface *surface;
+            Surface *surface = nullptr;
             Colour blendColour = C_WHITE;
 
             virtual void OnStart();
             virtual void OnUpdate();
-            virtual void OnDraw(GalaEngine::Camera camera);
+            virtual void OnDraw(const GalaEngine::Camera &camera);
             virtual void OnDestroy();
 
-            Layer(Surface *surface);
-            Layer(int width, int height, Colour clearColour = C_BLACK);
+            Layer(const Surface *surface);
+            Layer(const int width, const int height, const Colour clearColour = C_BLACK);
             Layer();
             ~Layer();
     };

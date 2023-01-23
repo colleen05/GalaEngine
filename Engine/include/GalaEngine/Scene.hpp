@@ -44,23 +44,23 @@ namespace GalaEngine {
             GalaEngine::SoundManager *sound  = nullptr;
 
             // Entity & layers
-            uint32_t    PushEntity  (Entity *entity, std::string name = "");
-            Entity      *GetEntity  (std::string name);
-            void        PushLayer   (Layer *layer, int position = -1);
+            uint32_t    PushEntity  (Entity *entity, const std::string &name = "");
+            Entity      *GetEntity  (const std::string &name);
+            void        PushLayer   (Layer *layer, const int position = -1);
 
             // Add default layer types
-            BackgroundLayer *AddBackgroundLayer (Texture texture, Colour clearColour = C_CLEAR, int position = -1);
-            EntityLayer     *AddEntityLayer     (Colour clearColour = C_CLEAR, int position = -1);
-            TileLayer       *AddTileLayer       (Tileset tileset, std::vector<uint16_t> tiles, int width, int height, Colour clearColour = C_CLEAR, int position = -1);
+            BackgroundLayer *AddBackgroundLayer (const Texture texture, const Colour clearColour = C_CLEAR, const int position = -1);
+            EntityLayer     *AddEntityLayer     (const Colour clearColour = C_CLEAR, const int position = -1);
+            TileLayer       *AddTileLayer       (const Tileset &tileset, const std::vector<uint16_t> &tiles, const int width, const int height, const Colour clearColour = C_CLEAR, const int position = -1);
 
             // Utility
-            void    Resize          (int width, int height);
+            void    Resize          (const int width, const int height);
             Vector2 GetSize         ();
             void    Update          ();
             void    RenderLayers    ();
 
             // Constructors
-            Scene(Surface *targetSurface, int width = 640, int height = 480);
+            Scene(Surface *targetSurface, const int width = 640, const int height = 480);
             Scene();
     };
 }

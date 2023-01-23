@@ -19,10 +19,10 @@ namespace GalaEngine {
 
             void OnStart();
             void OnUpdate();
-            void OnDraw(GalaEngine::Camera camera);
+            void OnDraw(const GalaEngine::Camera &camera);
             void OnDestroy();
 
-            BackgroundLayer(int width, int height, Texture background, Colour clearColour = C_BLACK);
+            BackgroundLayer(const int width, const int height, const Texture background, const Colour clearColour = C_BLACK);
             BackgroundLayer();
     };
 }

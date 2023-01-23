@@ -1,6 +1,6 @@
 #include <GalaEngine/Scene.hpp>
 
-uint32_t GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, std::string name) {
+uint32_t GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, const std::string &name) {
     uint32_t id = _entities.size();
 
     entity->window  = window;
@@ -17,12 +17,12 @@ uint32_t GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, std::string n
     return id;
 }
 
-GalaEngine::Entity *GalaEngine::Scene::GetEntity(std::string name) {
+GalaEngine::Entity *GalaEngine::Scene::GetEntity(const std::string &name) {
     auto ent = _entityNames.find(name);
     return (ent != _entityNames.end()) ? _entities[(*ent).second] : nullptr;
 }
 
-void GalaEngine::Scene::PushLayer(Layer *layer, int position) {
+void GalaEngine::Scene::PushLayer(Layer *layer, const int position) {
     _layers.insert(std::pair<uint8_t, Layer*>(
         (position >= 0) ? position : _layers.size(),
         layer
@@ -31,25 +31,25 @@ void GalaEngine::Scene::PushLayer(Layer *layer, int position) {
     layer->OnStart();
 }
 
-GalaEngine::BackgroundLayer *GalaEngine::Scene::AddBackgroundLayer(Texture texture, Colour clearColour, int position) {
+GalaEngine::BackgroundLayer *GalaEngine::Scene::AddBackgroundLayer(const Texture texture, const Colour clearColour, const int position) {
     auto layer = new GalaEngine::BackgroundLayer(_width, _height, texture, clearColour);
     PushLayer(layer, position);
     return layer;
 }
 
-GalaEngine::EntityLayer *GalaEngine::Scene::AddEntityLayer(Colour clearColour, int position) {
+GalaEngine::EntityLayer *GalaEngine::Scene::AddEntityLayer(const Colour clearColour, const int position) {
     auto layer = new GalaEngine::EntityLayer(_width, _height, clearColour);
     PushLayer(layer, position);
     return layer;
 }
 
-GalaEngine::TileLayer *GalaEngine::Scene::AddTileLayer(Tileset tileset, std::vector<uint16_t> tiles, int width, int height, Colour clearColour, int position){
+GalaEngine::TileLayer *GalaEngine::Scene::AddTileLayer(const Tileset &tileset, const std::vector<uint16_t> &tiles, const int width, const int height, const Colour clearColour, const int position){
     auto layer = new GalaEngine::TileLayer(tileset, tiles, width, height, clearColour);
     PushLayer(layer, position);
     return layer;
 }
 
-void GalaEngine::Scene::Resize(int width, int height) {
+void GalaEngine::Scene::Resize(const int width, const int height) {
     _width = width;
     _height = height;
 }
@@ -107,7 +107,7 @@ void GalaEngine::Scene::RenderLayers() {
     }
 }
 
-GalaEngine::Scene::Scene(Surface *targetSurface, int width, int height) {
+GalaEngine::Scene::Scene(Surface *targetSurface, const int width, const int height) {
     this->targetSurface = targetSurface;
     this->_width        = width;
     this->_height       = height;

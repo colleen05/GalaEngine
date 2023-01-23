@@ -15,7 +15,7 @@ namespace GalaEngine {
             Vector2 position = {0.0f, 0.0f};
             Vector2 size = {640.0f, 480.0f};
 
-            Camera(int x, int y, int width, int height);
+            Camera(const int x, const int y, const int width, const int height);
             Camera();
     };
 }

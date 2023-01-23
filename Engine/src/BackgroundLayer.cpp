@@ -9,7 +9,7 @@ void GalaEngine::BackgroundLayer::OnUpdate() {
     offset.y += scrollSpeed.y * GetFrameTime();
 }
 
-void GalaEngine::BackgroundLayer::OnDraw(GalaEngine::Camera camera) {
+void GalaEngine::BackgroundLayer::OnDraw(const GalaEngine::Camera &camera) {
     surface->Clear();
     
     surface->DrawTexture(
@@ -32,8 +32,8 @@ void GalaEngine::BackgroundLayer::OnDestroy() {
 }
 
 GalaEngine::BackgroundLayer::BackgroundLayer(
-    int width, int height,
-    Texture background, Colour clearColour
+    const int width, const int height,
+    const Texture background, const Colour clearColour
 ) : Layer(width, height, clearColour) {
     this->background = background;
 }

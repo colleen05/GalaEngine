@@ -49,7 +49,7 @@ namespace GalaEngine {
             void Start();
             void End();
             
-            Game(GameInfo info);
+            Game(const GameInfo info);
             Game();
     };
 }

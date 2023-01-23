@@ -18,14 +18,14 @@ namespace GalaEngine {
 
         public:
             void AddEntity(GalaEngine::Entity *entity);
-            void RemoveEntity(GalaEngine::Entity *entity);
+            void RemoveEntity(const GalaEngine::Entity *entity);
 
             void OnStart();
             void OnUpdate();
-            void OnDraw(GalaEngine::Camera camera);
+            void OnDraw(const GalaEngine::Camera &camera);
             void OnDestroy();
 
-            EntityLayer(int width, int height, Colour clearColour);
+            EntityLayer(const int width, const int height, const Colour clearColour);
             EntityLayer();
     };
 }

@@ -1,17 +1,17 @@
 #include <GalaEngine/TileLayer.hpp>
 
-int GalaEngine::TileLayer::GetTileIndex(int x, int y) {
+int GalaEngine::TileLayer::GetTileIndex(const int x, const int y) {
     int tx = (x / tileset.tileSize) % width;
     int ty = (y / tileset.tileSize) % height;
 
     return (ty * width) + tx;
 }
 
-uint16_t GalaEngine::TileLayer::GetTile(int x, int y) {
+uint16_t GalaEngine::TileLayer::GetTile(const int x, const int y) {
     return tiles[GetTileIndex(x, y)];
 }
 
-uint16_t GalaEngine::TileLayer::GetTileFlags(int x, int y) {
+uint16_t GalaEngine::TileLayer::GetTileFlags(const int x, const int y) {
     return tileset.GetTileFlags(GetTileIndex(x, y));
 }
 
@@ -56,7 +56,7 @@ void GalaEngine::TileLayer::OnUpdate() {
     
 }
 
-void GalaEngine::TileLayer::OnDraw(GalaEngine::Camera camera) {
+void GalaEngine::TileLayer::OnDraw(const GalaEngine::Camera &camera) {
     surface->DrawTexture(texture, 0, 0);
 }
 
@@ -65,9 +65,9 @@ void GalaEngine::TileLayer::OnDestroy() {
 }
 
 GalaEngine::TileLayer::TileLayer(
-    Tileset tileset, std::vector<uint16_t> tiles,
-    int tilesX, int tilesY,
-    Colour clearColour
+    const Tileset &tileset, const std::vector<uint16_t> &tiles,
+    const int tilesX, const int tilesY,
+    const Colour clearColour
 ): Layer(tileset.tileSize * tilesX, tileset.tileSize * tilesY, clearColour) {
     this->tileset = tileset;
     this->tiles = tiles;

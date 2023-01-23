@@ -21,13 +21,13 @@ namespace GalaEngine {
             
             std::vector<uint16_t> flags;
 
-            Rectangle GetTileRect(int tileX, int tileY);
-            Rectangle GetTileRect(int tileID);
+            Rectangle GetTileRect(const int tileX, const int tileY);
+            Rectangle GetTileRect(const int tileID);
 
-            uint16_t GetTileFlags(int tileX, int tileY);
-            uint16_t GetTileFlags(int tileID);
+            uint16_t GetTileFlags(const int tileX, const int tileY);
+            uint16_t GetTileFlags(const int tileID);
 
-            Tileset(Texture texture, int tileSize, std::vector<uint16_t> flags = {});
+            Tileset(const Texture texture, const int tileSize, const std::vector<uint16_t> &flags = {});
             Tileset();
     };
 }

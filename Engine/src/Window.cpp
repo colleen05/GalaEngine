@@ -98,19 +98,19 @@ int GalaEngine::Window::GetCurrentMonitor() {
     return ::GetCurrentMonitor();
 }
 
-int GalaEngine::Window::GetMonitorWidth(int monitor) {
+int GalaEngine::Window::GetMonitorWidth(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return ::GetMonitorWidth(m);
 }
 
-int GalaEngine::Window::GetMonitorHeight(int monitor) {
+int GalaEngine::Window::GetMonitorHeight(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return ::GetMonitorHeight(m);
 }
 
-Vector2 GalaEngine::Window::GetMonitorSize(int monitor) {
+Vector2 GalaEngine::Window::GetMonitorSize(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return (Vector2) {
@@ -119,19 +119,19 @@ Vector2 GalaEngine::Window::GetMonitorSize(int monitor) {
     };
 }
 
-float GalaEngine::Window::GetMonitorPhysicalWidth(int monitor) {
+float GalaEngine::Window::GetMonitorPhysicalWidth(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return (float) ::GetMonitorPhysicalWidth(m);
 }
 
-float GalaEngine::Window::GetMonitorPhysicalHeight(int monitor) {
+float GalaEngine::Window::GetMonitorPhysicalHeight(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return (float) ::GetMonitorPhysicalHeight(m);
 }
 
-Vector2 GalaEngine::Window::GetMonitorPhysicalSize(int monitor) {
+Vector2 GalaEngine::Window::GetMonitorPhysicalSize(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return (Vector2) {
@@ -140,20 +140,20 @@ Vector2 GalaEngine::Window::GetMonitorPhysicalSize(int monitor) {
     };
 }
 
-float GalaEngine::Window::GetMonitorRefreshRate(int monitor) {
+float GalaEngine::Window::GetMonitorRefreshRate(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return (float) ::GetMonitorRefreshRate(m);
 }
 
-std::string GalaEngine::Window::GetMonitorName(int monitor) {
+std::string GalaEngine::Window::GetMonitorName(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
 
     return std::string(::GetMonitorName(m));
 }
 
 // Setters
-void GalaEngine::Window::SetTitle(std::string title) {
+void GalaEngine::Window::SetTitle(const std::string &title) {
     SetWindowTitle(title.c_str());
 }
 
@@ -161,43 +161,40 @@ void GalaEngine::Window::ToggleFullscreen() {
     ::ToggleFullscreen();
 }
 
-void GalaEngine::Window::SetMinimised(bool minimised) {
+void GalaEngine::Window::SetMinimised(const bool minimised) {
     if(minimised) ::MinimizeWindow();
 }
 
-void GalaEngine::Window::SetMaximised(bool maximised) {
+void GalaEngine::Window::SetMaximised(const bool maximised) {
     if(maximised) ::MaximizeWindow();
 }
 
-void GalaEngine::Window::SetWidth(int width) {
+void GalaEngine::Window::SetWidth(const int width) {
     ::SetWindowSize(width, GetHeight());
 }
 
-void GalaEngine::Window::SetHeight(int height) {
+void GalaEngine::Window::SetHeight(const int height) {
     ::SetWindowSize(GetWidth(), height);
 }
 
-void GalaEngine::Window::SetSize(int width, int height) {
+void GalaEngine::Window::SetSize(const int width, const int height) {
     ::SetWindowSize(width, height);
 }
 
-void GalaEngine::Window::SetPosition(int x, int y) {
+void GalaEngine::Window::SetPosition(const int x, const int y) {
     ::SetWindowPosition(x, y);
 }
 
-void GalaEngine::Window::SetTargetFPS(float fps) {
-    if(fps < 0) fps = 60; // Guard against negative target FPS.
-    ::SetTargetFPS((int) fps);
+void GalaEngine::Window::SetTargetFPS(const float fps) {
+    ::SetTargetFPS((int)(fps < 0 ? 60 : fps));
 }
 
 // Constructors
-GalaEngine::Window::Window(std::string title, int width, int height, int targetFPS) {
-    if(targetFPS < 0) targetFPS = 60; // Guard against negative target FPS.
-
+GalaEngine::Window::Window(const std::string &title, const int width, const int height, const int targetFPS) {
     _title = title;
     _width = width;
     _height = height;
-    _targetFPS = targetFPS;
+    _targetFPS = (targetFPS < 0 ? 60 : targetFPS);
 }
 
 GalaEngine::Window::Window() : Window("Window", 640, 480) { }
