@@ -2,27 +2,27 @@
 
 // Getters
 Texture GalaEngine::AssetManager::GetTexture(const std::string &name) {
-    if(textures.count(name)) return textures[name];
+    if(textures.find(name) != textures.end()) return textures[name];
     return LoadTexture(name);
 }
 
 GalaEngine::Sprite *GalaEngine::AssetManager::GetSprite(const std::string &name) {
-    if(sprites.count(name)) return sprites[name];
+    if(sprites.find(name) != sprites.end()) return sprites[name];
     return LoadSprite(name);
 }
 
 GalaEngine::Tileset GalaEngine::AssetManager::GetTileset(const std::string &name) {
-    if(tilesets.count(name)) return tilesets[name];
+    if(tilesets.find(name) != tilesets.end()) return tilesets[name];
     return LoadTileset(name);
 }
 
 Sound GalaEngine::AssetManager::GetSound(const std::string &name) {
-    if(sounds.count(name)) return sounds[name];
+    if(sounds.find(name) != sounds.end()) return sounds[name];
     return LoadSound(name);
 }
 
 Font GalaEngine::AssetManager::GetFont(const std::string &name) {
-    if(fonts.count(name)) return fonts[name];
+    if(fonts.find(name) != fonts.end()) return fonts[name];
     return LoadFont(name);
 }
 
@@ -35,7 +35,7 @@ Texture GalaEngine::AssetManager::LoadTexture(const std::string &name) {
         tex = LoadTextureFromImage(Data::MissingTextureImg);
     }
 
-    if(textures.count(name)) ::UnloadTexture(textures[name]);
+    if(textures.find(name) != textures.end()) ::UnloadTexture(textures[name]);
     textures.insert_or_assign(name, tex);
 
     return tex;
@@ -44,7 +44,7 @@ Texture GalaEngine::AssetManager::LoadTexture(const std::string &name) {
 GalaEngine::Sprite *GalaEngine::AssetManager::LoadSprite(const std::string &name) {
     Sprite *sprite = new Sprite(Gres::LoadSprite(pathLayout.base + "/" + pathLayout.sprites + "/" + name + ".gres"));
 
-    if(sprites.count(name)) UnloadSprite(name);
+    if(sprites.find(name) != sprites.end()) UnloadSprite(name);
     sprites.insert_or_assign(name, sprite);
 
     return sprite;
@@ -53,7 +53,7 @@ GalaEngine::Sprite *GalaEngine::AssetManager::LoadSprite(const std::string &name
 GalaEngine::Tileset GalaEngine::AssetManager::LoadTileset(const std::string &name) {
     Tileset ts = Gres::LoadTileset(pathLayout.base + "/" + pathLayout.tilesets + "/" + name + ".gres");
 
-    if(tilesets.count(name)) UnloadTileset(name);
+    if(tilesets.find(name) != tilesets.end()) UnloadTileset(name);
     tilesets.insert_or_assign(name, ts);
 
     return ts;
@@ -62,7 +62,7 @@ GalaEngine::Tileset GalaEngine::AssetManager::LoadTileset(const std::string &nam
 Sound GalaEngine::AssetManager::LoadSound(const std::string &name) {
     Sound snd = Gres::LoadSound(pathLayout.base + "/" + pathLayout.sounds + "/" + name + ".gres");
 
-    if(sounds.count(name)) ::UnloadSound(sounds[name]);
+    if(sounds.find(name) != sounds.end()) ::UnloadSound(sounds[name]);
     sounds.insert_or_assign(name, snd);
 
     return snd;
@@ -71,7 +71,7 @@ Sound GalaEngine::AssetManager::LoadSound(const std::string &name) {
 Font GalaEngine::AssetManager::LoadFont(const std::string &name) {
     Font fnt = Gres::LoadFont(pathLayout.base + "/" + pathLayout.fonts + "/" + name + ".gres");
 
-    if(fonts.count(name)) ::UnloadFont(fonts[name]);
+    if(fonts.find(name) != fonts.end()) ::UnloadFont(fonts[name]);
     fonts.insert_or_assign(name, fnt);
 
     return fnt;
@@ -79,14 +79,14 @@ Font GalaEngine::AssetManager::LoadFont(const std::string &name) {
 
 // Unloading
 void GalaEngine::AssetManager::UnloadTexture(const std::string &name, const bool erase) {
-    if(!textures.count(name)) return;
+    if(textures.find(name) == textures.end()) return;
 
     ::UnloadTexture(textures[name]);
     if(erase) textures.erase(name);
 }
 
 void GalaEngine::AssetManager::UnloadSprite(const std::string &name, const bool unloadTexture, const bool erase) {
-    if(!sprites.count(name)) return;
+    if(sprites.find(name) == sprites.end()) return;
 
     if(unloadTexture) ::UnloadTexture(sprites[name]->texture);
     delete sprites[name];
@@ -94,21 +94,21 @@ void GalaEngine::AssetManager::UnloadSprite(const std::string &name, const bool 
 }
 
 void GalaEngine::AssetManager::UnloadTileset(const std::string &name, const bool unloadTexture, const bool erase) {
-    if(!tilesets.count(name)) return;
+    if(tilesets.find(name) == tilesets.end()) return;
 
     if(unloadTexture) ::UnloadTexture(tilesets[name].texture);
     if(erase) tilesets.erase(name);
 }
 
 void GalaEngine::AssetManager::UnloadSound(const std::string &name, const bool erase) {
-    if(!sounds.count(name)) return;
+    if(sounds.find(name) == sounds.end()) return;
 
     ::UnloadSound(sounds[name]);
     if(erase) sounds.erase(name);
 }
 
 void GalaEngine::AssetManager::UnloadFont(const std::string &name, const bool erase) {
-    if(!fonts.count(name)) return;
+    if(fonts.find(name) == fonts.end()) return;
 
     ::UnloadFont(fonts[name]);
     if(erase) fonts.erase(name);
