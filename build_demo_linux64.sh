@@ -14,4 +14,4 @@ echo "Compiling executable..."
 clang++ -g -o Demo/bin/linux64/Demo Engine/src/*.cpp Demo/src/*.cpp -IEngine/include -IDemo/include -LEngine/lib/linux64 -lraylib -lxdt -std=c++17
 
 # Static linking approach (broken):
-# clang++ -o Demo/bin/linux64/Demo Demo/src/*.cpp -IEngine/include -IDemo/include -LEngine/lib/linux64 -LEngine/bin/linux64 -lraylib -lGalaEngine -std=c++17
+# clang++ -g -o Demo/bin/linux64/Demo Demo/src/*.cpp -IEngine/include -IDemo/include -LEngine/lib/linux64 -LEngine/bin/linux64 -lraylib -lxdt -lGalaEngine -std=c++17
