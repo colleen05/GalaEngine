@@ -11,6 +11,11 @@ GalaEngine::Sprite *GalaEngine::AssetManager::GetSprite(std::string name) {
     return LoadSprite(name);
 }
 
+GalaEngine::Tileset GalaEngine::AssetManager::GetTileset(std::string name) {
+    if(tilesets.count(name)) return tilesets[name];
+    return LoadTileset(name);
+}
+
 Sound GalaEngine::AssetManager::GetSound(std::string name) {
     if(sounds.count(name)) return sounds[name];
     return LoadSound(name);
@@ -45,6 +50,15 @@ GalaEngine::Sprite *GalaEngine::AssetManager::LoadSprite(std::string name) {
     return sprite;
 }
 
+GalaEngine::Tileset GalaEngine::AssetManager::LoadTileset(std::string name) {
+    Tileset ts = Gres::LoadTileset(pathLayout.base + "/" + pathLayout.tilesets + "/" + name + ".gres");
+
+    if(tilesets.count(name)) UnloadTileset(name);
+    tilesets.insert_or_assign(name, ts);
+
+    return ts;
+}
+
 Sound GalaEngine::AssetManager::LoadSound(std::string name) {
     Sound snd = Gres::LoadSound(pathLayout.base + "/" + pathLayout.sounds + "/" + name + ".gres");
 
@@ -64,54 +78,71 @@ Font GalaEngine::AssetManager::LoadFont(std::string name) {
 }
 
 // Unloading
-void GalaEngine::AssetManager::UnloadTexture(std::string name) {
+void GalaEngine::AssetManager::UnloadTexture(std::string name, bool erase) {
     if(!textures.count(name)) return;
 
     ::UnloadTexture(textures[name]);
-    textures.erase(name);
+    if(erase) textures.erase(name);
 }
 
-void GalaEngine::AssetManager::UnloadSprite(std::string name, bool unloadTexture) {
+void GalaEngine::AssetManager::UnloadSprite(std::string name, bool unloadTexture, bool erase) {
     if(!sprites.count(name)) return;
 
-    if(unloadTexture) UnloadTexture("$res:sprites/" + name);
+    if(unloadTexture) ::UnloadTexture(sprites[name]->texture);
     delete sprites[name];
-    sprites.erase(name);
+    if(erase) sprites.erase(name);
 }
 
-void GalaEngine::AssetManager::UnloadSound(std::string name) {
+void GalaEngine::AssetManager::UnloadTileset(std::string name, bool unloadTexture, bool erase) {
+    if(!tilesets.count(name)) return;
+
+    if(unloadTexture) ::UnloadTexture(tilesets[name].texture);
+    if(erase) tilesets.erase(name);
+}
+
+void GalaEngine::AssetManager::UnloadSound(std::string name, bool erase) {
     if(!sounds.count(name)) return;
 
     ::UnloadSound(sounds[name]);
-    sounds.erase(name);
+    if(erase) sounds.erase(name);
 }
 
-void GalaEngine::AssetManager::UnloadFont(std::string name) {
+void GalaEngine::AssetManager::UnloadFont(std::string name, bool erase) {
     if(!fonts.count(name)) return;
 
     ::UnloadFont(fonts[name]);
-    fonts.erase(name);
+    if(erase) fonts.erase(name);
 }
 
 void GalaEngine::AssetManager::UnloadAllTextures() {
-    for(auto &t : textures) UnloadTexture(t.first);
+    for(auto &t : textures) UnloadTexture(t.first, false);
+    textures.clear();
 }
 
 void GalaEngine::AssetManager::UnloadAllSprites(bool unloadTextures) {
-    for(auto &s : sprites) UnloadSprite(s.first, unloadTextures);
+    for(auto &s : sprites) UnloadSprite(s.first, unloadTextures, false);
+    sprites.clear();
+}
+
+void GalaEngine::AssetManager::UnloadAllTilesets(bool unloadTextures) {
+    for(auto &t : tilesets) UnloadTileset(t.first, unloadTextures, false);
+    tilesets.clear();
 }
 
 void GalaEngine::AssetManager::UnloadAllSounds() {
-    for(auto &s : sounds) UnloadSound(s.first);
+    for(auto &s : sounds) UnloadSound(s.first, false);
+    tilesets.clear();
 }
 
 void GalaEngine::AssetManager::UnloadAllFonts() {
-    for(auto &f : fonts) UnloadFont(f.first);
+    for(auto &f : fonts) UnloadFont(f.first, false);
+    fonts.clear();
 }
 
-void GalaEngine::AssetManager::UnloadAll(bool unloadSpriteTextures) {
+void GalaEngine::AssetManager::UnloadAll(bool unloadAllTextures) {
     UnloadAllTextures();
-    UnloadAllSprites(unloadSpriteTextures);
+    UnloadAllSprites(unloadAllTextures);
+    UnloadAllTilesets(unloadAllTextures);
     UnloadAllSounds();
     UnloadAllFonts();
 }

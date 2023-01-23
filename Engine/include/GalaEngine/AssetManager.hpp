@@ -43,27 +43,31 @@ namespace GalaEngine {
             // Getters
             Texture GetTexture  (std::string name);
             Sprite  *GetSprite  (std::string name);
+            Tileset GetTileset  (std::string name);
             Sound   GetSound    (std::string name);
             Font    GetFont     (std::string name);
 
             // Loading
             Texture LoadTexture (std::string name);
             Sprite  *LoadSprite (std::string name);
+            Tileset LoadTileset (std::string name);
             Sound   LoadSound   (std::string name);
             Font    LoadFont    (std::string name);
 
             // Unloading
-            void UnloadTexture  (std::string name);
-            void UnloadSprite   (std::string name, bool unloadTexture = true);
-            void UnloadSound    (std::string name);
-            void UnloadFont     (std::string name);
+            void UnloadTexture  (std::string name, bool erase = true);
+            void UnloadSprite   (std::string name, bool unloadTexture = true, bool erase = true);
+            void UnloadTileset  (std::string name, bool unloadTexture = true, bool erase = true);
+            void UnloadSound    (std::string name, bool erase = true);
+            void UnloadFont     (std::string name, bool erase = true);
 
             void UnloadAllTextures  ();
             void UnloadAllSprites   (bool unloadTextures = true);
+            void UnloadAllTilesets  (bool unloadTextures = true);
             void UnloadAllSounds    ();
             void UnloadAllFonts     ();
             
-            void UnloadAll(bool unloadSpriteTextures = true);
+            void UnloadAll(bool unloadAllTextures = true);
 
             // Constructor
             AssetManager(AssetPathLayout pathLayout = {
