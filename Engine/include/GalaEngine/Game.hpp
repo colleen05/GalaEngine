@@ -8,6 +8,9 @@
 #pragma once
 
 #include <GalaEngine/Window.hpp>
+#include <GalaEngine/AssetManager.hpp>
+#include <GalaEngine/InputManager.hpp>
+#include <GalaEngine/SoundManager.hpp>
 #include <GalaEngine/Surface.hpp>
 #include <GalaEngine/Scene.hpp>
 #include <iostream>
@@ -32,10 +35,11 @@ namespace GalaEngine {
             std::array<bool, KEY_KP_EQUAL> _keyStates;
 
         public:
-            GalaEngine::Window       *window;   // Game window
-            GalaEngine::Scene        *scene;    // Scene
-            GalaEngine::AssetManager *assets;   // AssetManager
-            GalaEngine::InputManager *input;    // InputManager
+            GalaEngine::Window       *window = nullptr; // Game window
+            GalaEngine::Scene        *scene  = nullptr; // Scene
+            GalaEngine::AssetManager *assets = nullptr; // AssetManager
+            GalaEngine::InputManager *input  = nullptr; // InputManager
+            GalaEngine::SoundManager *sound  = nullptr; // SoundManager
 
             virtual void OnLoad();
             virtual void OnUpdate();

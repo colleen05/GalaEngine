@@ -3,9 +3,10 @@
 uint32_t GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, std::string name) {
     uint32_t id = _entities.size();
 
+    entity->window  = window;
     entity->assets  = assets;
     entity->input   = input;
-    entity->window  = window;
+    entity->sound   = sound;
 
     _entities.insert(std::pair<uint32_t, Entity*>(id, entity));
 

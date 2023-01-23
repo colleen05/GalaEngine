@@ -13,14 +13,16 @@
 #include <GalaEngine/Colour.hpp>
 #include <GalaEngine/AssetManager.hpp>
 #include <GalaEngine/InputManager.hpp>
+#include <GalaEngine/SoundManager.hpp>
 #include <GalaEngine/Window.hpp>
 
 namespace GalaEngine {
     class Entity {
         public:
-            GalaEngine::AssetManager *assets;
-            GalaEngine::InputManager *input;
-            GalaEngine::Window       *window;
+            GalaEngine::Window       *window = nullptr;
+            GalaEngine::AssetManager *assets = nullptr;
+            GalaEngine::InputManager *input  = nullptr;
+            GalaEngine::SoundManager *sound  = nullptr;
 
             Vector2 position    = {0.0f, 0.0f};
             Vector2 scale       = {1.0f, 1.0f};

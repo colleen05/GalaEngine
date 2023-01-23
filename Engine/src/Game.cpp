@@ -10,9 +10,10 @@ void GalaEngine::Game::Start() {
 
     // Create scene and bind assets, input manager, etc..
     scene = new GalaEngine::Scene(&window->surface, _info.defaultWidth, _info.defaultHeight);
+    scene->window   = window;
     scene->assets   = assets;
     scene->input    = input;
-    scene->window   = window;
+    scene->sound    = sound;
 
     OnLoad();
 
@@ -49,6 +50,7 @@ GalaEngine::Game::Game(GameInfo info) {
     window  = new GalaEngine::Window(_info.title, _info.defaultWidth, _info.defaultHeight);
     assets  = new GalaEngine::AssetManager(info.assetPaths);
     input   = new GalaEngine::InputManager();
+    sound   = new GalaEngine::SoundManager();
 }
 
 GalaEngine::Game::Game() : Game(
