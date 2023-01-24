@@ -26,6 +26,7 @@ void GalaEngine::Game::Start() {
         // Drawing
         BeginDrawing();
         window->surface.Clear(C_BLACK);
+        scene->RenderLayers();
         OnDraw(); // Call draw code from child class
         window->Render();
         EndDrawing();
