@@ -31,6 +31,7 @@ void GalaEngine::EntityLayer::OnDraw(const GalaEngine::Camera &camera) {
             e->blendColour
         );
 
+        e->layerSurface = surface;
         e->OnDraw();
     }
 }
