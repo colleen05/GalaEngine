@@ -98,8 +98,6 @@ void Demo_Scene::OnLoad() {
 }
 
 void Demo_Scene::OnDraw() {
-    scene->RenderLayers();
-
     window->surface.DrawText("FPS: " + std::to_string(1.0f / GetFrameTime()), 8.0f, 8.0f, 20, Colours::GalaBlack);
 
     window->surface.DrawTexture(tex_cursor, GetMouseX()-16.0f, GetMouseY()-16.0f);
