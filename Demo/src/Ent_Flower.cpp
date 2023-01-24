@@ -16,4 +16,8 @@ void Ent_Flower::OnUpdate() {
     }
 }
 
+void Ent_Flower::OnDraw() {
+    layerSurface->DrawText(std::to_string(spriteFrame), position.x, position.y, 20, C_GALARED);
+}
+
 Ent_Flower::Ent_Flower(int x, int y) : Entity(x, y) {}
