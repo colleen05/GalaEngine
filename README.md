@@ -1,4 +1,7 @@
-# GalaEngine
+<p align="center">
+  <img src="Images/logo.png">
+</p>
+
 GalaEngine is a C++17 game engine for 2D games, built with the [raylib](https://www.raylib.com/) library.
 
 ## PLEASE NOTE
