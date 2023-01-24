@@ -1,6 +1,7 @@
 #include <GalaEngine/EntityLayer.hpp>
 
 void GalaEngine::EntityLayer::AddEntity(GalaEngine::Entity *entity) {
+    entity->layerSurface = surface;
     _entities.push_back(entity);
 }
 
@@ -29,6 +30,8 @@ void GalaEngine::EntityLayer::OnDraw(const GalaEngine::Camera &camera) {
             e->rotation,
             e->blendColour
         );
+
+        e->OnDraw();
     }
 }
 

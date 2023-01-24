@@ -23,6 +23,8 @@ namespace GalaEngine {
             GalaEngine::AssetManager *assets = nullptr;
             GalaEngine::InputManager *input  = nullptr;
             GalaEngine::SoundManager *sound  = nullptr;
+            
+            GalaEngine::Surface *layerSurface = nullptr;
 
             Vector2 position    = {0.0f, 0.0f};
             Vector2 scale       = {1.0f, 1.0f};
