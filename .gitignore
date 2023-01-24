@@ -1,6 +1,10 @@
 # vscode
 .vscode/*
 
+# Doxygen
+Docs/html/**
+Docs/doxygen-awesome/**
+
 # Engine
 Engine/bin/**
 Engine/tmp/**
