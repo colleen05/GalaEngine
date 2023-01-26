@@ -96,6 +96,8 @@ void GalaEngine::AssetManager::UnloadSprite(const std::string &name, const bool 
 void GalaEngine::AssetManager::UnloadTileset(const std::string &name, const bool unloadTexture, const bool erase) {
     if(tilesets.find(name) == tilesets.end()) return;
 
+    tilesets[name].flags.clear();
+
     if(unloadTexture) ::UnloadTexture(tilesets[name].texture);
     if(erase) tilesets.erase(name);
 }
