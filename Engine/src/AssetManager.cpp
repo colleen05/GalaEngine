@@ -96,10 +96,10 @@ void GalaEngine::AssetManager::UnloadSprite(const std::string &name, const bool 
 void GalaEngine::AssetManager::UnloadTileset(const std::string &name, const bool unloadTexture, const bool erase) {
     if(tilesets.find(name) == tilesets.end()) return;
 
-    tilesets[name] = Tileset();
-
     if(unloadTexture) ::UnloadTexture(tilesets[name].texture);
+    
     if(erase) tilesets.erase(name);
+    else      tilesets[name] = Tileset();
 }
 
 void GalaEngine::AssetManager::UnloadSound(const std::string &name, const bool erase) {
