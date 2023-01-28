@@ -57,6 +57,7 @@ void GalaEngine::TileLayer::OnUpdate() {
 }
 
 void GalaEngine::TileLayer::OnDraw(const GalaEngine::Camera &camera) {
+    surface->Clear();
     surface->DrawTexture(texture, 0, 0);
 }
 
