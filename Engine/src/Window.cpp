@@ -161,12 +161,12 @@ void GalaEngine::Window::ToggleFullscreen() {
     ::ToggleFullscreen();
 }
 
-void GalaEngine::Window::SetMinimised(const bool minimised) {
-    if(minimised) ::MinimizeWindow();
+void GalaEngine::Window::SetMinimised() {
+    ::MinimizeWindow();
 }
 
-void GalaEngine::Window::SetMaximised(const bool maximised) {
-    if(maximised) ::MaximizeWindow();
+void GalaEngine::Window::SetMaximised() {
+    ::MaximizeWindow();
 }
 
 void GalaEngine::Window::SetWidth(const int width) {
