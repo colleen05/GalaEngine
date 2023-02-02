@@ -4,6 +4,8 @@ void Demo_Tiles::OnLoad() {
 }
 
 void Demo_Tiles::OnDraw() {
+    float thickness = IsKeyDown(KEY_SPACE) ? 10.0f : 2.0f;
+    window->surface.DrawRectangle(320, 240, 320, 240, C_GALARED, true, thickness);
 }
 
 void Demo_Tiles::OnUpdate() {
