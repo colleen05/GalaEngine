@@ -55,6 +55,14 @@ bool GalaEngine::InputManager::IsReleased(const Input &input, const int device) 
     return false;
 }
 
+Vector2 GalaEngine::InputManager::GetMouseDelta() {
+    return ::GetMouseDelta();
+}
+
+Vector2 GalaEngine::InputManager::GetMousePosition() {
+    return ::GetMousePosition();
+}
+
 bool GalaEngine::InputManager::IsPressed(const std::string &inputName, const int device) {
     if(binds.find(inputName) != binds.end()) {
         return IsPressed(binds[inputName], device);
@@ -205,15 +213,6 @@ void GalaEngine::InputManager::BindGamepadAxis(const std::string &inputName, con
 
 void GalaEngine::InputManager::ClearBinds(const std::string &inputName) {
     if(binds.find(inputName) != binds.end()) binds.clear();
-}
-
-// Misc.
-Vector2 GalaEngine::InputManager::GetMouseDelta() {
-    return ::GetMouseDelta();
-}
-
-Vector2 GalaEngine::InputManager::GetMousePosition() {
-    return ::GetMousePosition();
 }
 
 // Constructors
