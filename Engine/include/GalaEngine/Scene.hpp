@@ -65,11 +65,10 @@ namespace GalaEngine {
              *  @details Here are functions which handle entity and layer
              *  management.
              *  @todo
-             *  - Add **RemoveEntity()**
              *  - Add **RemoveLayer()**
              */
             /// @{
-            /*! @brief Push an Entity to the Scene.
+            /*! @brief Push an entity to the Scene.
              *  @details Pushes an entity into the entity containers,
              *  submitting the management to the Scene and its members.
              *  @param entity The entity to push.
@@ -79,8 +78,8 @@ namespace GalaEngine {
              *  **RemoveEntity()** will cause stale pointers.
              */
             uint32_t PushEntity(Entity *entity, const std::string &name = "");
-            /*! @brief Get Entity from the Scene.
-             *  @details Gets a pointer to an Entity, if found by name (or
+            /*! @brief Get entity from the Scene.
+             *  @details Gets a pointer to an entity, if found by name (or
              *  **nullptr**).
              *  @param name The name of the entity to get.
              *  @returns A pointer to the found entity (or **nullptr**).
@@ -88,6 +87,20 @@ namespace GalaEngine {
              *  function, as they may quickly go stale.
              */
             Entity *GetEntity(const std::string &name);
+            /*! @brief Remove entity from the scene (by name).
+             *  @details Removes an entity from the entity containers (by
+             *  name), and (by default), destroys the entity.
+             *  @param name The name of the entity.
+             *  @param destroy Whether or not to destroy & delete the entity.
+             */
+            void RemoveEntity(const std::string &name, const bool destroy = true);
+            /*! @brief Remove entity from the scene (by pointer).
+             *  @details Removes an entity from the entity containers (by
+             *  pointer), and (by default), destroys the entity.
+             *  @param entity A pointer to look for and delete.
+             *  @param destroy Whether or not to destroy & delete the entity.
+             */
+            void RemoveEntity(Entity *entity, const bool destroy = true);
             /*! @brief Push a Layer to the Scene.
              *  @details Pushes an existing Layer into the layer containers,
              *  submitting the management to the Scene.

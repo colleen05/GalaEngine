@@ -22,6 +22,39 @@ GalaEngine::Entity *GalaEngine::Scene::GetEntity(const std::string &name) {
     return (ent != _entityNames.end()) ? _entities[(*ent).second] : nullptr;
 }
 
+void GalaEngine::Scene::RemoveEntity(const std::string &name, const bool destroy) {
+    auto it_entity = _entityNames.find(name);
+    if(it_entity == _entityNames.end()) return;
+
+    const auto entityID = (*it_entity).second;
+    Entity *entity = _entities[entityID];
+
+    if(destroy) delete entity;
+
+    _entities.erase(entityID);
+    _entityNames.erase(name);
+}
+
+void GalaEngine::Scene::RemoveEntity(Entity *entity, const bool destroy) {
+    auto it_foundEntity = std::find_if(
+        _entities.begin(), _entities.end(),
+        [entity](const auto &e) { return e.second == entity; }
+    );
+
+    if(it_foundEntity == _entities.end()) return;
+    const auto entityID = (*it_foundEntity).first;
+
+    std::string entityName = "";
+    for(auto &[entName, entID] : _entityNames) {
+        if(entID == entityID) {
+            entityName = entName;
+            break;
+        }
+    }
+
+    RemoveEntity(entityName);
+}
+
 void GalaEngine::Scene::PushLayer(Layer *layer, const int position) {
     _layers.insert(std::pair<uint8_t, Layer*>(
         (position >= 0) ? position : _layers.size(),
