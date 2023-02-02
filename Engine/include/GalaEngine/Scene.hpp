@@ -138,11 +138,13 @@ namespace GalaEngine {
              */
             /// @{
             /*! @brief Resize the Scene.
-             *  @details Updates the width and height, and resizes all layers.
+             *  @details Updates the width and height, and (optionally) resizes
+             *  all layers.
              *  @param width New width
              *  @param height New height
+             *  @param resizeLayers Whether or not to resize layers.
              */
-            void Resize(const int width, const int height);
+            void Resize(const int width, const int height, const bool resizeLayers = true);
             Vector2 GetSize();      //!< Get the size of the Scene.
             void Update();          //!< Update the Scene.
             void RenderLayers();    //!< Render all the contained layers.

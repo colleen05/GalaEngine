@@ -49,9 +49,14 @@ GalaEngine::TileLayer *GalaEngine::Scene::AddTileLayer(const Tileset &tileset, c
     return layer;
 }
 
-void GalaEngine::Scene::Resize(const int width, const int height) {
+void GalaEngine::Scene::Resize(const int width, const int height, const bool resizeLayers) {
     _width = width;
     _height = height;
+
+    if(resizeLayers) {
+        for(auto &[id, layer] : _layers)
+            layer->surface->Resize(width, height);
+    }
 }
 
 void GalaEngine::Scene::Update() {
