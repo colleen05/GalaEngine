@@ -61,9 +61,22 @@
 #define C_GALABLACK	(GalaEngine::Colour) {0x08, 0x08, 0x10, 0xFF}
 
 namespace GalaEngine {
+	/*! @brief Colour class
+	 *  @details Contains colour information, as well as functions that allow
+	 *  for colour manipulation.
+	 */
 	struct Colour {
-		uint8_t r, g, b, a;
+		uint8_t r;	//!< Red value
+		uint8_t g;	//!< Green value
+		uint8_t b;	//!< Blue value
+		uint8_t a;	//!< Alpha value (opacity)
 
+		/*! @brief Get blending result with another colour.
+		 *  @details Get linear interpolation with another colour.
+		 *  @param colour Other colour
+		 *  @param t Ratio of **colour** to self.
+		 *  @returns Blended colour.
+		 */
 		constexpr inline
 		Colour Lerp(const Colour colour, const float t) {
 			return Colour {
@@ -74,8 +87,18 @@ namespace GalaEngine {
 			};
 		}
 
+		/*! @brief Blend two colours.
+		 *  @details Linearly interpolate two colours.
+		 *  @param c1 Colour from
+		 *  @param c2 Colour to
+		 *  @param t Ratio of c1 to c2.
+		 */
 		static Colour Lerp(Colour c1, Colour c2, const float t);
 
+		/*! @brief Get normalised colour values
+		 *  @details Get colour values normalised between 0.0f and 1.0f
+		 *  @returns Normalised vector
+		 */
 		constexpr inline
 		Vector4 Normalised() {
 			return Vector4 {
@@ -86,8 +109,17 @@ namespace GalaEngine {
 			};
 		}
 
+		/*! @brief Get normalised values from colour
+		 *  @details Get normalised values of colour between 0.0f and 1.0f
+		 *  @param colour The colour to normalise
+		 *  @returns Normalised vector
+		 */
 		static Vector4 Normalise(Colour colour);
 
+		/*! @brief Get basic struct from Colour
+		 *  @details Constructs a Color struct from a Colour.
+		 *  @note This is supplied for compatibility with raylib.
+		 */
 		constexpr operator Color() {
 			return Color{r, g, b, a};
 		}

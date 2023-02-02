@@ -17,34 +17,83 @@
 #include <GalaEngine/Window.hpp>
 
 namespace GalaEngine {
+    /*! @brief Entity base class
+     *  @details An object that has a renderable sprite, and custom behaviour,
+     *  which is managed by classes such as EntityLayer and Scene. Override
+     *  this class to create your own entities.
+     */
     class Entity {
         public:
-            GalaEngine::Window       *window = nullptr;
-            GalaEngine::AssetManager *assets = nullptr;
-            GalaEngine::InputManager *input  = nullptr;
-            GalaEngine::SoundManager *sound  = nullptr;
+            /*! @name Game Context Members
+             *  @details These members are of game context elements, which are
+             *  passed down from the Game class, to the Scene class, and
+             *  finally, to the Entity class.
+             */
+            /// @{
+            GalaEngine::Window       *window = nullptr; //!< Pointer to the game's window.
+            GalaEngine::AssetManager *assets = nullptr; //!< Pointer to the game's asset management interface.
+            GalaEngine::InputManager *input  = nullptr; //!< Pointer to the game's input management interface.
+            GalaEngine::SoundManager *sound  = nullptr; //!< Pointer to the game's sound management interface.
+            /// @}
             
+            /*! @brief The current layer's Surface.
+             *  @details Pointer to the current layer's (usually an
+             *  EntityLayer's) Surface. Drawing to this surface can be useful,
+             *  such as drawing simple particles, or debugging info.
+             */
             GalaEngine::Surface *layerSurface = nullptr;
 
-            Vector2 position    = {0.0f, 0.0f};
-            Vector2 scale       = {1.0f, 1.0f};
-            float   rotation    = 0.0f;
+            /*! @name Transform Properties
+             *  @details These members are transform properties, which can be
+             *  used for positioning a rendered sprite with rotation and scale
+             *  (such as with an EntityLayer), collision detection, or physics.
+             */
+            /// @{
+            Vector2 position    = {0.0f, 0.0f}; //!< The physical position of the entity.
+            Vector2 scale       = {1.0f, 1.0f}; //!< The scale of the entity.
+            float   rotation    = 0.0f;         //!< The rotation of the entity (in degrees).
+            /// @}
 
-            Sprite *sprite      = nullptr;
-            int     spriteFrame = 0;
-            Colour  blendColour = C_WHITE;
+            /*! @name Visual Properties
+             *  @details These members are used by the EntityLayer when
+             *  rendering the sprite.
+             */
+            /// @{
+            Sprite *sprite      = nullptr;  //!< Pointer to sprite.
+            int     spriteFrame = 0;        //!< The current frame of the sprite.
+            Colour  blendColour = C_WHITE;  //!< The blend colour of the sprite.
+            /// @}
 
-            Vector2     worldMousePosition = {0.0f, 0.0f};
-            Vector2     bboxSize = {32.0f, 32.0f};
-            Rectangle   bbox     = {0.0f, 0.0f, 32.0f, 32.0f};
+            /*! @name Misc. Context Properties
+             *  @details These members are miscellaneous context, which are
+             *  (often) updated or used by other classes.
+             */
+            /// @{
+            Vector2     worldMousePosition = {0.0f, 0.0f};      //!< Where the mouse is in scene-coordinates (rather than within the window).
+            Vector2     bboxSize = {32.0f, 32.0f};              //!< The size of the bounding-box of the entity.
+            Rectangle   bbox     = {0.0f, 0.0f, 32.0f, 32.0f};  //!< The bounding-box of the entity after calculations.
+            /// @}
 
-            // Events
-            virtual void OnSignal(const std::string &message);
-            virtual void OnStart();
-            virtual void OnUpdate();
-            virtual void OnDraw();
-            virtual void OnDestroy();
 
+            /*! @name "Event" methods
+             *  @details These functions are executed by other classes, such as
+             *  the EntityLayer class, upon different stages of the Entity's
+             *  lifetime. Override these functions to define behaviour to be
+             *  executed upon different events.
+             */
+            /// @{
+            virtual void OnSignal(const std::string &message);  //!< Handle messages (e.g., commands) from other classes or entities.
+            virtual void OnStart();     //!< Behaviour executed upon attaching to a Scene.
+            virtual void OnUpdate();    //!< Behaviour executed upon a Scene update.
+            virtual void OnDraw();      //!< Behaviour executed once per frame.
+            virtual void OnDestroy();   //!< Behaviour executed upon destruction.
+            /// @}
+
+            /*! @brief Constructor
+             *  @details Constructs an entity with supplied coordinates.
+             *  @param x X coordinate.
+             *  @param y Y coordinate.
+             */
             Entity(int x, int y);
             Entity();
     };
