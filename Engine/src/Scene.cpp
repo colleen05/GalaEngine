@@ -1,67 +1,54 @@
 #include <GalaEngine/Scene.hpp>
 
-uint32_t GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, const std::string &name) {
-    uint32_t id = _entities.size();
+void GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, const std::string &name) {
+    if(entity == nullptr) return;
 
     entity->window  = window;
     entity->assets  = assets;
     entity->input   = input;
     entity->sound   = sound;
 
-    _entities.insert(std::pair<uint32_t, Entity*>(id, entity));
-
-    if(!name.empty()) _entityNames.insert_or_assign(name, id);
+    if(!name.empty()) _entities.insert_or_assign(name, entity);
 
     entity->OnStart();
-
-    return id;
 }
 
 GalaEngine::Entity *GalaEngine::Scene::GetEntity(const std::string &name) {
-    auto ent = _entityNames.find(name);
-    return (ent != _entityNames.end()) ? _entities[(*ent).second] : nullptr;
+    const auto &it_ent = _entities.find(name);
+    if(it_ent == _entities.end()) return nullptr;
+
+    return (*it_ent).second;
 }
 
 void GalaEngine::Scene::RemoveEntity(const std::string &name, const bool destroy) {
-    auto it_entity = _entityNames.find(name);
-    if(it_entity == _entityNames.end()) return;
+    const auto &it_ent = _entities.find(name);
+    if(it_ent == _entities.end()) return;
 
-    const auto entityID = (*it_entity).second;
-    Entity *entity = _entities[entityID];
-
-    if(destroy) delete entity;
-
-    _entities.erase(entityID);
-    _entityNames.erase(name);
+    _entities.erase(it_ent);
+    if(destroy) delete (*it_ent).second;
 }
 
 void GalaEngine::Scene::RemoveEntity(Entity *entity, const bool destroy) {
-    auto it_foundEntity = std::find_if(
+    const auto &it_ent = std::find_if(
         _entities.begin(), _entities.end(),
-        [entity](const auto &e) { return e.second == entity; }
+        [entity](const auto &e){
+            return e.second == entity;
+        }
     );
 
-    if(it_foundEntity == _entities.end()) return;
-    const auto entityID = (*it_foundEntity).first;
+    if(it_ent == _entities.end()) return;
 
-    std::string entityName = "";
-    for(auto &[entName, entID] : _entityNames) {
-        if(entID == entityID) {
-            entityName = entName;
-            break;
-        }
-    }
-
-    RemoveEntity(entityName);
+    _entities.erase(it_ent);
+    if(destroy) delete (*it_ent).second;
 }
 
-void GalaEngine::Scene::PushLayer(Layer *layer, const int position) {
-    _layers.insert(std::pair<uint8_t, Layer*>(
-        (position >= 0) ? position : _layers.size(),
-        layer
-    ));
+size_t GalaEngine::Scene::PushLayer(Layer *layer, const int position) {
+    const size_t layerPos = (position < 0) ? _layers.size() : position;
+    _layers.insert(_layers.begin() + layerPos, layer);
 
     layer->OnStart();
+
+    return layerPos;
 }
 
 GalaEngine::BackgroundLayer *GalaEngine::Scene::AddBackgroundLayer(const Texture texture, const Colour clearColour, const int position) {
@@ -87,7 +74,7 @@ void GalaEngine::Scene::Resize(const int width, const int height, const bool res
     _height = height;
 
     if(resizeLayers) {
-        for(auto &[id, layer] : _layers)
+        for(const auto &layer : _layers)
             layer->surface->Resize(width, height);
     }
 }
@@ -109,18 +96,18 @@ void GalaEngine::Scene::Update() {
         };
     }
 
-    for(auto &p : _layers) {
-        p.second->OnUpdate();
+    for(auto &layer : _layers) {
+        layer->OnUpdate();
     }
 }
 
 void GalaEngine::Scene::RenderLayers() {
     if(targetSurface == nullptr) return;
 
-    for(auto &p : _layers) {
-        auto &layerTexture = p.second->surface->renderTexture.texture;
+    for(const auto &layer : _layers) {
+        auto &layerTexture = layer->surface->renderTexture.texture;
 
-        p.second->OnDraw(mainCamera);
+        layer->OnDraw(mainCamera);
 
         BeginTextureMode(targetSurface->renderTexture);
         DrawTexturePro(
@@ -139,7 +126,7 @@ void GalaEngine::Scene::RenderLayers() {
             },
             {0.0f, 0.0f},
             0.0f,
-            p.second->blendColour
+            layer->blendColour
         );
         EndTextureMode();
     }

@@ -34,11 +34,8 @@ namespace GalaEngine {
              *  to keep track of and manage by itself.
              */
             /// @{
-            std::map<uint8_t, Layer*>   _layers;    //!< Map of Layer IDs to layers.
-            std::map<uint32_t, Entity*> _entities;  //!< Map of Entity IDs to entities.
-
-            std::map<std::string, uint8_t>  _layerNames;    //!< Map of names to Layer IDs.
-            std::map<std::string, uint32_t> _entityNames;   //!< Map of names to Entity IDs.
+            std::map<std::string, Entity*>  _entities;  //!< Map of names to entities.
+            std::vector<Layer*> _layers; //!< Vector of layers.
 
             int _width  = 640;  //!< Scene width
             int _height = 480;  //!< Scene height
@@ -65,19 +62,19 @@ namespace GalaEngine {
              *  @details Here are functions which handle entity and layer
              *  management.
              *  @todo
+             *  - Add **GetLayer()**
              *  - Add **RemoveLayer()**
              */
             /// @{
             /*! @brief Push an entity to the Scene.
-             *  @details Pushes an entity into the entity containers,
+             *  @details Pushes an entity into the entity container,
              *  submitting the management to the Scene and its members.
              *  @param entity The entity to push.
              *  @param name The entity name.
-             *  @returns The ID of the newly pushed entity.
              *  @attention Once you push an Entity, deleting it before calling
              *  **RemoveEntity()** will cause stale pointers.
              */
-            uint32_t PushEntity(Entity *entity, const std::string &name = "");
+            void PushEntity(Entity *entity, const std::string &name = "");
             /*! @brief Get entity from the Scene.
              *  @details Gets a pointer to an entity, if found by name (or
              *  **nullptr**).
@@ -106,10 +103,11 @@ namespace GalaEngine {
              *  submitting the management to the Scene.
              *  @param layer A pointer to the layer.
              *  @param position The position to insert into. If -1, will push to the end.
+             *  @returns Layer position.
              *  @attention Once you push a Layer, deleting it before calling
              *  **RemoveLayer()** will cause stale pointers.
              */
-            void PushLayer(Layer *layer, const int position = -1);
+            size_t PushLayer(Layer *layer, const int position = -1);
             /*! @brief Create and push a BackgroundLayer.
              *  @details Creates a BackgroundLayer and pushes it into the layer
              *  containers.
