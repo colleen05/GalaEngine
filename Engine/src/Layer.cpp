@@ -14,7 +14,7 @@ GalaEngine::Layer::Layer(const int width, const int height, const Colour clearCo
     OnStart();
 }
 
-GalaEngine::Layer::Layer() : Layer(256, 256, C_BLACK) {}
+GalaEngine::Layer::Layer() : Layer(640, 480, C_BLACK) {}
 
 GalaEngine::Layer::~Layer() {
     surface->Destroy();
