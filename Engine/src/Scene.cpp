@@ -43,8 +43,9 @@ void GalaEngine::Scene::RemoveEntity(Entity *entity, const bool destroy) {
 }
 
 size_t GalaEngine::Scene::PushLayer(Layer *layer, int position) {
-    if(position < 0)                    position = 0;
-    else if(position >= _layers.size()) position = _layers.size() - 1;
+    if( (position < 0) ||
+        (position > _layers.size())
+    ) position = _layers.size();
 
     _layers.insert(_layers.begin() + position, layer);
 
@@ -70,8 +71,8 @@ void GalaEngine::Scene::RemoveLayer(Layer *layer, const bool destroy) {
 
     for(int i = 0; i < _layers.size(); i++) {
         if(_layers[i] == layer) {
-            _layers.erase(_layers.begin() + i);
             if(destroy) delete _layers[i];
+            _layers.erase(_layers.begin() + i);
             return;
         }
     }
