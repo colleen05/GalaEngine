@@ -140,6 +140,18 @@ void Demo_Scene::OnUpdate() {
             Vector2 {zoomAmt, zoomAmt}
         )
     );
+
+    if(IsKeyPressed(KEY_ONE)) {
+        scene->RemoveLayer(lay_background0);
+    }else if(IsKeyPressed(KEY_TWO)) {
+        scene->RemoveLayer(lay_tiles);
+    }else if(IsKeyPressed(KEY_THREE)) {
+        scene->RemoveLayer(lay_entities);
+    }else if(IsKeyPressed(KEY_FOUR)) {
+        scene->RemoveLayer(lay_foreground);
+    }else if(IsKeyPressed(KEY_ZERO)) {
+        scene->RemoveLayer(0);
+    }
 }
 
 void Demo_Scene::OnUnload() {
