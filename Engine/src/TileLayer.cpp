@@ -76,6 +76,5 @@ GalaEngine::TileLayer::TileLayer(
     this->height = tilesY;
 }
 
-GalaEngine::TileLayer::TileLayer() {
-
-}
+GalaEngine::TileLayer::TileLayer() {}
+GalaEngine::TileLayer::~TileLayer() {}

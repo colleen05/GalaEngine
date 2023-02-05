@@ -39,3 +39,4 @@ GalaEngine::BackgroundLayer::BackgroundLayer(
 }
 
 GalaEngine::BackgroundLayer::BackgroundLayer() : Layer() {}
+GalaEngine::BackgroundLayer::~BackgroundLayer() {}

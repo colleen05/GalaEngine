@@ -42,3 +42,5 @@ void GalaEngine::EntityLayer::OnDestroy() {
 
 GalaEngine::EntityLayer::EntityLayer(const int width, const int height, const Colour clearColour) :
 Layer(width, height, clearColour) { }
+
+GalaEngine::EntityLayer::~EntityLayer() {}

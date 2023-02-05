@@ -62,5 +62,6 @@ namespace GalaEngine {
              */
             EntityLayer(const int width, const int height, const Colour clearColour);
             EntityLayer();
+            ~EntityLayer();
     };
 }

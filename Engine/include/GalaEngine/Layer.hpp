@@ -74,6 +74,6 @@ namespace GalaEngine {
              */
             Layer(const int width, const int height, const Colour clearColour = C_BLACK);
             Layer();
-            ~Layer();
+            virtual ~Layer();
     };
 }

@@ -48,5 +48,6 @@ namespace GalaEngine {
              */
             BackgroundLayer(const int width, const int height, const Texture background, const Colour clearColour = C_BLACK);
             BackgroundLayer();
+            ~BackgroundLayer();
     };
 }

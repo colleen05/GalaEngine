@@ -86,5 +86,6 @@ namespace GalaEngine {
              */
             TileLayer(const Tileset &tileset, const std::vector<uint16_t> &tiles, const int tilesX, const int tilesY, const Colour clearColour = C_BLACK);
             TileLayer();
+            ~TileLayer();
     };
 }
