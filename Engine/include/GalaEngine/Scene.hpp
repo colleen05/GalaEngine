@@ -61,9 +61,6 @@ namespace GalaEngine {
             /*! @name Entities & Layers
              *  @details Here are functions which handle entity and layer
              *  management.
-             *  @todo
-             *  - Add **GetLayer()**
-             *  - Add **RemoveLayer()**
              */
             /// @{
             /*! @brief Push an entity to the Scene.
@@ -88,14 +85,14 @@ namespace GalaEngine {
              *  @details Removes an entity from the entity containers (by
              *  name), and (by default), destroys the entity.
              *  @param name The name of the entity.
-             *  @param destroy Whether or not to destroy & delete the entity.
+             *  @param destroy Whether or not to destroy and delete the entity.
              */
             void RemoveEntity(const std::string &name, const bool destroy = true);
             /*! @brief Remove entity from the scene (by pointer).
              *  @details Removes an entity from the entity containers (by
              *  pointer), and (by default), destroys the entity.
-             *  @param entity A pointer to look for and delete.
-             *  @param destroy Whether or not to destroy & delete the entity.
+             *  @param entity A pointer to the entity to remove.
+             *  @param destroy Whether or not to destroy and delete the entity.
              */
             void RemoveEntity(Entity *entity, const bool destroy = true);
             /*! @brief Push a Layer to the Scene.
@@ -107,7 +104,30 @@ namespace GalaEngine {
              *  @attention Once you push a Layer, deleting it before calling
              *  **RemoveLayer()** will cause stale pointers.
              */
-            size_t PushLayer(Layer *layer, const int position = -1);
+            size_t PushLayer(Layer *layer, int position = -1);
+            /*! @brief Get layer from the Scene.
+             *  @details Gets a pointer to a layer, if found by position (or
+             *  **nullptr**).
+             *  @param position The position of the layer to get.
+             *  @returns A pointer to the found layer (or **nullptr**).
+             *  @attention Be cautious about using pointers returned by this
+             *  function, as they may quickly go stale.
+             */
+            Layer *GetLayer(const int position);
+            /*! @brief Remove layer from the scene (by pointer).
+             *  @details Removes a layer from the layer container (by
+             *  position), and (by default), destroys the layer.
+             *  @param position The position of the layer.
+             *  @param destroy Whether or not to destroy and delete the layer.
+             */
+            void RemoveLayer(const int position, const bool destroy = true);
+            /*! @brief Remove layer from the scene (by pointer).
+             *  @details Removes a layer from the layer container (by
+             *  pointer), and (by default), destroys the layer.
+             *  @param layer A pointer to the layer to remove.
+             *  @param destroy Whether or not to destroy and delete the layer.
+             */
+            void RemoveLayer(Layer *layer, const bool destroy = true);
             /*! @brief Create and push a BackgroundLayer.
              *  @details Creates a BackgroundLayer and pushes it into the layer
              *  containers.

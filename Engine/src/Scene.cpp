@@ -42,13 +42,39 @@ void GalaEngine::Scene::RemoveEntity(Entity *entity, const bool destroy) {
     if(destroy) delete (*it_ent).second;
 }
 
-size_t GalaEngine::Scene::PushLayer(Layer *layer, const int position) {
-    const size_t layerPos = (position < 0) ? _layers.size() : position;
-    _layers.insert(_layers.begin() + layerPos, layer);
+size_t GalaEngine::Scene::PushLayer(Layer *layer, int position) {
+    if(position < 0)                    position = 0;
+    else if(position >= _layers.size()) position = _layers.size() - 1;
+
+    _layers.insert(_layers.begin() + position, layer);
 
     layer->OnStart();
 
-    return layerPos;
+    return position;
+}
+
+GalaEngine::Layer *GalaEngine::Scene::GetLayer(const int position) {
+    if((position < 0) || (position >= _layers.size())) return nullptr;
+    return _layers[position];
+}
+
+void GalaEngine::Scene::RemoveLayer(const int position, const bool destroy) {
+    if((position < 0) || (position >= _layers.size())) return;
+
+    if(destroy) delete _layers[position];
+    _layers.erase(_layers.begin() + position);
+}
+
+void GalaEngine::Scene::RemoveLayer(Layer *layer, const bool destroy) {
+    size_t layerPos = 0;
+
+    for(int i = 0; i < _layers.size(); i++) {
+        if(_layers[i] == layer) {
+            _layers.erase(_layers.begin() + i);
+            if(destroy) delete _layers[i];
+            return;
+        }
+    }
 }
 
 GalaEngine::BackgroundLayer *GalaEngine::Scene::AddBackgroundLayer(const Texture texture, const Colour clearColour, const int position) {
