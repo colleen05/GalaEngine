@@ -22,7 +22,7 @@ Documentation for GalaEngine exists within each header, formatted with Doxygen c
 If you **do not have Doxygen installed**, you may download and install it [here](https://www.doxygen.nl/download.html). If you are **on Ubuntu**, you can simply install it by running ``sudo apt-get install doxygen``.
 
 ### Building Documentation
-To build the documentation, simply open the directory you have cloned GalaEngine to, and run the following command:
+To build the documentation, open the directory you have cloned GalaEngine to, and run the following command:
 ``doxygen Doxyfile``. This will generate the appropriate HTML in the ``Docs/html/`` directory. To view the documentation, simply locate and open the ``Docs/html/index.html`` file in your web browser of choice.
 
 ## Contributing
