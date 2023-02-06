@@ -16,7 +16,8 @@ To compile, simply execute the ``build_demo_linux64.sh`` file. Please note that 
 GalaEngine does not have an official Windows build script yet, but feel free to check out the linux build scripts to create your own build.
 
 ## Documentation
-Documentation for GalaEngine exists within each header, formatted with Doxygen comments, and within the ``Docs/`` folder. Although these can be read manually, it is recommended you build the documentation using Doxygen.
+**FOR USERS OF THE LATEST RELEASE:** Documentation is hosted [here](https://galaengine.com/docs/).
+Documentation for GalaEngine exists within each header, formatted with Doxygen comments, and within the ``Docs/`` folder. Although these can be read manually, it is recommended you check out the hosted documentation online, or build the documentation using Doxygen.
 
 ### Installing Doxygen
 If you **do not have Doxygen installed**, you may download and install it [here](https://www.doxygen.nl/download.html). If you are **on Ubuntu**, you can simply install it by running ``sudo apt-get install doxygen``.
