@@ -17,5 +17,5 @@
 #define GALAENGINE_VERSION_STRING "0.2.0-rc.1"
 
 namespace GalaEngine {
-    const char* GetEngineInfo();    //!< Return string containing information about the current version of GalaEngine.
+    const char* GetEngineInfo(); //!< Return string containing information about the current version of GalaEngine.
 }
