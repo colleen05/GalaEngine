@@ -29,18 +29,21 @@ namespace GalaEngine {
      */
     class Scene {
         protected:
-            int _width  = 640;  //!< Scene width
-            int _height = 480;  //!< Scene height
-            /// @}
+            int _width  = 640;  //!< Scene width.
+            int _height = 480;  //!< Scene height.
 
         public:
             /*! @name Internal Data & Structures
              *  @details These are internal containers and data for the Scene
              *  to keep track of and manage by itself.
+             *  @warning It is highly recommended against modifying the
+             *  contents of these containers directly. Doing so may result in
+             *  unintentional stale pointer bugs.
              */
             /// @{
             std::map<std::string, Entity*>  entities;  //!< Map of names to entities.
             std::vector<Layer*> layers; //!< Vector of layers.
+            /// @}
 
             // Surface, camera, and asset manager
             Surface *targetSurface = nullptr;   //!< The Surface everything is rendered to.
