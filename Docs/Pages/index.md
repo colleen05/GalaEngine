@@ -1,7 +1,7 @@
 # Reference Start Page {#reference-start-page}
 
 # GalaEngine v0.2.0
-This is the official documentation for **GalaEngine version 0.2.0**. Herewithin you will find specifications and commentary on each structure, class, feature, and subsystem within GalaEngine. This documentation primarily serves as a **reference guide** for the GalaEngine **headers**, but a **manual** is provided for other aspects of the engine (such as installation, using GalaEngine practically, compiling, using **GalaMake**, etc..).
+This is the official documentation for **GalaEngine version 0.2.0**. Herewithin you will find specifications and commentary on each structure, class, feature, and subsystem within GalaEngine. This documentation primarily serves as a **reference guide** for the GalaEngine **headers**, but a **manual** is provided for other aspects of the engine (such as installation, using GalaEngine practically, compiling, using [GalaMake](https://github.com/colleen05/GalaMake), etc..).
 
 <h3>Getting Started</h3>
 - [The Manual](@ref manual-introduction): **The recommended starting point for newcomers.** Introduces and explains how to use various aspects of GalaEngine in-depth.
