@@ -8,46 +8,46 @@ void GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, const std::string
     entity->input   = input;
     entity->sound   = sound;
 
-    if(!name.empty()) _entities.insert_or_assign(name, entity);
+    if(!name.empty()) entities.insert_or_assign(name, entity);
 
     entity->OnStart();
 }
 
 GalaEngine::Entity *GalaEngine::Scene::GetEntity(const std::string &name) {
-    const auto &it_ent = _entities.find(name);
-    if(it_ent == _entities.end()) return nullptr;
+    const auto &it_ent = entities.find(name);
+    if(it_ent == entities.end()) return nullptr;
 
     return (*it_ent).second;
 }
 
 void GalaEngine::Scene::RemoveEntity(const std::string &name, const bool destroy) {
-    const auto &it_ent = _entities.find(name);
-    if(it_ent == _entities.end()) return;
+    const auto &it_ent = entities.find(name);
+    if(it_ent == entities.end()) return;
 
     if(destroy) delete (*it_ent).second;
-    _entities.erase(it_ent);
+    entities.erase(it_ent);
 }
 
 void GalaEngine::Scene::RemoveEntity(Entity *entity, const bool destroy) {
     const auto &it_ent = std::find_if(
-        _entities.begin(), _entities.end(),
+        entities.begin(), entities.end(),
         [entity](const auto &e){
             return e.second == entity;
         }
     );
 
-    if(it_ent == _entities.end()) return;
+    if(it_ent == entities.end()) return;
 
     if(destroy) delete (*it_ent).second;
-    _entities.erase(it_ent);
+    entities.erase(it_ent);
 }
 
 size_t GalaEngine::Scene::PushLayer(Layer *layer, int position) {
     if( (position < 0) ||
-        (position > _layers.size())
-    ) position = _layers.size();
+        (position > layers.size())
+    ) position = layers.size();
 
-    _layers.insert(_layers.begin() + position, layer);
+    layers.insert(layers.begin() + position, layer);
 
     layer->OnStart();
 
@@ -55,24 +55,24 @@ size_t GalaEngine::Scene::PushLayer(Layer *layer, int position) {
 }
 
 GalaEngine::Layer *GalaEngine::Scene::GetLayer(const int position) {
-    if((position < 0) || (position >= _layers.size())) return nullptr;
-    return _layers[position];
+    if((position < 0) || (position >= layers.size())) return nullptr;
+    return layers[position];
 }
 
 void GalaEngine::Scene::RemoveLayer(const int position, const bool destroy) {
-    if((position < 0) || (position >= _layers.size())) return;
+    if((position < 0) || (position >= layers.size())) return;
 
-    if(destroy) delete _layers[position];
-    _layers.erase(_layers.begin() + position);
+    if(destroy) delete layers[position];
+    layers.erase(layers.begin() + position);
 }
 
 void GalaEngine::Scene::RemoveLayer(Layer *layer, const bool destroy) {
     size_t layerPos = 0;
 
-    for(int i = 0; i < _layers.size(); i++) {
-        if(_layers[i] == layer) {
-            if(destroy) delete _layers[i];
-            _layers.erase(_layers.begin() + i);
+    for(int i = 0; i < layers.size(); i++) {
+        if(layers[i] == layer) {
+            if(destroy) delete layers[i];
+            layers.erase(layers.begin() + i);
             return;
         }
     }
@@ -101,13 +101,13 @@ void GalaEngine::Scene::Resize(const int width, const int height, const bool res
     _height = height;
 
     if(resizeLayers) {
-        for(const auto &layer : _layers)
+        for(const auto &layer : layers)
             layer->surface->Resize(width, height);
     }
 }
 
 void GalaEngine::Scene::Update() {
-    for(auto &e : _entities) {
+    for(auto &e : entities) {
         auto &ent = e.second;
 
         ent->worldMousePosition = Vector2 {
@@ -123,7 +123,7 @@ void GalaEngine::Scene::Update() {
         };
     }
 
-    for(auto &layer : _layers) {
+    for(auto &layer : layers) {
         layer->OnUpdate();
     }
 }
@@ -131,7 +131,7 @@ void GalaEngine::Scene::Update() {
 void GalaEngine::Scene::RenderLayers() {
     if(targetSurface == nullptr) return;
 
-    for(const auto &layer : _layers) {
+    for(const auto &layer : layers) {
         auto &layerTexture = layer->surface->renderTexture.texture;
 
         layer->OnDraw(mainCamera);
