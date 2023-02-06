@@ -17,6 +17,7 @@ GalaEngine does not have an official Windows build script yet, but feel free to 
 
 ## Documentation
 **FOR USERS OF THE LATEST RELEASE:** Documentation is hosted [here](https://galaengine.com/docs/).
+
 Documentation for GalaEngine exists within each header, formatted with Doxygen comments, and within the ``Docs/`` folder. Although these can be read manually, it is recommended you check out the hosted documentation online, or build the documentation using Doxygen.
 
 ### Installing Doxygen
