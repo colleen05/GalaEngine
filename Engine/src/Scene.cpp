@@ -24,8 +24,8 @@ void GalaEngine::Scene::RemoveEntity(const std::string &name, const bool destroy
     const auto &it_ent = _entities.find(name);
     if(it_ent == _entities.end()) return;
 
-    _entities.erase(it_ent);
     if(destroy) delete (*it_ent).second;
+    _entities.erase(it_ent);
 }
 
 void GalaEngine::Scene::RemoveEntity(Entity *entity, const bool destroy) {
@@ -38,8 +38,8 @@ void GalaEngine::Scene::RemoveEntity(Entity *entity, const bool destroy) {
 
     if(it_ent == _entities.end()) return;
 
-    _entities.erase(it_ent);
     if(destroy) delete (*it_ent).second;
+    _entities.erase(it_ent);
 }
 
 size_t GalaEngine::Scene::PushLayer(Layer *layer, int position) {
