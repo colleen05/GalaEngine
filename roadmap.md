@@ -23,6 +23,7 @@
 ### Tasks
 - [x] Refactor: Properly use const, and references.
 - [x] Optimise: Container optimisations.
+- [ ] Add appropriate demos.
 
 
 ## Version 0.3.0
@@ -47,6 +48,7 @@
 
 ### Tasks
 - [ ] Document changes.
+- [ ] Add appropriate demos.
 
 
 ## Version 0.4.0
@@ -59,6 +61,7 @@
 ### Tasks
 - [ ] Document changes.
 - [ ] Complete manual.
+- [ ] Add appropriate demos.
 
 
 ## Version 1.0.0
