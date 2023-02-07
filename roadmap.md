@@ -29,13 +29,29 @@
 ## Version 0.3.0
 ### Updates
 - [ ] Add Entity context members: `sceneWidth`, `sceneHeight`, `sceneEntities`, and `sceneLayers`.
-- [ ] InputManager allows for direct key-checking.
+- [ ] InputManager allows for direct checking:
+  - [ ] `bool InputManager::IsKeyPressed(...)`: Has key just been pressed?
+  - [ ] `bool InputManager::IsKeyDown(...)`: Is key currently down?
+  - [ ] `bool InputManager::IsKeyReleased(...)`: Has key just been released?
+  - [ ] `bool InputManager::IsMousePressed(...)`: Has mouse button just been pressed?
+  - [ ] `bool InputManager::IsMouseDown(...)`: Is mouse button currently down?
+  - [ ] `bool InputManager::IsMouseReleased(...)`: Is mouse button currently down?
+  - [ ] `Vector2 InputManager::GetMouseWheel()`: Get mouse scroll vector.
+  - [ ] `bool InputManager::IsGamepadPressed(...)`: Has gamepad button just been pressed?
+  - [ ] `bool InputManager::IsGamepadDown(...)`: Is gamepad button currently down?
+  - [ ] `bool InputManager::IsGamepadReleased(...)`: Has gamepad button just been released?
+
 - [ ] Better camera system (render to target texture).
 
 ### Core features
-- [ ] Shader class.
+- [ ] Shader class:
+  - [ ] ``Shader::Compile(...)``: Load from vertex and fragment strings.
+  - [ ] ``Shader::GetAttributes()``: Return all attributes.
+  - [ ] ``Shader::Set<T>(...)``: Set attribute.
+  - [ ] ``Shader::Get<T>(...)``: Get attribute.
+  - [ ] ``Surface::UseShader(...)``: Set shader of surface.
 - [ ] Immediate-mode GUI (IMGUI).
-- [ ] Audio listener & emitter system.
+- [ ] Audio listener & emitter system:
 - [ ] Loading scenes from resource files.
 
 ### Utilities
@@ -50,20 +66,35 @@
 
 ## Version 0.4.0
 ### Core features
-- [ ] `Debug::Logger` class.
+- [ ] Debug::Logger class.
 - [ ] Timeline class.
 - [ ] Path class.
 - [ ] Networking.
 - [ ] Particle system.
 
 ### Utilities
-- [ ] `GetPlatformString()` and `GetPlatformType()`, for OS information.
+- [ ] OS interaction:
+  - `GetPlatformString()`: Returns name of OS.
+  - `GetPlatformType()`: Returns platform type enum.
+  - `GetPlatformLanguage()`: Returns the language of the OS.
+  - `ShowMessageBox(...)`: Show a message box.
+  - `ShowOptionBox(...)`: Show a message box with two options, return the selected option.
+  - `ShowQuestionBox(...)`: Show a message box with input field, return the entered text.
+  - `FileSelector(...)`: Show a file selection window, return path of selected file.
+  - `PushNotification(...)`: Send a notification to the user.
 - [ ] Collision detection.
 
 ### Tasks
 - [ ] Document changes.
 - [ ] Complete manual.
 - [ ] Add appropriate demos.
+
+
+## Version 0.5.0
+### Core features
+- [ ] Scripting:
+  - [ ] ``ScriptedGame`` class?
+  - *To be determined...*
 
 
 ## Version 1.0.0
