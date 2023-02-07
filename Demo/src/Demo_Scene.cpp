@@ -1,43 +1,9 @@
 #include <Demo_Scene.hpp>
 
 void Demo_Scene::OnLoad() {
-    HideCursor();
-
-    scene->Resize(1024, 576);
-
-    // Setup flower_click binds
-    input->BindKeyboard("flower_click", {KEY_A, KEY_Q});
-    input->BindMouse("flower_click", {MOUSE_BUTTON_LEFT});
-
-    // Setup default flower_drag binds
-    input->BindInput("flower_drag", {{KEY_SPACE}, {MOUSE_BUTTON_RIGHT}, {}, false, GAMEPAD_AXIS_LEFT_X});
-
-    // Overwrite keyboard binds individually
-    input->BindKeyboard("flower_drag", {KEY_D}, true);
-    input->BindKeyboard("flower_drag", {KEY_E}, false);
-
-    // Add mouse binds
-    input->BindMouse("flower_drag", {MOUSE_BUTTON_MIDDLE});
-
-    // Add gamepad binds
-    input->BindGamepadButtons("flower_click", {GAMEPAD_BUTTON_RIGHT_FACE_DOWN});
-    input->BindGamepadButtons("flower_drag", {GAMEPAD_BUTTON_RIGHT_FACE_RIGHT});
-
-    input->BindGamepadAxis("cam_x", GAMEPAD_AXIS_RIGHT_X);
-    input->BindGamepadAxis("cam_y", GAMEPAD_AXIS_RIGHT_Y);
-
-    input->BindGamepadAxis("cur_x", GAMEPAD_AXIS_LEFT_X);
-    input->BindGamepadAxis("cur_y", GAMEPAD_AXIS_LEFT_Y);
-
-    input->BindGamepadAxis("zoom_in", GAMEPAD_AXIS_RIGHT_TRIGGER);
-    input->BindGamepadAxis("zoom_out", GAMEPAD_AXIS_LEFT_TRIGGER);
-
-
-
     // Load assets
     tex_bgSky = assets->LoadTexture("bg_clouds");
     tex_bgOverlay = assets->LoadTexture("bg_clouds_overlay");
-    tex_cursor = assets->LoadTexture("cursor");
 
     ts_test = assets->GetTileset("ts_testtiles");
 
@@ -63,25 +29,33 @@ void Demo_Scene::OnLoad() {
 
     lay_entities = scene->AddEntityLayer();
     
-    ent_flower0 = new Ent_Flower(360, 256);
-    ent_flower0->spriteFrame = 0;
-    scene->PushEntity(ent_flower0, "flower_0");
-    lay_entities->AddEntity(ent_flower0);
+    ent_ball0 = new Ent_Ball(360, 256);
+    ent_ball0->spriteFrame = 0;
+    ent_ball0->sceneWidth = 1024.0f;
+    ent_ball0->sceneHeight = 576.0f;
+    scene->PushEntity(ent_ball0, "ball_0");
+    lay_entities->AddEntity(ent_ball0);
 
-    ent_flower1 = new Ent_Flower(440, 256);
-    ent_flower1->spriteFrame = 1;
-    scene->PushEntity(ent_flower1, "flower_1");
-    lay_entities->AddEntity(ent_flower1);
+    ent_ball1 = new Ent_Ball(440, 256);
+    ent_ball1->spriteFrame = 1;
+    ent_ball1->sceneWidth = 1024.0f;
+    ent_ball1->sceneHeight = 576.0f;
+    scene->PushEntity(ent_ball1, "ball_1");
+    lay_entities->AddEntity(ent_ball1);
 
-    ent_flower2 = new Ent_Flower(520, 256);
-    ent_flower2->spriteFrame = 2;
-    scene->PushEntity(ent_flower2, "flower_2");
-    lay_entities->AddEntity(ent_flower2);
+    ent_ball2 = new Ent_Ball(520, 256);
+    ent_ball2->spriteFrame = 2;
+    ent_ball2->sceneWidth = 1024.0f;
+    ent_ball2->sceneHeight = 576.0f;
+    scene->PushEntity(ent_ball2, "ball_2");
+    lay_entities->AddEntity(ent_ball2);
 
-    ent_flower3 = new Ent_Flower(600, 256);
-    ent_flower3->spriteFrame = 3;
-    scene->PushEntity(ent_flower3, "flower_3");
-    lay_entities->AddEntity(ent_flower3);
+    ent_ball3 = new Ent_Ball(600, 256);
+    ent_ball3->spriteFrame = 3;
+    ent_ball3->sceneWidth = 1024.0f;
+    ent_ball3->sceneHeight = 576.0f;
+    scene->PushEntity(ent_ball3, "ball_3");
+    lay_entities->AddEntity(ent_ball3);
 
     lay_foreground = scene->AddBackgroundLayer(tex_bgOverlay, C_CLEAR);
     lay_foreground->scrollSpeed = {96.0f * 10.0f, -48.0f * 10.0f};
@@ -90,47 +64,10 @@ void Demo_Scene::OnLoad() {
 
 void Demo_Scene::OnDraw() {
     window->surface.DrawText("FPS: " + std::to_string(1.0f / GetFrameTime()), 8.0f, 8.0f, 20, Colours::GalaBlack);
-
-    window->surface.DrawTexture(tex_cursor, GetMouseX()-16.0f, GetMouseY()-16.0f);
 }
 
 void Demo_Scene::OnUpdate() {
-    if(IsKeyDown(KEY_UP)) {
-        scene->mainCamera.position.y -= 512.0f * GetFrameTime();
-    }else if(IsKeyDown(KEY_DOWN)) {
-        scene->mainCamera.position.y += 512.0f * GetFrameTime();
-    }
 
-    if(IsKeyDown(KEY_LEFT)) {
-        scene->mainCamera.position.x -= 512.0f * GetFrameTime();
-    }else if(IsKeyDown(KEY_RIGHT)) {
-        scene->mainCamera.position.x += 512.0f * GetFrameTime();
-    }
-
-    scene->mainCamera.position.x += 720.0f * input->GetFloat("cam_x") * GetFrameTime();
-    scene->mainCamera.position.y += 720.0f * input->GetFloat("cam_y") * GetFrameTime();
-
-    auto mousePos = GetMousePosition();
-    SetMousePosition(
-        mousePos.x + (480.0f * input->GetFloat("cur_x") * GetFrameTime()),
-        mousePos.y + (480.0f * input->GetFloat("cur_y") * GetFrameTime())
-    );
-
-    auto zoomAmt = 0.0f;
-
-    if(std::abs(GetMouseWheelMove() - 0.0f) > __FLT_EPSILON__) {
-        zoomAmt = GetMouseWheelMove();
-    }else {
-        zoomAmt = (input->GetFloat("zoom_in") - input->GetFloat("zoom_out")) / 2.0f;
-    }
-
-    scene->mainCamera.size = Vector2Subtract(
-        scene->mainCamera.size,
-        Vector2Multiply(
-            Vector2 {32.0f, 18.0f},
-            Vector2 {zoomAmt, zoomAmt}
-        )
-    );
 }
 
 void Demo_Scene::OnUnload() {
