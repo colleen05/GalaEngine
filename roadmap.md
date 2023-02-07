@@ -28,7 +28,7 @@
 
 ## Version 0.3.0
 ### Updates
-- [ ] Add Entity context members: `sceneWidth`, `sceneHeight`, `sceneEntities`.
+- [ ] Add Entity context members: `sceneWidth`, `sceneHeight`, `sceneEntities`, and `sceneLayers`.
 - [ ] InputManager allows for direct key-checking.
 - [ ] Better camera system (render to target texture).
 
