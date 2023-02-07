@@ -28,22 +28,19 @@
 
 ## Version 0.3.0
 ### Updates
+- [ ] Add Entity context members: `sceneWidth`, `sceneHeight`, `sceneEntities`.
 - [ ] InputManager allows for direct key-checking.
-- [ ] Entity tags & selecting.
-- [ ] Audio listener & emitter system.
 - [ ] Better camera system (render to target texture).
 
 ### Core features
-- [ ] SceneVars.
-- [ ] Collision detection.
 - [ ] Shader class.
 - [ ] Immediate-mode GUI (IMGUI).
+- [ ] Audio listener & emitter system.
 - [ ] Loading scenes from resource files.
 
 ### Utilities
 - [ ] 9-slicing (Surfaces).
-- [ ] Particle system.
-- [ ] GUILayer.
+- [ ] SurfaceLayer (layer with just a surface).
 - [ ] CompositeLayer (layers beneath will render to this layer. allows fragment shading).
 
 ### Tasks
@@ -53,10 +50,15 @@
 
 ## Version 0.4.0
 ### Core features
-- [ ] DebugInfo class.
+- [ ] `Debug::Logger` class.
 - [ ] Timeline class.
 - [ ] Path class.
 - [ ] Networking.
+- [ ] Particle system.
+
+### Utilities
+- [ ] `GetPlatformString()` and `GetPlatformType()`, for OS information.
+- [ ] Collision detection.
 
 ### Tasks
 - [ ] Document changes.
