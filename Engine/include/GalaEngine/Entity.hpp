@@ -69,7 +69,7 @@ namespace GalaEngine {
              *  (often) updated or used by other classes.
              */
             /// @{
-            Vector2     worldMousePosition = {0.0f, 0.0f};      //!< Where the mouse is in scene-coordinates (rather than within the window).
+            Vector2     sceneMousePosition = {0.0f, 0.0f};      //!< Where the mouse is in scene-coordinates (rather than within the window).
             Vector2     bboxSize = {32.0f, 32.0f};              //!< The size of the bounding-box of the entity.
             Rectangle   bbox     = {0.0f, 0.0f, 32.0f, 32.0f};  //!< The bounding-box of the entity after calculations.
             /// @}

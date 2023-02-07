@@ -110,7 +110,7 @@ void GalaEngine::Scene::Update() {
     for(auto &e : entities) {
         auto &ent = e.second;
 
-        ent->worldMousePosition = Vector2 {
+        ent->sceneMousePosition = Vector2 {
             (float) (GetMouseX()) / GetScreenWidth()  * mainCamera.size.x + mainCamera.position.x,
             (float) (GetMouseY()) / GetScreenHeight() * mainCamera.size.y + mainCamera.position.y
         };
