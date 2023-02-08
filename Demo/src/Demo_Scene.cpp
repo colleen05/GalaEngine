@@ -63,7 +63,13 @@ void Demo_Scene::OnLoad() {
 }
 
 void Demo_Scene::OnDraw() {
-    window->surface.DrawText("FPS: " + std::to_string(1.0f / GetFrameTime()), 8.0f, 8.0f, 20, Colours::GalaBlack);
+    const std::string text =
+        "FPS: " + std::to_string((int)(1.0f / GetFrameTime())) + "\n" +
+        "Entities: " + std::to_string(scene->entities.size()) + "\n" +
+        "Layers: " + std::to_string(scene->layers.size()) + "\n";
+
+    window->surface.DrawRectangleRounded(4, 4, 128, 96, 8.0f, {0,0,0,192});
+    window->surface.DrawText(text, 12.0f, 12.0f, 20, Colours::White);
 }
 
 void Demo_Scene::OnUpdate() {
