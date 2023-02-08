@@ -25,17 +25,14 @@ void GalaEngine::Game::Start() {
 
         // Drawing
         BeginDrawing();
-        window->surface.Clear(C_BLACK);
+        ClearBackground(window->surface.clearColour);
+        window->surface.Clear();
+
         scene->RenderLayers();
         OnDraw(); // Call draw code from child class
+
         window->Render();
         EndDrawing();
-
-        if(IsKeyPressed(KEY_F9)) {
-            Image img_screen = LoadImageFromTexture(window->surface.renderTexture.texture);
-            ExportImage(img_screen, "window_surface.png");
-            UnloadImage(img_screen);
-        }
     }
 
     OnUnload();
