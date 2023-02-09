@@ -133,7 +133,7 @@ void GalaEngine::AssetManager::UnloadAllTilesets(const bool unloadTextures) {
 
 void GalaEngine::AssetManager::UnloadAllSounds() {
     for(auto &s : sounds) UnloadSound(s.first, false);
-    tilesets.clear();
+    sounds.clear();
 }
 
 void GalaEngine::AssetManager::UnloadAllFonts() {
