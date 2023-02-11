@@ -73,10 +73,11 @@ void Demo_Radio::GUI_ListItem(const TrackListing &track, const int x, const int 
         window->surface.DrawTexture(assets->GetTexture("ui_radio_item"), x, y);
 
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            isPlaying = true;
-            sound->StopAll();
+            const auto &curSound = assets->GetSound(currentTrack);
+            sound->Stop(curSound);
+
             currentTrack = track.name;
-            sound->Play(assets->GetSound(track.name), true);
+            sound->Play(assets->GetSound(track.name), false);
         }
     }
 }
@@ -92,26 +93,28 @@ void Demo_Radio::GUI_BackButton() {
     if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
         CheckCollisionPointRec(GetMousePosition(), {528.0f, 480.0f, 48.0f, 48.0f})
     ) {
-        isPlaying = true;
-        sound->StopAll();
-        auto track = *(--trackListings.find(currentTrack));
+        const auto &curSound = assets->GetSound(currentTrack);
+        sound->Stop(curSound);
+        
+        const auto &track = *(--trackListings.find(currentTrack));
         currentTrack = track.first;
-        sound->Play(assets->GetSound(track.first), true);
+        sound->Play(assets->GetSound(track.first), false);
     }
 }
 
 void Demo_Radio::GUI_PlayButton() {
-    const auto &snd = assets->GetSound(currentTrack);
+    const auto &curSound = assets->GetSound(currentTrack);
 
-    window->surface.DrawSprite(*spr_button, isPlaying ? 0 : 1, 592, 480);
+    window->surface.DrawSprite(*spr_button, sound->IsPlaying(curSound) ? 0 : 1, 592, 480);
 
     if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
         CheckCollisionPointRec(GetMousePosition(), {592.0f, 480.0f, 48.0f, 48.0f})
     ) {
-        if(isPlaying) sound->StopAll();
-        else          sound->Play(snd);
-
-        isPlaying = !isPlaying;
+        if(sound->IsPlaying(curSound)) {
+            sound->Pause(curSound);
+        } else {
+            sound->Resume(curSound);
+        }
     }
 }
 
@@ -126,11 +129,12 @@ void Demo_Radio::GUI_ForwardButton() {
     if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
         CheckCollisionPointRec(GetMousePosition(), {656.0f, 480.0f, 48.0f, 48.0f})
     ) {
-        isPlaying = true;
-        sound->StopAll();
-        auto track = *(++trackListings.find(currentTrack));
+        const auto &curSound = assets->GetSound(currentTrack);
+        sound->Stop(curSound);
+
+        const auto &track = *(++trackListings.find(currentTrack));
         currentTrack = track.first;
-        sound->Play(assets->GetSound(track.first), true);
+        sound->Play(assets->GetSound(track.first), false);
     }
 }
 

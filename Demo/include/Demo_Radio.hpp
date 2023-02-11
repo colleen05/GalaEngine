@@ -26,8 +26,6 @@ class Demo_Radio : public GalaEngine::Game {
 
         GalaEngine::Sprite *spr_button;
 
-        bool isPlaying = false;
-
         // Game class overrides
         void OnLoad();
         void OnDraw();
