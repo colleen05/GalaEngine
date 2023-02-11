@@ -40,8 +40,8 @@
   - [ ] `bool InputManager::IsGamepadPressed(...)`: Has gamepad button just been pressed?
   - [ ] `bool InputManager::IsGamepadDown(...)`: Is gamepad button currently down?
   - [ ] `bool InputManager::IsGamepadReleased(...)`: Has gamepad button just been released?
-
 - [ ] Better camera system (render to target texture).
+- [ ] AssetManager to have a `defaultTextureFilter` member.
 
 ### Core features
 - [ ] Shader class:
@@ -58,6 +58,11 @@
 - [ ] 9-slicing (Surfaces).
 - [ ] SurfaceLayer (layer with just a surface).
 - [ ] CompositeLayer (layers beneath will render to this layer. allows fragment shading).
+
+
+### GalaMake
+- [ ] Build scenes.
+- [ ] Add "filter" option to textures.
 
 ### Tasks
 - [ ] Document changes.
@@ -93,7 +98,7 @@
 ## Version 0.5.0
 ### Core features
 - [ ] Scripting:
-  - [ ] ``ScriptedGame`` class?
+  - [ ] ``ScriptedGame`` and ``ScriptedEntity`` classes?
   - *To be determined...*
 
 
