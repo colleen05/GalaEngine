@@ -41,6 +41,7 @@ namespace GalaEngine {
             /*! @brief Stop a sound.
              *  @details Stops the playback of a currently playing sound.
              *  @param sound The sound to stop.
+             *  @note Sounds played as **multi** cannot be stopped.
              */
             void Stop(const Sound &sound);
             /*! @brief Stop all sounds.
@@ -51,7 +52,7 @@ namespace GalaEngine {
             /*! @brief Pause a sound.
              *  @details Pauses the playback of a currently playing sound.
              *  @param sound The sound the pause.
-             *  @note Only sounds played as **multi** can be paused.
+             *  @note Sounds played as **multi** cannot be paused.
              */
             void Pause(const Sound &sound);
             /*! @brief Resume a sound.
@@ -69,6 +70,7 @@ namespace GalaEngine {
              *  @details Get if a sound is currently playing.
              *  @param sound The sound to check.
              *  @returns **true** if the sound is playing.
+             *  @note Sounds played as **multi** cannot be checked.
              */
             bool IsPlaying(const Sound &sound);
             /// @}
