@@ -8,6 +8,7 @@
 #pragma once
 
 #include <Demo_Drawing.hpp>
+#include <Demo_Assets.hpp>
 #include <Demo_Scene.hpp>
 #include <Demo_Tiles.hpp>
-#include <Demo_Assets.hpp>
+#include <Demo_Radio.hpp>

@@ -66,6 +66,12 @@ int main(int argc, char **argv) {
                 "Tiles",
                 "Demonstrates tileset and tilemap features."
             }
+        },
+        {"radio",
+            DemoProfile {
+                "Sound Management",
+                "Demonstrates use of GalaEngine::SoundManager\nclass with a music player interface."
+            }
         }
     };
 
@@ -159,6 +165,8 @@ int main(int argc, char **argv) {
                 game = new Demo_Tiles();
             }else if(currentProfile == "assets") {
                 game = new Demo_Assets();
+            }else if(currentProfile == "radio") {
+                game = new Demo_Radio();
             }
         }
 
