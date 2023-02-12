@@ -41,7 +41,7 @@
   - [ ] `bool InputManager::IsGamepadDown(...)`: Is gamepad button currently down?
   - [ ] `bool InputManager::IsGamepadReleased(...)`: Has gamepad button just been released?
 - [ ] AssetManager to have a `defaultTextureFilter` member.
-- [ ] Layers to have blend modes.
+- [ ] Layers and entities to have blend modes.
 
 ### Core features
 - [ ] Shader class:
@@ -90,7 +90,13 @@
   
 ### Tasks
 - [ ] Document changes.
-- [ ] Complete manual.
+- [ ] Write in manual:
+  - [ ] Downloading & Prerequisites
+  - [ ] Engine Overview
+  - [ ] Compiling a Project
+  - [ ] Using GalaMake
+  - [ ] Using Layers
+  - [ ] Creating Entities
 - [ ] Add appropriate demos.
 
 
@@ -100,6 +106,22 @@
 - [ ] Scripting:
   - [ ] ``ScriptedGame`` and ``ScriptedEntity`` classes?
   - *To be determined...*
+
+### Tasks
+- [ ] Document changes.
+- [ ] Write in manual:
+  - [ ] Cameras
+  - [ ] Surfaces & Drawing
+  - [ ] Creating GUIs
+  - [ ] Logging & Debugging
+  - [ ] Timelines & Paths
+  - [ ] Input System & Binding
+  - [ ] Sound & Audio
+  - [ ] Particles
+  - [ ] Physics
+- [ ] Add scripting section to manual.
+- [ ] Add appropriate demos.
+- [ ] Switch to a proper buildsystem.
 
 
 ## Version 1.0.0
