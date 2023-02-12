@@ -40,8 +40,8 @@
   - [ ] `bool InputManager::IsGamepadPressed(...)`: Has gamepad button just been pressed?
   - [ ] `bool InputManager::IsGamepadDown(...)`: Is gamepad button currently down?
   - [ ] `bool InputManager::IsGamepadReleased(...)`: Has gamepad button just been released?
-- [ ] Better camera system (render to target texture).
 - [ ] AssetManager to have a `defaultTextureFilter` member.
+- [ ] Layers to have blend modes.
 
 ### Core features
 - [ ] Shader class:
@@ -50,15 +50,15 @@
   - [ ] ``Shader::Set<T>(...)``: Set attribute.
   - [ ] ``Shader::Get<T>(...)``: Get attribute.
   - [ ] ``Surface::UseShader(...)``: Set shader of surface.
+- [ ] Multi-camera support:
+  - [ ] `Camera` class to have a render target texture.
+  - [ ] Scene to have a list of cameras and their on-screen placements.
 - [ ] Immediate-mode GUI (IMGUI).
-- [ ] Audio listener & emitter system:
 - [ ] Loading scenes from resource files.
 
 ### Utilities
 - [ ] 9-slicing (Surfaces).
-- [ ] SurfaceLayer (layer with just a surface).
 - [ ] CompositeLayer (layers beneath will render to this layer. allows fragment shading).
-
 
 ### GalaMake
 - [ ] Build scenes.
@@ -74,8 +74,8 @@
 - [ ] Debug::Logger class.
 - [ ] Timeline class.
 - [ ] Path class.
-- [ ] Networking.
 - [ ] Particle system.
+- [ ] Audio listener & emitter system.
 
 ### Utilities
 - [ ] OS interaction:
@@ -87,8 +87,7 @@
   - `ShowQuestionBox(...)`: Show a message box with input field, return the entered text.
   - `FileSelector(...)`: Show a file selection window, return path of selected file.
   - `PushNotification(...)`: Send a notification to the user.
-- [ ] Collision detection.
-
+  
 ### Tasks
 - [ ] Document changes.
 - [ ] Complete manual.
@@ -97,6 +96,7 @@
 
 ## Version 0.5.0
 ### Core features
+- [ ] Physics (via Box2D?)
 - [ ] Scripting:
   - [ ] ``ScriptedGame`` and ``ScriptedEntity`` classes?
   - *To be determined...*
