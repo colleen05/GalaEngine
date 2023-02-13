@@ -53,6 +53,7 @@
 - [ ] Multi-camera support:
   - [ ] `Camera` class to have a render target texture.
   - [ ] Scene to have a list of cameras and their on-screen placements.
+- [ ] Fonts properly supported.
 - [ ] Immediate-mode GUI (IMGUI).
 - [ ] Loading scenes from resource files.
 
@@ -62,6 +63,7 @@
 
 ### GalaMake
 - [ ] Build scenes.
+- [ ] Build fonts.
 - [ ] Add "filter" option to textures.
 
 ### Tasks
