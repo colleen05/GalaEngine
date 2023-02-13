@@ -14,6 +14,13 @@ void GalaEngine::Game::Start() {
     scene->assets   = assets;
     scene->input    = input;
     scene->sound    = sound;
+    
+    scene->mainCamera.position = {0.0f, 0.0f};
+
+    scene->mainCamera.size = Vector2 {
+        (float) info.defaultWidth,
+        (float) info.defaultHeight
+    };
 
     OnLoad();
 
