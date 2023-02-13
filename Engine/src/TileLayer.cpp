@@ -43,7 +43,7 @@ void GalaEngine::TileLayer::Render() {
     }
 
     // Assign texture and unload image
-    texture = LoadTextureFromImage(img);
+    UpdateTexture(texture, img.data);
     UnloadImage(img);
     UnloadImage(img_tiles);
 }
@@ -74,6 +74,14 @@ GalaEngine::TileLayer::TileLayer(
     this->tiles = tiles;
     this->width = tilesX;
     this->height = tilesY;
+
+    Image img = GenImageColor(
+        width * tileset.tileSize,
+        height * tileset.tileSize,
+        (Color) {clearColour.r, clearColour.g, clearColour.b, clearColour.a}
+    );
+    this->texture = LoadTextureFromImage(img);
+    UnloadImage(img);
 }
 
 GalaEngine::TileLayer::TileLayer() {}
