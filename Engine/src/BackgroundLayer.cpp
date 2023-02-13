@@ -5,8 +5,8 @@ void GalaEngine::BackgroundLayer::OnStart() {
 }
 
 void GalaEngine::BackgroundLayer::OnUpdate() {
-    offset.x += scrollSpeed.x * GetFrameTime();
-    offset.y += scrollSpeed.y * GetFrameTime();
+    offset.x -= scrollSpeed.x * GetFrameTime();
+    offset.y -= scrollSpeed.y * GetFrameTime();
 }
 
 void GalaEngine::BackgroundLayer::OnDraw(const GalaEngine::Camera &camera) {
