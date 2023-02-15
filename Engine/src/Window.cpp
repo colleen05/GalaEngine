@@ -4,6 +4,7 @@
 void GalaEngine::Window::Init() {
     InitWindow(_width, _height, _title.c_str());
     SetTargetFPS(_targetFPS);
+    SetExitKey(KEY_NULL);
 
     surface = Surface(_width, _height, C_BLACK);
 
