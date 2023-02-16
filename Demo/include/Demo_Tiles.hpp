@@ -29,21 +29,27 @@ class Demo_Tiles : public GalaEngine::Game {
 
         enum class EditLayer {
             Background,
-            Foreground,
-            Both
+            Foreground
         };
 
         EditLayer targetLayer   = EditLayer::Background;
-        EditLayer viewLayer     = EditLayer::Both;
+        
+        bool viewBackgroundTiles = true;
+        bool viewForegroundTiles = true;
 
-        GalaEngine::TileLayer *lay_bgTiles = nullptr;
-        GalaEngine::TileLayer *lay_fgTiles = nullptr;
+        GalaEngine::TileLayer *lay_bgTiles  = nullptr;
+        GalaEngine::TileLayer *lay_fgTiles  = nullptr;
+        GalaEngine::Layer     *lay_flagView = nullptr;
+
+        GalaEngine::Sprite *spr_layerViews = {0};
 
         int selectionX = 0;
         int selectionY = 0;
+        bool selectionInBounds = false;
         uint16_t brushTile = 0;
 
         bool viewFlags = false;
+        bool viewGrid = true;
 
         // Game class overrides
         void OnLoad();
@@ -52,8 +58,17 @@ class Demo_Tiles : public GalaEngine::Game {
         void OnUnload();
 
         // Editor
-        void DoPicker();
+        bool GUI_Button(const std::string &text, const int x, const int y, const int w, const int h, const bool highlighted = false);
+
+        void GUI_Picker();
+        void GUI_BrushPreview(const int x, const int y);
+        void GUI_LayerToggle(const int x, const int y);
+        void GUI_FlagsToggle(const int x, const int y);
+        void GUI_GridToggle(const int x, const int y);
+        void GUI_ViewSelector(const int x, const int y);
+        
         void DrawTileGrid();
+        void DrawTileFlags();
 
         // Constructor
         Demo_Tiles();
