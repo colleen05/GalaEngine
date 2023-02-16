@@ -132,10 +132,15 @@ GalaEngine::Tileset GalaEngine::Gres::LoadTilesetData(const std::vector<uint8_t>
     // Construct tileset
     const auto flagBytes = gresTable.GetBytes("flags");
 
+    auto flagsVec = std::vector<uint16_t>(flagBytes.size() / 2, 0x00);
+    for(size_t i = 0; i < flagBytes.size() / 2; i++) {
+        flagsVec[i] = (flagBytes[i*2+1] << 8) + (flagBytes[i*2]);
+    }
+
     ts = Tileset(
         tex,
         gresTable.GetInt16("tile_size"),
-        std::vector<uint16_t>(flagBytes.begin(), flagBytes.end())
+        flagsVec
     );
 
     return ts;
