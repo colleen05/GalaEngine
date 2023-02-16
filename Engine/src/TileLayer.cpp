@@ -12,7 +12,7 @@ uint16_t GalaEngine::TileLayer::GetTile(const int x, const int y) {
 }
 
 uint16_t GalaEngine::TileLayer::GetTileFlags(const int x, const int y) {
-    return tileset.GetTileFlags(GetTileIndex(x, y));
+    return tileset.GetTileFlags(GetTile(x, y));
 }
 
 void GalaEngine::TileLayer::Render() {
