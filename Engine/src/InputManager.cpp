@@ -89,10 +89,25 @@ bool GalaEngine::InputManager::IsReleased(const std::string &inputName, const in
 
 // Joysticks
 float GalaEngine::InputManager::GetFloat(const Input &input, const int device) {
-    if(!input.hasAxis) return 0.0f;
-    if(!IsGamepadAvailable(device)) return 0.0f;
+    // Handling boolean inputs
+    if(IsDown(input, device)) return 1.0f;
+    
+    // Gamepad inputs
+    if((!input.hasAxis) || (!IsGamepadAvailable(device))) return 0.0f;
 
-    return GetGamepadAxisMovement(device, input.gamepadAxis);
+    const float movement = GetGamepadAxisMovement(device, input.gamepadAxis);
+
+    switch(input.gamepadAxis) {
+        case GAMEPAD_AXIS_LEFT_TRIGGER:
+        case GAMEPAD_AXIS_RIGHT_TRIGGER:
+            return (movement + 1.0f) / 2.0f;
+        case GAMEPAD_AXIS_LEFT_Y:
+        case GAMEPAD_AXIS_RIGHT_Y:
+            return (movement == 0.0f) ? 0.0f : -movement;
+        default: break;
+    }
+
+    return movement;
 }
 
 float GalaEngine::InputManager::GetFloat(const std::string &inputName, const int device) {
@@ -123,9 +138,7 @@ Vector2 GalaEngine::InputManager::GetRightJoystick(const int device) {
 
 // Binding
 void GalaEngine::InputManager::BindInput(const std::string &inputName, const Input &input) {
-    if(binds.find(inputName) != binds.end()) {
-        binds[inputName] = input;
-    }
+    binds.insert_or_assign(inputName, input);
 }
 
 void GalaEngine::InputManager::BindKeyboard(const std::string &inputName, const std::vector<KeyboardKey> &keys, const bool overwrite) {
