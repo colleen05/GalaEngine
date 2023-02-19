@@ -72,6 +72,12 @@ int main(int argc, char **argv) {
                 "Sound Management",
                 "Demonstrates use of GalaEngine::SoundManager\nclass with a music player interface."
             }
+        },
+        {"input",
+            DemoProfile {
+                "Input & Binding",
+                "Demonstrates use of GalaEngine::InputManager\nfor detecting and binding input, with GUI."
+            }
         }
     };
 
@@ -96,7 +102,9 @@ int main(int argc, char **argv) {
         BeginDrawing();
         ClearBackground(C_BLACK);
 
-        DrawTextEx(GuiGetFont(), "GalaEngine v" GALAENGINE_VERSION_STRING, {564.0f, 72.0f}, 16, 0.0f, C_WHITE);
+        const std::string versionText = "GalaEngine v" GALAENGINE_VERSION_STRING;
+        const int versionTextWidth = MeasureTextEx(GuiGetFont(), versionText.c_str(), 16, 0.0f).x;
+        DrawTextEx(GuiGetFont(), versionText.c_str(), {696.0f - versionTextWidth - 8.0f, 72.0f}, 16, 0.0f, C_WHITE);
         DrawTexture(tex_banner, 32, 16, C_WHITE);
 
         // Panel
@@ -167,6 +175,8 @@ int main(int argc, char **argv) {
                 game = new Demo_Assets();
             }else if(currentProfile == "radio") {
                 game = new Demo_Radio();
+            }else if(currentProfile == "input") {
+                game = new Demo_Input();
             }
         }
 

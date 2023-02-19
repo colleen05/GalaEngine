@@ -12,3 +12,4 @@
 #include <Demo_Scene.hpp>
 #include <Demo_Tiles.hpp>
 #include <Demo_Radio.hpp>
+#include <Demo_Input.hpp>
