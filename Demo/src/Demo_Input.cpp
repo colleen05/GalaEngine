@@ -68,6 +68,8 @@ std::vector<MouseButton> Demo_Input::GetMouseButtonsPressed() {
 void Demo_Input::Applet_Overview() {
     GUI_DrawKeyboard(320, 32);
     GUI_DrawController(320, 384, currentGamepadDevice);
+    GUI_DrawMouse(800, 400);
+    GUI_DrawNavKeys(1072, 384);
 }
 
 void Demo_Input::Applet_Binding() {
@@ -75,8 +77,6 @@ void Demo_Input::Applet_Binding() {
     for(const auto &[name, input] : input->binds) {
         boxY += GUI_Input(name, bindingDescriptions[name], 320, boxY, currentGamepadDevice) + 8;
     }
-
-    window->surface.DrawText("Inputs: " + std::to_string(input->binds.size()), 0, 0, 20, C_RED);
 }
 
 void Demo_Input::Applet_Log() {
@@ -158,10 +158,38 @@ void Demo_Input::GUI_Key(const std::string &label, const int x, const int y, con
         case KEY_BACKSPACE:
             window->surface.DrawTexture(assets->GetTexture("icon_key_backspace"), x, y);
             break;
+        case KEY_UP:
+            window->surface.DrawSprite(*assets->GetSprite("icons_input_arrows"), 0, x, y);
+            break;
+        case KEY_DOWN:
+            window->surface.DrawSprite(*assets->GetSprite("icons_input_arrows"), 1, x, y);
+            break;
+        case KEY_LEFT:
+            window->surface.DrawSprite(*assets->GetSprite("icons_input_arrows"), 2, x, y);
+            break;
+        case KEY_RIGHT:
+            window->surface.DrawSprite(*assets->GetSprite("icons_input_arrows"), 3, x, y);
+            break;
         default:
             window->surface.DrawText(label, x + 8, y + 8, 20, C_WHITE);
             break;
     }
+}
+
+void Demo_Input::GUI_DrawNavKeys(const int x, const int y) {
+    // Top keys
+    GUI_Key("IN", x,       y, 48, KEY_INSERT);
+    GUI_Key("HM", x + 64,  y, 48, KEY_HOME);
+    GUI_Key("PU", x + 128, y, 48, KEY_PAGE_UP);
+    GUI_Key("DL", x,       y + 64, 48, KEY_DELETE);
+    GUI_Key("EN", x + 64,  y + 64, 48, KEY_END);
+    GUI_Key("PD", x + 128, y + 64, 48, KEY_PAGE_DOWN);
+
+    // Arrow keys
+    GUI_Key("^", x + 64,    y + 160, 48, KEY_UP);
+    GUI_Key("v", x + 64,    y + 224, 48, KEY_DOWN);
+    GUI_Key("<", x,         y + 224, 48, KEY_LEFT);
+    GUI_Key(">", x + 128,   y + 224, 48, KEY_RIGHT);
 }
 
 void Demo_Input::GUI_DrawKeyboard(const int x, const int y) {
@@ -183,6 +211,42 @@ void Demo_Input::GUI_DrawKeyboard(const int x, const int y) {
         }
 
         curKeyY += 64;
+    }
+}
+
+void Demo_Input::GUI_DrawMouse(const int x, const int y) {
+    // Body
+    window->surface.DrawRectangleRounded(x, y + 32, 144, 224, 72.0f, C_DKGREY);
+    window->surface.DrawTexture(assets->GetTexture("ui_input_wire"), x, y - 48);
+
+    // LMB
+    window->surface.DrawRectangleRounded(
+        x, y + 32, 64, 96, 8.0f,
+        IsMouseButtonDown(MOUSE_BUTTON_LEFT) ?
+            C_LTGREY : C_GREY
+    );
+
+    // RMB
+    window->surface.DrawRectangleRounded(
+        x + 80, y + 32, 64, 96, 8.0f,
+        IsMouseButtonDown(MOUSE_BUTTON_RIGHT) ?
+            C_LTGREY : C_GREY
+    );
+
+    // Wheel
+    window->surface.DrawRectangleRounded(
+        x + 56, y + 32, 32, 96, 4.0f,
+        IsMouseButtonDown(MOUSE_BUTTON_MIDDLE) ?
+            C_LTGREY : GalaEngine::Colour {0x22, 0x22, 0x22, 0xff}
+    );
+
+    const float wheelMovement = GetMouseWheelMove();
+    if(abs(wheelMovement) > EPSILON) {
+        window->surface.DrawSprite(
+            *assets->GetSprite("ui_input_wheel"),
+            (wheelMovement > 0.0f) ? 0 : 1,
+            x + 64, y + 32
+        );
     }
 }
 

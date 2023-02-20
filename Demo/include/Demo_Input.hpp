@@ -71,7 +71,9 @@ class Demo_Input : public GalaEngine::Game {
         void GUI_Nav(const int x, const int y);
 
         void GUI_Key(const std::string &label, const int x, const int y, const int w, const KeyboardKey key);
+        void GUI_DrawNavKeys(const int x, const int y);
         void GUI_DrawKeyboard(const int x, const int y);
+        void GUI_DrawMouse(const int x, const int y);
         int  GUI_Input(const std::string &inputName, const std::string &description, const int x, const int y, const int device = 0);
         
         void GUI_GamepadStick(const int x, const int y, const int side, const int device = 0);
