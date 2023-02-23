@@ -78,6 +78,12 @@ int main(int argc, char **argv) {
                 "Input & Binding",
                 "Demonstrates use of GalaEngine::InputManager\nfor detecting and binding input, with GUI."
             }
+        },
+        {"window",
+            DemoProfile {
+                "Window",
+                "Demonstrates management of window via\nGalaEngine::Window functions."
+            }
         }
     };
 
@@ -177,6 +183,8 @@ int main(int argc, char **argv) {
                 game = new Demo_Radio();
             }else if(currentProfile == "input") {
                 game = new Demo_Input();
+            }else if(currentProfile == "window") {
+                game = new Demo_Window();
             }
         }
 
