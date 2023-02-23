@@ -12,19 +12,41 @@ void GalaEngine::Window::Init() {
 }
 
 void GalaEngine::Window::Render() {
+    // Letterboxing
+    const float winWidth  = GetWidth();
+    const float winHeight = GetHeight();
+    
+    const float surfaceWidth  = (float)surface.renderTexture.texture.width;
+    const float surfaceHeight = (float)surface.renderTexture.texture.height;
+
+    const float windowAspect = winWidth / winHeight;
+
+    const float surfaceAspect =
+        (float)surface.renderTexture.texture.width /
+        (float)surface.renderTexture.texture.height;
+
+    float boxWidth  = winWidth;
+    float boxHeight = winHeight;
+
+    if(windowAspect > surfaceAspect)            // Window wider than surface?
+        boxWidth = winHeight * surfaceAspect;
+    else if(windowAspect < surfaceAspect)       // Window taller than surface?
+        boxHeight = winWidth / surfaceAspect;
+
+    // Draw surface
     DrawTexturePro(
         surface.renderTexture.texture,
         Rectangle {
             0.0f,
-            (float)surface.renderTexture.texture.height,
-            (float)surface.renderTexture.texture.width,
-            -(float)surface.renderTexture.texture.height
+            surfaceHeight,
+            surfaceWidth,
+            -surfaceHeight
         },
         Rectangle {
-            0.0f,
-            0.0f,
-            (float)GetWidth(),
-            (float)GetHeight()
+            (GetWidth() - boxWidth) / 2.0f,
+            (GetHeight() - boxHeight) / 2.0f,
+            boxWidth,
+            boxHeight
         },
         {0.0f, 0.0f},
         0.0f,
