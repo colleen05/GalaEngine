@@ -108,6 +108,10 @@ void GalaEngine::Scene::Resize(const int width, const int height, const bool res
     targetSurface->Resize(width, height);
 }
 
+Vector2 GalaEngine::Scene::GetSize() {
+    return Vector2 {(float)_width, (float)_height};
+}
+
 void GalaEngine::Scene::Update() {
     for(auto &e : entities) {
         auto &ent = e.second;
