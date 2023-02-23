@@ -104,6 +104,8 @@ void GalaEngine::Scene::Resize(const int width, const int height, const bool res
         for(const auto &layer : layers)
             layer->surface->Resize(width, height);
     }
+
+    targetSurface->Resize(width, height);
 }
 
 void GalaEngine::Scene::Update() {
