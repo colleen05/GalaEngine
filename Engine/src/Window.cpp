@@ -41,7 +41,7 @@ void GalaEngine::Window::Close() {
 
 // Getters
 bool GalaEngine::Window::ShouldClose() {
-    return WindowShouldClose();
+    return ::WindowShouldClose();
 }
 
 bool GalaEngine::Window::IsReady() {
@@ -73,11 +73,11 @@ bool GalaEngine::Window::IsResized() {
 }
 
 int GalaEngine::Window::GetWidth() {
-    return GetScreenWidth();
+    return ::GetScreenWidth();
 }
 
 int GalaEngine::Window::GetHeight() {
-    return GetScreenHeight();
+    return ::GetScreenHeight();
 }
 
 Vector2 GalaEngine::Window::GetSize() {
@@ -88,7 +88,7 @@ Vector2 GalaEngine::Window::GetSize() {
 }
 
 Vector2 GalaEngine::Window::GetPosition() {
-    return GetWindowPosition();
+    return ::GetWindowPosition();
 }
 
 int GalaEngine::Window::GetMonitorCount() {
@@ -171,15 +171,18 @@ void GalaEngine::Window::SetMaximised() {
 }
 
 void GalaEngine::Window::SetWidth(const int width) {
-    ::SetWindowSize(width, GetHeight());
+    SetSize(width, GetHeight());
 }
 
 void GalaEngine::Window::SetHeight(const int height) {
-    ::SetWindowSize(GetWidth(), height);
+    SetSize(GetWidth(), height);
 }
 
 void GalaEngine::Window::SetSize(const int width, const int height) {
+    _width = width;
+    _height = height;
     ::SetWindowSize(width, height);
+    surface.Resize(width, height);
 }
 
 void GalaEngine::Window::SetPosition(const int x, const int y) {
