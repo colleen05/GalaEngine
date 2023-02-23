@@ -73,11 +73,11 @@ bool GalaEngine::Window::IsResized() {
 }
 
 int GalaEngine::Window::GetWidth() {
-    return ::GetScreenWidth();
+    return IsFullscreen() ? GetMonitorWidth() : (::GetScreenWidth());
 }
 
 int GalaEngine::Window::GetHeight() {
-    return ::GetScreenHeight();
+    return IsFullscreen() ? GetMonitorHeight() : (::GetScreenHeight());
 }
 
 Vector2 GalaEngine::Window::GetSize() {
