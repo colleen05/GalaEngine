@@ -19,6 +19,8 @@
 
 class Demo_Window : public GalaEngine::Game {
     public:
+        bool fillWindow = false;
+
         // Game class overrides
         void OnLoad();
         void OnDraw();
