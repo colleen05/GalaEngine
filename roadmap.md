@@ -23,7 +23,7 @@
 ### Tasks
 - [x] Refactor: Properly use const, and references.
 - [x] Optimise: Container optimisations.
-- [ ] Add appropriate demos.
+- [x] Add appropriate demos.
 
 
 ## Version 0.3.0
@@ -40,8 +40,10 @@
   - [ ] `bool InputManager::IsGamepadPressed(...)`: Has gamepad button just been pressed?
   - [ ] `bool InputManager::IsGamepadDown(...)`: Is gamepad button currently down?
   - [ ] `bool InputManager::IsGamepadReleased(...)`: Has gamepad button just been released?
+  - [ ] etc...
 - [ ] AssetManager to have a `defaultTextureFilter` member.
 - [ ] Layers and entities to have blend modes.
+- [ ] Fully implement Window class functionality.
 
 ### Core features
 - [ ] Shader class:
