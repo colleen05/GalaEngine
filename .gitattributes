@@ -1,2 +1,2 @@
 # to change language of repo from C to C++
-    *.h linguist-language=C++
+    *.h linguist-language=cpp
