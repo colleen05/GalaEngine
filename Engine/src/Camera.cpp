@@ -1,6 +1,6 @@
 #include <GalaEngine/Camera.hpp>
 
-GalaEngine::Camera::Camera(int x, int y, int width, int height) {
+GalaEngine::Camera::Camera(const int x, const int y, const int width, const int height) {
     this->position = Vector2 {
         (float)x, (float)y
     };
@@ -10,6 +10,4 @@ GalaEngine::Camera::Camera(int x, int y, int width, int height) {
     };
 }
 
-GalaEngine::Camera::Camera() {
-
-}
+GalaEngine::Camera::Camera() { }

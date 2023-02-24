@@ -16,9 +16,9 @@
 class Demo_Drawing : public GalaEngine::Game {
     public:
         // Variables
-        Texture tex_sprite;
+
         Texture tex_colourX;
-        GalaEngine::Sprite spr_test;
+        GalaEngine::Sprite *spr_test;
         GalaEngine::Colour clearColour = C_RED;
 
         int id_origin = 0,

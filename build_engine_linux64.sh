@@ -15,12 +15,17 @@ mkdir -p Engine/tmp
 
 # Compiling
 echo "Compiling object files..."
-clang++ -c -o Engine/tmp/EngineInfo.o Engine/src/EngineInfo.cpp -IEngine/include -std=c++17
-clang++ -c -o Engine/tmp/Window.o Engine/src/Window.cpp -IEngine/include -std=c++17
+
+find ./Engine/src/ -maxdepth 1 -type f | while read file; do
+    fname=$(basename $file)
+    cmd="clang++ -c -o Engine/tmp/$fname.o $file -IEngine/include -std=c++17"
+    echo $cmd
+    ${cmd}
+done
 
 echo "Building static libraries..."
 rm Engine/bin/linux64/libGalaEngine.a
-ar rcs Engine/bin/linux64/libGalaEngine.a Engine/tmp/EngineInfo.o Engine/tmp/Window.o
+ar rcs Engine/bin/linux64/libGalaEngine.a Engine/tmp/*.o
 
 # Cleaning up
 echo "Removing temporary directories..."

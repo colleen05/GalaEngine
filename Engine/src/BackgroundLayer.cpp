@@ -5,24 +5,24 @@ void GalaEngine::BackgroundLayer::OnStart() {
 }
 
 void GalaEngine::BackgroundLayer::OnUpdate() {
-    offset.x += scrollSpeed.x * GetFrameTime();
-    offset.y += scrollSpeed.y * GetFrameTime();
+    offset.x -= scrollSpeed.x * GetFrameTime();
+    offset.y -= scrollSpeed.y * GetFrameTime();
 }
 
-void GalaEngine::BackgroundLayer::OnDraw(GalaEngine::Camera camera) {
+void GalaEngine::BackgroundLayer::OnDraw(const GalaEngine::Camera &camera) {
     surface->Clear();
     
     surface->DrawTexture(
         background,
         Rectangle {
             offset.x, offset.y,
-            (float)surface->texture.texture.width * scale.x,
-            (float)surface->texture.texture.height * scale.y
+            (float)surface->renderTexture.texture.width * scale.x,
+            (float)surface->renderTexture.texture.height * scale.y
         },
         Rectangle {
             0.0f, 0.0f,
-            (float)surface->texture.texture.width,
-            (float)surface->texture.texture.height
+            (float)surface->renderTexture.texture.width,
+            (float)surface->renderTexture.texture.height
         }
     );
 }
@@ -32,10 +32,11 @@ void GalaEngine::BackgroundLayer::OnDestroy() {
 }
 
 GalaEngine::BackgroundLayer::BackgroundLayer(
-    int width, int height,
-    Texture background, Colour clearColour
+    const int width, const int height,
+    const Texture background, const Colour clearColour
 ) : Layer(width, height, clearColour) {
     this->background = background;
 }
 
 GalaEngine::BackgroundLayer::BackgroundLayer() : Layer() {}
+GalaEngine::BackgroundLayer::~BackgroundLayer() {}

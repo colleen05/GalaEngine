@@ -11,9 +11,12 @@
 #include <vector>
 
 namespace GalaEngine {
+    /*! @brief Sprite structure
+     *  @details Data required for drawing sprites.
+     */
     struct Sprite {
-        Texture texture;                   // Source texture
-        Vector2 origin;                     // Origin
-        std::vector<Rectangle> frameRects;  // Frame rectangles
+        Texture texture;                    //!< Sprite texture.
+        Vector2 origin;                     //!< Origin of the sprite.
+        std::vector<Rectangle> frameRects;  //!< Vector of frame rectangles within texture.
     };
 }

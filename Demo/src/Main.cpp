@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
+#include <unordered_map>
 #include <map>
 
 #include <Demos.hpp>
@@ -16,6 +17,19 @@ struct DemoProfile {
     std::string description;
 };
 
+std::vector<std::pair<std::string, DemoProfile>>::iterator
+find_by_name(
+    std::vector<std::pair<std::string, DemoProfile>> &vec,
+    const std::string &name
+) {
+    for(auto i = 0; i < vec.size(); i++) {
+        if(vec[i].first == name)
+            return vec.begin() + i;
+    }
+
+    return vec.end();
+}
+
 int main(int argc, char **argv) {
     GalaEngine::Game *game = nullptr;
 
@@ -24,28 +38,59 @@ int main(int argc, char **argv) {
     InitWindow(720, 540, "GalaEngine Demos");
     SetTargetFPS(60);
 
-    GuiLoadStyle("./res/guistyles/dark.rgs");
+    GuiLoadStyle("./resources/guistyles/dark.rgs");
 
-    Texture tex_banner = LoadTexture("./res/tex/spr_banner.png");
+    Texture tex_banner = LoadTexture("./resources/spr_banner.png");
 
-    std::map<std::string, DemoProfile> profiles = {
+    std::vector<std::pair<std::string, DemoProfile>> profiles = {
         {"drawing", 
             DemoProfile {
                 "Surface Drawing",
                 "Drawing to surfaces with\nGalaEngine::Surface::Draw*() functions."
             }
         },
+        {"assets", 
+            DemoProfile {
+                "Asset Management",
+                "Simple asset management via\nGalaEngine::AssetManager class."
+            }
+        },
         {"scene",
             DemoProfile {
                 "Scene",
-                "Demonstrates scene layers and entities."}
+                "A simple scene with a few layers and entities."
+            }
+        },
+        {"tiles",
+            DemoProfile {
+                "Tiles",
+                "Demonstrates tileset and tilemap features."
+            }
+        },
+        {"radio",
+            DemoProfile {
+                "Sound Management",
+                "Demonstrates use of GalaEngine::SoundManager\nclass with a music player interface."
+            }
+        },
+        {"input",
+            DemoProfile {
+                "Input & Binding",
+                "Demonstrates use of GalaEngine::InputManager\nfor detecting and binding input, with GUI."
+            }
+        },
+        {"window",
+            DemoProfile {
+                "Window",
+                "Demonstrates management of window via\nGalaEngine::Window functions."
+            }
         }
     };
 
     std::string currentProfile = "drawing";
 
     if(argc == 2) {
-        if(profiles.find(std::string(argv[1])) != profiles.end()) {
+        if(find_by_name(profiles, std::string(argv[1])) != profiles.end()) {
             currentProfile = std::string(argv[1]);
             skipmenu = true;
         }
@@ -63,7 +108,9 @@ int main(int argc, char **argv) {
         BeginDrawing();
         ClearBackground(C_BLACK);
 
-        DrawTextEx(GuiGetFont(), "GalaEngine v" GALAENGINE_VERSION_STRING, {564.0f, 72.0f}, 16, 0.0f, C_WHITE);
+        const std::string versionText = "GalaEngine v" GALAENGINE_VERSION_STRING;
+        const int versionTextWidth = MeasureTextEx(GuiGetFont(), versionText.c_str(), 16, 0.0f).x;
+        DrawTextEx(GuiGetFont(), versionText.c_str(), {696.0f - versionTextWidth - 8.0f, 72.0f}, 16, 0.0f, C_WHITE);
         DrawTexture(tex_banner, 32, 16, C_WHITE);
 
         // Panel
@@ -106,7 +153,7 @@ int main(int argc, char **argv) {
 
         DrawTextEx(
             GuiGetFont(),
-            profiles[currentProfile].description.c_str(),
+            (*find_by_name(profiles, currentProfile)).second.description.c_str(),
             Vector2 {
                 720.0f - 368.0f + 8.0f,
                 168.0f
@@ -128,6 +175,16 @@ int main(int argc, char **argv) {
                 game = new Demo_Drawing();
             }else if(currentProfile == "scene") {
                 game = new Demo_Scene();
+            }else if(currentProfile == "tiles") {
+                game = new Demo_Tiles();
+            }else if(currentProfile == "assets") {
+                game = new Demo_Assets();
+            }else if(currentProfile == "radio") {
+                game = new Demo_Radio();
+            }else if(currentProfile == "input") {
+                game = new Demo_Input();
+            }else if(currentProfile == "window") {
+                game = new Demo_Window();
             }
         }
 

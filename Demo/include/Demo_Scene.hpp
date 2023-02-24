@@ -17,7 +17,7 @@
 #include <iostream>
 #include <cmath>
 
-#include <Ent_Flower.hpp>
+#include <Ent_Ball.hpp>
 
 class Demo_Scene : public GalaEngine::Game {
     public:
@@ -32,9 +32,7 @@ class Demo_Scene : public GalaEngine::Game {
         GalaEngine::BackgroundLayer *lay_foreground;
         GalaEngine::TileLayer *lay_tiles;
 
-        Texture tex_sprFlower;
-        GalaEngine::Sprite spr_flower;
-        GalaEngine::Entity *ent_flower0, *ent_flower1, *ent_flower2, *ent_flower3;
+        Ent_Ball *ent_ball0, *ent_ball1, *ent_ball2, *ent_ball3;
 
         // Game class overrides
         void OnLoad();

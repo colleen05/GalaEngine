@@ -7,7 +7,20 @@ void GalaEngine::Game::OnUnload () {};
 
 void GalaEngine::Game::Start() {
     window->Init();
-    scene = new GalaEngine::Scene(&window->surface, _info.defaultWidth, _info.defaultHeight);
+
+    // Create scene and bind assets, input manager, etc..
+    scene = new GalaEngine::Scene(&window->surface, info.defaultWidth, info.defaultHeight);
+    scene->window   = window;
+    scene->assets   = assets;
+    scene->input    = input;
+    scene->sound    = sound;
+    
+    scene->mainCamera.position = {0.0f, 0.0f};
+
+    scene->mainCamera.size = Vector2 {
+        (float) info.defaultWidth,
+        (float) info.defaultHeight
+    };
 
     OnLoad();
 
@@ -19,37 +32,46 @@ void GalaEngine::Game::Start() {
 
         // Drawing
         BeginDrawing();
-        window->surface.Clear(C_BLACK);
+        ClearBackground(window->surface.clearColour);
+        window->surface.Clear();
+
+        scene->RenderLayers();
         OnDraw(); // Call draw code from child class
+
         window->Render();
         EndDrawing();
-
-        if(IsKeyPressed(KEY_F9)) {
-            Image img_screen = LoadImageFromTexture(window->surface.texture.texture);
-            ExportImage(img_screen, "window_surface.png");
-            UnloadImage(img_screen);
-        }
     }
 
     OnUnload();
-    window->Exit();
+    window->Close();
 }
 
 void GalaEngine::Game::End() {
     _shouldEnd = true;
 }
 
-GalaEngine::Game::Game(GameInfo info) {
-    _info = info;
-    window = new GalaEngine::Window(_info.title, _info.defaultWidth, _info.defaultHeight);
+GalaEngine::Game::Game(const GameInfo &info) {
+    this->info = info;
+    window  = new GalaEngine::Window(info.title, info.defaultWidth, info.defaultHeight);
+    assets  = new GalaEngine::AssetManager(info.assetPaths);
+    input   = new GalaEngine::InputManager();
+    sound   = new GalaEngine::SoundManager();
 }
 
 GalaEngine::Game::Game() : Game(
     GameInfo {
         "GalaEngine Game",
-        "GalaEngine Game",
+        "Made with GalaEngine.",
         "",
-        640, 480,
-        "./res/"
+        640,
+        480,
+        AssetPathLayout {
+            "./resources/",
+            "textures/",
+            "sprites",
+            "tilesets/",
+            "sounds/",
+            "fonts/"
+        }
     }
 ) { }

@@ -1,6 +1,6 @@
 #include <GalaEngine/Entity.hpp>
 
-void GalaEngine::Entity::OnSignal   (std::string message)   {}
+void GalaEngine::Entity::OnSignal   (const std::string &message)   {}
 void GalaEngine::Entity::OnStart    () {}
 void GalaEngine::Entity::OnUpdate   () {}
 void GalaEngine::Entity::OnDraw     () {}

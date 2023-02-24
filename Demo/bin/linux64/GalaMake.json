@@ -1,0 +1,18 @@
+{
+    "title": "Demo",
+    "description": "GalaEngine demo.",
+    "author": "Colleen (@colleen05)",
+    "version": "1.0.0",
+    "asset_paths": {
+        "textures": "textures/",
+        "sprites": "sprites/",
+        "tilesets": "tilesets/",
+        "sounds": "sounds/",
+        "fonts": "fonts/"
+    },
+    "build_options": {
+        "workspace_dir": "./workspace/",
+        "output_dir": "./resources/",
+        "use_cache": true
+    }
+}

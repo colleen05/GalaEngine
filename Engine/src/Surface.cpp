@@ -2,19 +2,19 @@
 
 // Point
 void GalaEngine::Surface::DrawPixel(int x, int y, Colour colour) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     ::DrawPixel(x, y, colour);
     EndTextureMode();
 }
 
 void GalaEngine::Surface::DrawLine(int x1, int y1, int x2, int y2, Colour colour) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     ::DrawLine(x1, y1, x2, y2, colour);
     EndTextureMode();
 }
 
 void GalaEngine::Surface::DrawLine(int x1, int y1, int x2, int y2, float thickness, Colour colour) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     ::DrawLineEx(
         {(float)x1, (float)y1},
         {(float)x2, (float)y2},
@@ -25,7 +25,7 @@ void GalaEngine::Surface::DrawLine(int x1, int y1, int x2, int y2, float thickne
 
 // Primitives
 void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, Colour colour, bool outline, float thickness) {    
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
 
     if(outline){
         if(thickness >= 0.0f) { // Draw inner outline
@@ -55,7 +55,7 @@ void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, Col
 }
 
 void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, float rotation, Vector2 origin, Colour colour) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     ::DrawRectanglePro(
         Rectangle {
             (float)x, (float)y,
@@ -67,7 +67,7 @@ void GalaEngine::Surface::DrawRectangle(int x, int y, int width, int height, flo
 }
 
 void GalaEngine::Surface::DrawRectangleColours(int x, int y, int width, int height, Colour c1, Colour c2, Colour c3, Colour c4) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     ::DrawRectangleGradientEx(
         Rectangle {
             (float)x, (float)y,
@@ -81,7 +81,7 @@ void GalaEngine::Surface::DrawRectangleColours(int x, int y, int width, int heig
 void GalaEngine::Surface::DrawRectangleRounded(int x, int y, int width, int height, float radius, Colour colour, bool outline, float thickness) {
     if(outline && thickness == 0.0f) return;
     
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
 
     float roundness = (2.0f * radius) / std::min(width, height);
     roundness = Clamp(roundness, 0.0f, 1.0f);
@@ -123,7 +123,7 @@ void GalaEngine::Surface::DrawRectangleRounded(int x, int y, int width, int heig
 }
 
 void GalaEngine::Surface::DrawCircle(int x, int y, float radius, Colour colour, bool outline, float thickness) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
 
     if(outline) {
         ::DrawRing(
@@ -142,7 +142,7 @@ void GalaEngine::Surface::DrawCircle(int x, int y, float radius, Colour colour, 
 }
 
 void GalaEngine::Surface::DrawCircle(int x, int y, float radius, Colour innerColour, Colour outerColour) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     ::DrawCircleGradient(x, y, radius, innerColour, outerColour);
     EndTextureMode();
 }
@@ -150,7 +150,7 @@ void GalaEngine::Surface::DrawCircle(int x, int y, float radius, Colour innerCol
 void GalaEngine::Surface::DrawEllipse(int x, int y, float radiusH, float radiusV, Colour colour, bool outline, float thickness) {
     if(outline && thickness == 0.0f) return;
     
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     
     if(outline) {
         if(thickness > std::min(radiusH, radiusV)) { // Draw solid ellipse
@@ -176,7 +176,7 @@ void GalaEngine::Surface::DrawEllipse(int x, int y, float radiusH, float radiusV
 }
 
 void GalaEngine::Surface::DrawTriangle(int x1, int y1, int x2, int y2, int x3, int y3, Colour colour, bool outline) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     
     if(outline){
         ::DrawTriangleLines(
@@ -198,15 +198,21 @@ void GalaEngine::Surface::DrawTriangle(int x1, int y1, int x2, int y2, int x3, i
 }
 
 // Text
+void GalaEngine::Surface::DrawText(Font font, std::string text, int x, int y, int size, Colour colour) {
+    BeginTextureMode(renderTexture);
+    ::DrawTextEx(font, text.c_str(), Vector2 {(float)x, (float)y}, size, 2.0f, colour);
+    EndTextureMode();
+}
+
 void GalaEngine::Surface::DrawText(std::string text, int x, int y, int size, Colour colour) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     ::DrawText(text.c_str(), x, y, size, colour);
     EndTextureMode();
 }
 
 // Textures
 void GalaEngine::Surface::DrawTexture(Texture texture, int x, int y, float scaleX, float scaleY, float rotation, Vector2 origin, Colour blendColour) {
-    BeginTextureMode(this->texture);
+    BeginTextureMode(this->renderTexture);
     ::DrawTexturePro(
         texture,
         Rectangle {
@@ -228,19 +234,33 @@ void GalaEngine::Surface::DrawTexture(Texture texture, int x, int y, float scale
 }
 
 void GalaEngine::Surface::DrawTexture(Texture texture, int x, int y, float scaleX, float scaleY, float rotation, Colour blendColour) {
-    BeginTextureMode(this->texture);
+    BeginTextureMode(this->renderTexture);
     DrawTexture(texture, x, y, scaleX, scaleY, rotation, {0.0f, 0.0f}, blendColour);
     EndTextureMode();
 }
 
 void GalaEngine::Surface::DrawTexture(Texture texture, Rectangle src, Rectangle dest, Colour blendColour) {
-    BeginTextureMode(this->texture);
+    BeginTextureMode(this->renderTexture);
     ::DrawTexturePro(
         texture,
         src,
         dest,
-        {0.0f, 0.0f},
+        Vector2 {0.0f, 0.0f},
         0.0f,
+        blendColour
+    );
+    EndTextureMode();
+}
+
+void GalaEngine::Surface::DrawTextureTiled(Texture texture, Rectangle src, Rectangle dest, Vector2 origin, float scale, float rotation, Colour blendColour) {
+    BeginTextureMode(this->renderTexture);
+    ::DrawTextureTiled(
+        texture,
+        src,
+        dest,
+        Vector2Multiply(origin, {scale, scale}),
+        rotation,
+        scale,
         blendColour
     );
     EndTextureMode();
@@ -248,7 +268,9 @@ void GalaEngine::Surface::DrawTexture(Texture texture, Rectangle src, Rectangle 
 
 // Sprites
 void GalaEngine::Surface::DrawSprite(Sprite sprite, int frame, int x, int y, float scaleX, float scaleY, float rotation, Colour blendColour) {
-    BeginTextureMode(texture);
+    frame = frame % sprite.frameRects.size();
+
+    BeginTextureMode(renderTexture);
     ::DrawTexturePro(
         sprite.texture,
         sprite.frameRects[frame],
@@ -265,32 +287,35 @@ void GalaEngine::Surface::DrawSprite(Sprite sprite, int frame, int x, int y, flo
     EndTextureMode();
 }
 
+void GalaEngine::Surface::Resize(int width, int height) {
+    UnloadRenderTexture(renderTexture);
+    renderTexture = LoadRenderTexture(width, height);
+}
+
 void GalaEngine::Surface::Clear(Colour colour) {
-    BeginTextureMode(texture);
+    BeginTextureMode(renderTexture);
     ClearBackground(colour);
     EndTextureMode();
 }
 
 void GalaEngine::Surface::Clear() {
-    BeginTextureMode(texture);
-    ClearBackground(clearColour);
-    EndTextureMode();
+    Clear(clearColour);
 }
 
 Image GalaEngine::Surface::GetImage() {
-    Image img = LoadImageFromTexture(texture.texture);
+    Image img = LoadImageFromTexture(renderTexture.texture);
     ImageFlipVertical(&img);
 
     return img;
 }
 
 void GalaEngine::Surface::Destroy() {
-    UnloadRenderTexture(texture);
-    texture.id = 0;
+    UnloadRenderTexture(renderTexture);
+    renderTexture.id = 0;
 }
 
 GalaEngine::Surface::Surface(int width, int height, Colour colour) {
-    texture = LoadRenderTexture(width, height);
+    renderTexture = LoadRenderTexture(width, height);
     clearColour = colour;
 }
 
