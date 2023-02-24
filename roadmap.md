@@ -1,4 +1,6 @@
 # GalaEngine Roadmap
+See the most recent version's progress [here](#version-030).
+
 ## Version 0.1.0
 ### Core features & base classes
 - [x] Game class.
