@@ -20,7 +20,7 @@
 - [x] Tilesets should have a flags field (example: for collision).
 - [x] Bindable input tags & multiple inputs -> single action (Ex: E Key and LMB both being 'use').
 - [x] AudioController (Sound loading, playing, and status-getting).
-- [x] Window class supports fully implements raylib functionality.
+- [x] Improved Window functionality.
 
 ### Tasks
 - [x] Refactor: Properly use const, and references.
