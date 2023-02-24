@@ -6,6 +6,7 @@
     <a href="#compiling">Compiling </a>•
     <a href="#documentation">Documentation </a>•
     <a href="#contributing">Contributing & Issues</a>•
+    <a href="roadmap.md">Roadmap</a>
 </p>
 
 ## PLEASE NOTE
