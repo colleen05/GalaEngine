@@ -32,20 +32,17 @@
 ### Updates
 - [ ] Add Entity context members: `sceneWidth`, `sceneHeight`, `sceneEntities`, and `sceneLayers`.
 - [ ] InputManager allows for direct checking:
-  - [ ] `bool InputManager::IsKeyPressed(...)`: Has key just been pressed?
-  - [ ] `bool InputManager::IsKeyDown(...)`: Is key currently down?
-  - [ ] `bool InputManager::IsKeyReleased(...)`: Has key just been released?
-  - [ ] `bool InputManager::IsMousePressed(...)`: Has mouse button just been pressed?
-  - [ ] `bool InputManager::IsMouseDown(...)`: Is mouse button currently down?
-  - [ ] `bool InputManager::IsMouseReleased(...)`: Is mouse button currently down?
-  - [ ] `Vector2 InputManager::GetMouseWheel()`: Get mouse scroll vector.
-  - [ ] `bool InputManager::IsGamepadPressed(...)`: Has gamepad button just been pressed?
-  - [ ] `bool InputManager::IsGamepadDown(...)`: Is gamepad button currently down?
-  - [ ] `bool InputManager::IsGamepadReleased(...)`: Has gamepad button just been released?
-  - [ ] etc...
+  - [ ] Direct keyboard key checking.
+  - [ ] Direct gamepad buttons and axis checking.
+  - [ ] Get mouse wheel deltas.
 - [ ] AssetManager to have a `defaultTextureFilter` member.
+- [ ] `Colour.hpp` to contain a `BlendMode` enum class.
 - [ ] Layers and entities to have blend modes.
 - [ ] Fully implement Window class functionality.
+  - [ ] Set fullscreen explicitly (`Window::SetFullscreen(bool fullscreen)`).
+  - [ ] Get and set the following properties: resizable, undecorated, hidden, topmost, and V-Sync.
+  - [ ] Support multiple scaling options: `Contain`, `Stretch`, `IntegerScale`.
+  - [ ] Support window surface filtering (nearest neighbour or bilinear).
 
 ### Core features
 - [ ] Shader class:
