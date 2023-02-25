@@ -62,37 +62,17 @@ void GalaEngine::Window::Close() {
 }
 
 // Getters
-bool GalaEngine::Window::ShouldClose() {
-    return ::WindowShouldClose();
-}
+bool GalaEngine::Window::ShouldClose    () { return ::WindowShouldClose();  }
+bool GalaEngine::Window::IsReady        () { return ::IsWindowReady();      }
 
-bool GalaEngine::Window::IsReady() {
-    return ::IsWindowReady();
-}
+bool GalaEngine::Window::IsFullscreen   () { return ::IsWindowFullscreen(); }
+bool GalaEngine::Window::IsMinimised    () { return ::IsWindowMinimized();  }
+bool GalaEngine::Window::IsMaximised    () { return ::IsWindowMaximized();  }
+bool GalaEngine::Window::IsFocused      () { return ::IsWindowFocused();    }
 
-bool GalaEngine::Window::IsFullscreen() {
-    return ::IsWindowFullscreen();
-}
+float GalaEngine::Window::GetFPS        () { return (float)::GetFPS();      }
 
-bool GalaEngine::Window::IsMinimised() {
-    return ::IsWindowMinimized();
-}
-
-bool GalaEngine::Window::IsMaximised() {
-    return ::IsWindowMaximized();
-}
-
-bool GalaEngine::Window::IsFocused() {
-    return ::IsWindowFocused();
-}
-
-float GalaEngine::Window::GetFPS() {
-    return (float)::GetFPS();
-}
-
-bool GalaEngine::Window::IsResized() {
-    return ::IsWindowResized();
-}
+bool GalaEngine::Window::IsResized      () { return ::IsWindowResized();    }
 
 bool GalaEngine::Window::IsResizable() {
     return ::IsWindowState(FLAG_WINDOW_RESIZABLE);
@@ -102,9 +82,7 @@ bool GalaEngine::Window::IsUndecorated() {
     return ::IsWindowState(FLAG_WINDOW_UNDECORATED);
 }
 
-bool GalaEngine::Window::IsHidden() {
-    return ::IsWindowHidden();
-}
+bool GalaEngine::Window::IsHidden() { return ::IsWindowHidden(); }
 
 bool GalaEngine::Window::IsTopmost() {
     return ::IsWindowState(FLAG_WINDOW_TOPMOST);
@@ -125,27 +103,17 @@ Vector2 GalaEngine::Window::GetSize() {
     };
 }
 
-Vector2 GalaEngine::Window::GetPosition() {
-    return ::GetWindowPosition();
-}
-
-int GalaEngine::Window::GetMonitorCount() {
-    return ::GetMonitorCount();
-}
-
-int GalaEngine::Window::GetCurrentMonitor() {
-    return ::GetCurrentMonitor();
-}
+Vector2 GalaEngine::Window::GetPosition     () { return ::GetWindowPosition();  }
+int GalaEngine::Window::GetMonitorCount     () { return ::GetMonitorCount();    }
+int GalaEngine::Window::GetCurrentMonitor   () { return ::GetCurrentMonitor();  }
 
 int GalaEngine::Window::GetMonitorWidth(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
-
     return ::GetMonitorWidth(m);
 }
 
 int GalaEngine::Window::GetMonitorHeight(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
-
     return ::GetMonitorHeight(m);
 }
 
@@ -160,19 +128,16 @@ Vector2 GalaEngine::Window::GetMonitorSize(const int monitor) {
 
 float GalaEngine::Window::GetMonitorPhysicalWidth(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
-
     return (float) ::GetMonitorPhysicalWidth(m);
 }
 
 float GalaEngine::Window::GetMonitorPhysicalHeight(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
-
     return (float) ::GetMonitorPhysicalHeight(m);
 }
 
 Vector2 GalaEngine::Window::GetMonitorPhysicalSize(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
-
     return (Vector2) {
         (float) ::GetMonitorPhysicalWidth(m),
         (float) ::GetMonitorPhysicalHeight(m)
@@ -181,13 +146,11 @@ Vector2 GalaEngine::Window::GetMonitorPhysicalSize(const int monitor) {
 
 float GalaEngine::Window::GetMonitorRefreshRate(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
-
     return (float) ::GetMonitorRefreshRate(m);
 }
 
 std::string GalaEngine::Window::GetMonitorName(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
-
     return std::string(::GetMonitorName(m));
 }
 
@@ -196,21 +159,11 @@ void GalaEngine::Window::SetTitle(const std::string &title) {
     SetWindowTitle(title.c_str());
 }
 
-void GalaEngine::Window::Minimise() {
-    ::MinimizeWindow();
-}
+void GalaEngine::Window::Minimise   () { ::MinimizeWindow();    }
+void GalaEngine::Window::Maximise   () { ::MaximizeWindow();    }
+void GalaEngine::Window::Restore    () { ::RestoreWindow();     }
 
-void GalaEngine::Window::Maximise() {
-    ::MaximizeWindow();
-}
-
-void GalaEngine::Window::Restore() {
-    ::RestoreWindow();
-}
-
-void GalaEngine::Window::ToggleFullscreen() {
-    ::ToggleFullscreen();
-}
+void GalaEngine::Window::ToggleFullscreen() { ::ToggleFullscreen(); }
 
 void GalaEngine::Window::SetFullscreen(const bool fullscreen) {
     if(fullscreen != IsFullscreen()) ToggleFullscreen();
@@ -236,13 +189,8 @@ void GalaEngine::Window::SetTopmost(const bool topmost) {
     else            ::ClearWindowState  (FLAG_WINDOW_TOPMOST);
 }
 
-void GalaEngine::Window::SetWidth(const int width) {
-    SetSize(width, GetHeight());
-}
-
-void GalaEngine::Window::SetHeight(const int height) {
-    SetSize(GetWidth(), height);
-}
+void GalaEngine::Window::SetWidth   (const int width)   { SetSize(width, GetHeight()); }
+void GalaEngine::Window::SetHeight  (const int height)  { SetSize(GetWidth(), height); }
 
 void GalaEngine::Window::SetSize(const int width, const int height) {
     _width = width;
@@ -251,9 +199,7 @@ void GalaEngine::Window::SetSize(const int width, const int height) {
     surface.Resize(width, height);
 }
 
-void GalaEngine::Window::SetPosition(const int x, const int y) {
-    ::SetWindowPosition(x, y);
-}
+void GalaEngine::Window::SetPosition(const int x, const int y) { ::SetWindowPosition(x, y); }
 
 void GalaEngine::Window::SetTargetFPS(const float fps) {
     ::SetTargetFPS((int)(fps < 0 ? 60 : fps));
