@@ -5,8 +5,9 @@ void Demo_Window::OnLoad() {
     GalaEngine::BackgroundLayer *lay_bg = scene->AddBackgroundLayer(assets->GetTexture("bg_grid"), C_RED);
     lay_bg->scrollSpeed = {64.0f, 64.0f};
 
-    // Allow resizing.
-    SetWindowState(FLAG_WINDOW_RESIZABLE);
+    // Allow resizing, set minimum size.
+    window->SetResizable(true);
+    window->SetMinSize(640, 480);
 }
 
 void Demo_Window::OnDraw() {
@@ -26,7 +27,7 @@ void Demo_Window::OnDraw() {
     Vector2 textSize = MeasureTextEx(GetFontDefault(), sizeText.c_str(), 20, 0);
     window->surface.DrawText(sizeText, (sceneWidth - textSize.x) / 2, (sceneHeight - textSize.y) / 2, 20, C_DKGREY);
     
-    window->surface.DrawText("F - Fullscreen  |  S - Toggle scaling", 16, sceneHeight - 32, 20, C_GREY);
+    window->surface.DrawText("F - Fullscreen  |  S - Toggle scaling  |  C - Centre", 16, sceneHeight - 32, 20, C_GREY);
 
     // Shade window if not focused.
     if(!window->IsFocused()) {
@@ -38,6 +39,7 @@ void Demo_Window::OnUpdate() {
     // Controls
     if(IsKeyPressed(KEY_F)) window->ToggleFullscreen();
     if(IsKeyPressed(KEY_S)) fillWindow = !fillWindow;
+    if(IsKeyPressed(KEY_C)) window->Centre();
 
     // Resize scene and camera if resized
     if(window->IsResized() && fillWindow) {
