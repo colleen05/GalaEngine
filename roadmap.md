@@ -39,7 +39,7 @@
 - [ ] `Colour.hpp` to contain a `BlendMode` enum class.
 - [ ] Layers and entities to have blend modes.
 - [ ] Fully implement Window class functionality.
-  - [ ] Set fullscreen explicitly (`Window::SetFullscreen(bool fullscreen)`).
+  - [x] Set fullscreen explicitly (`Window::SetFullscreen(bool fullscreen)`).
   - [ ] Get and set the following properties: resizable, undecorated, hidden, topmost, and V-Sync.
   - [ ] Support multiple scaling options: `Contain`, `Stretch`, `IntegerScale`.
   - [ ] Support window surface filtering (nearest neighbour or bilinear).
