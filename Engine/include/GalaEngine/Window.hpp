@@ -85,6 +85,7 @@ namespace GalaEngine {
             void Minimise();    //!< Set minimised.
             void Maximise();    //!< Set maximised.
             void Restore();     //!< Set netural (not minimised or maximised).
+            void Centre();      //!< Centre the window on the screen.
 
             void ToggleFullscreen();                    //!< Toggle whether or not the window is fullscreen.
             void SetFullscreen(const bool fullscreen);  //!< Set whether or not the window is fullscreen.

@@ -44,7 +44,7 @@
   - [ ] Support multiple scaling options: `Contain`, `Stretch`, `IntegerScale`.
   - [ ] Support window surface filtering (nearest neighbour or bilinear).
   - [x] Set icon and minimum size.
-  - [ ] ``Window::Centre()``: Centre window on screen.
+  - [x] ``Window::Centre()``: Centre window on screen.
 
 ### Core features
 - [ ] Shader class:

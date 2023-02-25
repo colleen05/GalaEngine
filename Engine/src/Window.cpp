@@ -167,6 +167,13 @@ void GalaEngine::Window::Minimise   () { ::MinimizeWindow();    }
 void GalaEngine::Window::Maximise   () { ::MaximizeWindow();    }
 void GalaEngine::Window::Restore    () { ::RestoreWindow();     }
 
+void GalaEngine::Window::Centre() {
+    SetPosition(
+        (GetMonitorWidth()  - GetWidth())  / 2,
+        (GetMonitorHeight() - GetHeight()) / 2
+    );
+}
+
 void GalaEngine::Window::ToggleFullscreen() { ::ToggleFullscreen(); }
 
 void GalaEngine::Window::SetFullscreen(const bool fullscreen) {
