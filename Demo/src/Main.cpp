@@ -33,15 +33,18 @@ find_by_name(
 int main(int argc, char **argv) {
     GalaEngine::Game *game = nullptr;
 
-    bool skipmenu = false;
+    bool skipmenu = false; // Flag to skip menu
 
+    // Init window
     InitWindow(720, 540, "GalaEngine Demos");
     SetTargetFPS(60);
 
+    // Load GUI assets
     GuiLoadStyle("./resources/guistyles/dark.rgs");
 
     Texture tex_banner = LoadTexture("./resources/spr_banner.png");
 
+    // Demo information
     std::vector<std::pair<std::string, DemoProfile>> profiles = {
         {"drawing", 
             DemoProfile {
@@ -89,6 +92,7 @@ int main(int argc, char **argv) {
 
     std::string currentProfile = "drawing";
 
+    // Check if the menu should be skipped (skip to demo from command-line?)
     if(argc == 2) {
         if(find_by_name(profiles, std::string(argv[1])) != profiles.end()) {
             currentProfile = std::string(argv[1]);
@@ -96,17 +100,27 @@ int main(int argc, char **argv) {
         }
     }
 
+    // Internal button states
     int btn_launch = false;
+    int btn_listPrevious = false;
+    int btn_listNext = false;
 
+    // List page
+    int listPage = 0;
+
+    // Main loop
     while(!WindowShouldClose()) {
-        // Logic
-        if(IsKeyPressed(KEY_ONE)) {
-            game = new Demo_Drawing();
-        }
-
         // Drawing
         BeginDrawing();
         ClearBackground(C_BLACK);
+        DrawRectangleGradientEx(
+            {0.0f, 0.0f, 720.0f, 540.0f},
+            {0x33, 0x00, 0x00, 0xff},
+            {0x22, 0x00, 0x00, 0xff},
+            {0x55, 0x00, 0x22, 0xff},
+            {0x22, 0x00, 0x11, 0xff}
+        );
+        DrawRectangle(0, 0, 720, 540, {0x00, 0x00, 0x00, 0x7f});
 
         const std::string versionText = "GalaEngine v" GALAENGINE_VERSION_STRING;
         const int versionTextWidth = MeasureTextEx(GuiGetFont(), versionText.c_str(), 16, 0.0f).x;
@@ -119,15 +133,21 @@ int main(int argc, char **argv) {
             720.0f - 64.0f, 416.0f
         }, "Select a demo");
 
-        // Buttons
-        int i = 0;
-        for(auto &p : profiles) {
+        // Profile buttons
+        for(int i = 0; i < 6; i++) {
+            const int profileIndex = listPage * 6 + i;
+            if(profileIndex >= profiles.size()) continue;
+
+            const auto &[profileID, profileData] = profiles[profileIndex]; 
+
             Rectangle btnRec = {
-                64.0f, 176.0f + 40.0f * i,
+                64.0f,
+                164.0f + 40.0f * i,
                 256.0f, 32.0f
             };
 
-            if(currentProfile == p.first) {
+            // Draw button background if current
+            if(currentProfile == profileID) {
                 DrawRectangleRec(Rectangle {
                     btnRec.x - 31.0f,
                     btnRec.y - 4.0f,
@@ -136,14 +156,22 @@ int main(int argc, char **argv) {
                 }, C_GALARED);
             }
 
-            bool btn_clicked = GuiButton(btnRec, p.second.name.c_str());
-
-            if(btn_clicked) {
-                currentProfile = p.first;
+            if(GuiButton(btnRec, profileData.name.c_str())) {
+                currentProfile = profileID;
             }
-
-            i++;
         }
+
+        // Page buttons
+        if(GuiButton({64.0f, 416.0f, 32.0f, 32.0f}, "<"))
+            listPage -= (listPage > 0) ? 1 : 0;
+
+        if(GuiButton({100.0f, 416.0f, 32.0f, 32.0f}, ">"))
+            listPage += (listPage < (profiles.size() / 6)) ? 1 : 0;
+
+        const std::string pageLabel =
+            "Page " + std::to_string(listPage + 1) +
+            " of "  + std::to_string(profiles.size() / 6 + 1);
+        GuiLabel({140.0f, 416.0f, 128.0f, 32.0f}, pageLabel.c_str());
 
         // Drawing description
         GuiPanel(Rectangle {
