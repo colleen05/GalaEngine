@@ -57,21 +57,21 @@ namespace GalaEngine {
 
             float GetFPS(); //!< Get the current FPS.
 
-            int GetWidth();             //!< Get the current width of the window.
-            int GetHeight();            //!< Get the current height of the window.
-            Vector2 GetSize();          //!< Get the current size of the window.
-            Vector2 GetPosition();      //!< Get the current position of the window.
-            int GetMonitorCount();      //!< Get the number of monitors available.
-            int GetCurrentMonitor();    //!< Get the current monitor's ID.
+            int     GetWidth();             //!< Get the current width of the window.
+            int     GetHeight();            //!< Get the current height of the window.
+            Vector2 GetSize();              //!< Get the current size of the window.
+            Vector2 GetPosition();          //!< Get the current position of the window.
+            int     GetMonitorCount();      //!< Get the number of monitors available.
+            int     GetCurrentMonitor();    //!< Get the current monitor's ID.
 
-            int GetMonitorWidth(const int monitor = -1);            //!< Get the specified monitor's width.
-            int GetMonitorHeight(const int monitor = -1);           //!< Get the specified monitor's height.
-            Vector2 GetMonitorSize(const int monitor = -1);         //!< Get the specified monitor's size.
-            float GetMonitorPhysicalWidth(const int monitor = -1);  //!< Get the specified monitor's physical width.
-            float GetMonitorPhysicalHeight(const int monitor = -1); //!< Get the specified monitor's physical height.
-            Vector2 GetMonitorPhysicalSize(const int monitor = -1); //!< Get the specified monitor's physical size.
-            float GetMonitorRefreshRate(const int monitor = -1);    //!< Get the specified monitor's refresh rate.
-            std::string GetMonitorName(const int monitor = -1);     //!< Get the name of the specified monitor.
+            int         GetMonitorWidth          (const int monitor = -1);  //!< Get the specified monitor's width.
+            int         GetMonitorHeight         (const int monitor = -1);  //!< Get the specified monitor's height.
+            Vector2     GetMonitorSize           (const int monitor = -1);  //!< Get the specified monitor's size.
+            float       GetMonitorPhysicalWidth  (const int monitor = -1);  //!< Get the specified monitor's physical width.
+            float       GetMonitorPhysicalHeight (const int monitor = -1);  //!< Get the specified monitor's physical height.
+            Vector2     GetMonitorPhysicalSize   (const int monitor = -1);  //!< Get the specified monitor's physical size.
+            float       GetMonitorRefreshRate    (const int monitor = -1);  //!< Get the specified monitor's refresh rate.
+            std::string GetMonitorName           (const int monitor = -1);  //!< Get the name of the specified monitor.
             /// @}
 
             /*! @name Setters
@@ -87,12 +87,12 @@ namespace GalaEngine {
             void Restore();     //!< Set netural (not minimised or maximised).
             void Centre();      //!< Centre the window on the screen.
 
-            void ToggleFullscreen();                    //!< Toggle whether or not the window is fullscreen.
-            void SetFullscreen(const bool fullscreen);  //!< Set whether or not the window is fullscreen.
-            void SetResizable(const bool resizable);    //!< Get whether or not the window can be resized.
-            void SetUndecorated(const bool undecorated);//!< Get whether or not the window is undecorated (borderless).
-            void SetHidden(const bool hidden);          //!< Get whether or not the window is hidden.
-            void SetTopmost(const bool topmost);        //!< Get whether or not the window is topmost.
+            void ToggleFullscreen   ();                         //!< Toggle whether or not the window is fullscreen.
+            void SetFullscreen      (const bool fullscreen);    //!< Set whether or not the window is fullscreen.
+            void SetResizable       (const bool resizable);     //!< Get whether or not the window can be resized.
+            void SetUndecorated     (const bool undecorated);   //!< Get whether or not the window is undecorated (borderless).
+            void SetHidden          (const bool hidden);        //!< Get whether or not the window is hidden.
+            void SetTopmost         (const bool topmost);       //!< Get whether or not the window is topmost.
 
             void SetWidth       (const int width);                      //!< Set the width of the window.
             void SetHeight      (const int height);                     //!< Set the height of the window.
