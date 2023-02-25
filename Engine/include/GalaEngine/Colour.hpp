@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <rlgl.h>
 #include <raylib.h>
 #include <string>
 
@@ -61,7 +62,7 @@
 #define C_GALABLACK	(GalaEngine::Colour) {0x08, 0x08, 0x10, 0xFF}
 
 namespace GalaEngine {
-	/*! @brief Colour class
+	/*! @brief Colour struct
 	 *  @details Contains colour information, as well as functions that allow
 	 *  for colour manipulation.
 	 */
@@ -124,154 +125,210 @@ namespace GalaEngine {
 			return Color{r, g, b, a};
 		}
 	};
+
+	/*! @brief Blend mode struct
+	 *  @details Contains a source and destination factor for blend modes,
+	 *  which are used to dictate how colours should be blended together when
+	 *  drawn.
+	 * 
+	 *  Blend modes are calculated as such, where **E** is a given equation:<br>
+	 *  finalColour = E((srcColour * srcFactor), (destColour * destFactor))
+	 *  @note For common blend mode types, see the BlendModes namespace.
+	 */
+	struct BlendMode {
+		/*! @brief Blend mode factors
+		 *  @details Factors used when blending colours.
+		 */
+		enum class Factor {
+			Zero					= 0x0000,	//!< (0, 0, 0, 0)
+			One						= 0x0001,	//!< (1, 1, 1, 1)
+			SourceColour			= 0x0300,	//!< (Rs, Gs, Bs, As)
+			SourceColourInverted	= 0x0301,	//!< (1-Rs, 1-Gs, 1-Bs, 1-As)
+			SourceAlpha				= 0x0302,	//!< (As, As, As, As)
+			SourceAlphaInverted		= 0x0303,	//!< (1-As, 1-As, 1-As, 1-As)
+			DestAlpha				= 0x0304,	//!< (Ad, Ad, Ad, Ad)
+			DestAlphaInverted		= 0x0305,	//!< (1-Ad, 1-Ad, 1-Ad, 1-Ad)
+			DestColour				= 0x0306,	//!< (Rd, Gd, Bd, Ad)
+			DestColourInverted		= 0x0307,	//!< (1-Rd, 1-Gd, 1-Bd, 1-Ad)
+			SourceAlphaSaturate		= 0x0308 	//!< (f, f, f, f); f = min(As, 1-Ad)
+		};
+
+		/*! @brief Blend mode functions/equations
+		 *  @details How colours should be combined after applying factors.
+		 */
+		enum class Equation {
+			Add					= 0x8006,	//!< finalColour = (srcProduct)  + (destProduct)
+			Subtract			= 0x800A,	//!< finalColour = (srcProduct)  - (destProduct)
+			SubtractReversed	= 0x800B,	//!< finalColour = (destProduct) - (srcProduct)
+			Min					= 0x8007,	//!< finalColour = min(srcColour, destColour)
+			Max					= 0x8008	//!< finalColour = max(srcColour, destColour)
+		};
+
+		Factor	 sourceFactor;	//!< The factor of which to multiply the source colour.
+		Factor	 destFactor;	//!< The factor of which to multiply the destination colour.
+		Equation equation;		//!< How to combine the two products into the final colour.
+	};
 }
 
+/*! @brief Colours namespace
+ *  @details Contains colour presets from the X11 palette.
+ */
 namespace Colours {
-	// Special
-	const GalaEngine::Colour GalaRed				= C_GALARED;
-	const GalaEngine::Colour GalaWhite				= C_GALAWHITE;
-	const GalaEngine::Colour GalaBlack				= C_GALABLACK;
-	const GalaEngine::Colour Clear					= C_CLEAR;
+	/*! @name Special colours
+	 *  @details These colours are not in the X11 palette, but might be nice
+	 *  to have anyway.
+	 */
+	///@{
+	const GalaEngine::Colour GalaRed				= C_GALARED;    //!< Red colour used in the GalaEngine logo and website.
+	const GalaEngine::Colour GalaWhite				= C_GALAWHITE;  //!< Slightly off-white.
+	const GalaEngine::Colour GalaBlack				= C_GALABLACK;  //!< Very dark navy.
+	const GalaEngine::Colour Clear					= C_CLEAR;      //!< Transparent.
+	///@}
 
-	// X11 Colours
-	const GalaEngine::Colour AliceBlue				= {240,248,255,255};
-	const GalaEngine::Colour AntiqueWhite			= {250,235,215,255};
-	const GalaEngine::Colour Aqua	 				= {0,255,255,255};
-	const GalaEngine::Colour Aquamarine	 			= {127,255,212,255};
-	const GalaEngine::Colour Azure	 				= {240,255,255,255};
-	const GalaEngine::Colour Beige	 				= {245,245,220,255};
-	const GalaEngine::Colour Bisque	 				= {255,228,196,255};
-	const GalaEngine::Colour Black	 				= {0,0,0,255};
-	const GalaEngine::Colour BlanchedAlmond	 		= {255,235,205,255};
-	const GalaEngine::Colour Blue	 				= {0,0,255,255};
-	const GalaEngine::Colour BlueViolet	 			= {138,43,226,255};
-	const GalaEngine::Colour Brown	 				= {165,42,42,255};
-	const GalaEngine::Colour BurlyWood	 			= {222,184,135,255};
-	const GalaEngine::Colour CadetBlue	 			= {95,158,160,255};
-	const GalaEngine::Colour Chartreuse	 			= {127,255,0,255};
-	const GalaEngine::Colour Chocolate	 			= {210,105,30,255};
-	const GalaEngine::Colour Coral	 				= {255,127,80,255};
-	const GalaEngine::Colour CornflowerBlue	 		= {100,149,237,255};
-	const GalaEngine::Colour Cornsilk	 			= {255,248,220,255};
-	const GalaEngine::Colour Crimson	 			= {220,20,60,255};
-	const GalaEngine::Colour Cyan	 				= {0,255,255,255};
-	const GalaEngine::Colour DarkBlue	 			= {0,0,139,255};
-	const GalaEngine::Colour DarkCyan	 			= {0,139,139,255};
-	const GalaEngine::Colour DarkGoldenrod	 		= {184,134,11,255};
-	const GalaEngine::Colour DarkGray	 			= {169,169,169,255};
-	const GalaEngine::Colour DarkGreen	 			= {0,100,0,255};
-	const GalaEngine::Colour DarkKhaki	 			= {189,183,107,255};
-	const GalaEngine::Colour DarkMagenta	 		= {139,0,139,255};
-	const GalaEngine::Colour DarkOliveGreen	 		= {85,107,47,255};
-	const GalaEngine::Colour DarkOrange	 			= {255,140,0,255};
-	const GalaEngine::Colour DarkOrchid	 			= {153,50,204,255};
-	const GalaEngine::Colour DarkRed	 			= {139,0,0,255};
-	const GalaEngine::Colour DarkSalmon	 			= {233,150,122,255};
-	const GalaEngine::Colour DarkSeaGreen	 		= {143,188,143,255};
-	const GalaEngine::Colour DarkSlateBlue	 		= {72,61,139,255};
-	const GalaEngine::Colour DarkSlateGray	 		= {47,79,79,255};
-	const GalaEngine::Colour DarkTurquoise	 		= {0,206,209,255};
-	const GalaEngine::Colour DarkViolet	 			= {148,0,211,255};
-	const GalaEngine::Colour DeepPink	 			= {255,20,147,255};
-	const GalaEngine::Colour DeepSkyBlue	 		= {0,191,255,255};
-	const GalaEngine::Colour DimGray	 			= {105,105,105,255};
-	const GalaEngine::Colour DodgerBlue	 			= {30,144,255,255};
-	const GalaEngine::Colour FireBrick	 			= {178,34,34,255};
-	const GalaEngine::Colour FloralWhite	 		= {255,250,240,255};
-	const GalaEngine::Colour ForestGreen	 		= {34,139,34,255};
-	const GalaEngine::Colour Fuchsia	 			= {255,0,255,255};
-	const GalaEngine::Colour Gainsboro	 			= {220,220,220,255};
-	const GalaEngine::Colour GhostWhite	 			= {248,248,255,255};
-	const GalaEngine::Colour Gold	 				= {255,215,0,255};
-	const GalaEngine::Colour Goldenrod	 			= {218,165,32,255};
-	const GalaEngine::Colour Gray	 				= {128,128,128,255};
-	const GalaEngine::Colour Green	 				= {0,128,0,255};
-	const GalaEngine::Colour GreenYellow	 		= {173,255,47,255};
-	const GalaEngine::Colour Honeydew	 			= {240,255,240,255};
-	const GalaEngine::Colour HotPink	 			= {255,105,180,255};
-	const GalaEngine::Colour IndianRed	 			= {205,92,92,255};
-	const GalaEngine::Colour Indigo	 				= {75,0,130,255};
-	const GalaEngine::Colour Ivory	 				= {255,255,240,255};
-	const GalaEngine::Colour Khaki	 				= {240,230,140,255};
-	const GalaEngine::Colour Lavender	 			= {230,230,250,255};
-	const GalaEngine::Colour LavenderBlush	 		= {255,240,245,255};
-	const GalaEngine::Colour LawnGreen	 			= {124,252,0,255};
-	const GalaEngine::Colour LemonChiffon	 		= {255,250,205,255};
-	const GalaEngine::Colour LightBlue	 			= {173,216,230,255};
-	const GalaEngine::Colour LightCoral	 			= {240,128,128,255};
-	const GalaEngine::Colour LightCyan	 			= {224,255,255,255};
-	const GalaEngine::Colour LightGoldenrodYellow	= {250,250,210,255};
-	const GalaEngine::Colour LightGreen	 	 		= {144,238,144,255};
-	const GalaEngine::Colour LightGrey	 	 		= {211,211,211,255};
-	const GalaEngine::Colour LightPink	 	 		= {255,182,193,255};
-	const GalaEngine::Colour LightSalmon	 		= {255,160,122,255};
-	const GalaEngine::Colour LightSeaGreen	 		= {32,178,170,255};
-	const GalaEngine::Colour LightSkyBlue	 		= {135,206,250,255};
-	const GalaEngine::Colour LightSlateGray	 		= {119,136,153,255};
-	const GalaEngine::Colour LightSteelBlue	 		= {176,196,222,255};
-	const GalaEngine::Colour LightYellow	 		= {255,255,224,255};
-	const GalaEngine::Colour Lime	 				= {0,255,0,255};
-	const GalaEngine::Colour LimeGreen	 			= {50,205,50,255};
-	const GalaEngine::Colour Linen	 				= {250,240,230,255};
-	const GalaEngine::Colour Magenta				= {255,0,255,255};
-	const GalaEngine::Colour Maroon	 				= {128,0,0,255};
-	const GalaEngine::Colour MediumAquamarine	 	= {102,205,170,255};
-	const GalaEngine::Colour MediumBlue	 	 	 	= {0,0,205,255};
-	const GalaEngine::Colour MediumOrchid	 	 	= {186,85,211,255};
-	const GalaEngine::Colour MediumPurple	 	 	= {147,112,219,255};
-	const GalaEngine::Colour MediumSeaGreen	 	 	= {60,179,113,255};
-	const GalaEngine::Colour MediumSlateBlue	 	= {123,104,238,255};
-	const GalaEngine::Colour MediumSpringGreen	 	= {0,250,154,255};
-	const GalaEngine::Colour MediumTurquoise	 	= {72,209,204,255};
-	const GalaEngine::Colour MediumVioletRed	 	= {199,21,133,255};
-	const GalaEngine::Colour MidnightBlue	 		= {25,25,112,255};
-	const GalaEngine::Colour MintCream	 	 		= {245,255,250,255};
-	const GalaEngine::Colour MistyRose	 	 		= {255,228,225,255};
-	const GalaEngine::Colour Moccasin	 	 		= {255,228,181,255};
-	const GalaEngine::Colour NavajoWhite	 		= {255,222,173,255};
-	const GalaEngine::Colour Navy	 	 			= {0,0,128,255};
-	const GalaEngine::Colour OldLace	 			= {253,245,230,255};
-	const GalaEngine::Colour Olive	 				= {128,128,0,255};
-	const GalaEngine::Colour OliveDrab	 			= {107,142,35,255};
-	const GalaEngine::Colour Orange	 	 			= {255,165,0,255};
-	const GalaEngine::Colour OrangeRed	 			= {255,69,0,255};
-	const GalaEngine::Colour Orchid	 		 		= {218,112,214,255};
-	const GalaEngine::Colour PaleGoldenrod	 		= {238,232,170,255};
-	const GalaEngine::Colour PaleGreen	 	 		= {152,251,152,255};
-	const GalaEngine::Colour PaleTurquoise	 		= {175,238,238,255};
-	const GalaEngine::Colour PaleVioletRed	 		= {219,112,147,255};
-	const GalaEngine::Colour PapayaWhip	 			= {255,239,213,255};
-	const GalaEngine::Colour PeachPuff	 			= {255,218,185,255};
-	const GalaEngine::Colour Peru	 	 			= {205,133,63,255};
-	const GalaEngine::Colour Pink	 	 			= {255,192,203,255};
-	const GalaEngine::Colour Plum	 	 			= {221,160,221,255};
-	const GalaEngine::Colour PowderBlue	 			= {176,224,230,255};
-	const GalaEngine::Colour Purple	 	 			= {128,0,128,255};
-	const GalaEngine::Colour Red	 	 			= {255,0,0,255};
-	const GalaEngine::Colour RosyBrown	 			= {188,143,143,255};
-	const GalaEngine::Colour RoyalBlue	 			= {65,105,225,255};
-	const GalaEngine::Colour SaddleBrown	 		= {139,69,19,255};
-	const GalaEngine::Colour Salmon	 	 			= {250,128,114,255};
-	const GalaEngine::Colour SandyBrown	 			= {244,164,96,255};
-	const GalaEngine::Colour SeaGreen	 			= {46,139,87,255};
-	const GalaEngine::Colour Seashell	 			= {255,245,238,255};
-	const GalaEngine::Colour Sienna	 	 			= {160,82,45,255};
-	const GalaEngine::Colour Silver	 	 			= {192,192,192,255};
-	const GalaEngine::Colour SkyBlue	 			= {135,206,235,255};
-	const GalaEngine::Colour SlateBlue	 			= {106,90,205,255};
-	const GalaEngine::Colour SlateGray	 			= {112,128,144,255};
-	const GalaEngine::Colour Snow	 		 		= {255,250,250,255};
-	const GalaEngine::Colour SpringGreen	 		= {0,255,127,255};
-	const GalaEngine::Colour SteelBlue	 			= {70,130,180,255};
-	const GalaEngine::Colour Tan	 	 			= {210,180,140,255};
-	const GalaEngine::Colour Teal	 	 			= {0,128,128,255};
-	const GalaEngine::Colour Thistle	 			= {216,191,216,255};
-	const GalaEngine::Colour Tomato	 	 			= {255,99,71,255};
-	const GalaEngine::Colour Turquoise	 			= {64,224,208,255};
-	const GalaEngine::Colour Violet	 	 			= {238,130,238,255};
-	const GalaEngine::Colour Wheat	 	 			= {245,222,179,255};
-	const GalaEngine::Colour White	 	 			= {255,255,255,255};
-	const GalaEngine::Colour WhiteSmoke	 			= {245,245,245,255};
-	const GalaEngine::Colour Yellow	 				= {255,255,0,255};
-	const GalaEngine::Colour YellowGreen	 		= {154,205,50,255};
+	/*! @name X11 colours
+	 *  @details These colours are the default X11 / web colours.
+     *  @see https://en.wikipedia.org/wiki/Web_colors#X11_color_names
+	 */
+	///@{
+	const GalaEngine::Colour AliceBlue				= {0xf0, 0xf8, 0xff, 0xff}; //!< AliceBlue				
+	const GalaEngine::Colour AntiqueWhite			= {0xfa, 0xeb, 0xd7, 0xff}; //!< AntiqueWhite			
+	const GalaEngine::Colour Aqua	 				= {0x00, 0xff, 0xff, 0xff}; //!< Aqua	 				
+	const GalaEngine::Colour Aquamarine	 			= {0x7f, 0xff, 0xd4, 0xff}; //!< Aquamarine	 			
+	const GalaEngine::Colour Azure	 				= {0xf0, 0xff, 0xff, 0xff}; //!< Azure	 				
+	const GalaEngine::Colour Beige	 				= {0xf5, 0xf5, 0xdc, 0xff}; //!< Beige	 				
+	const GalaEngine::Colour Bisque	 				= {0xff, 0xe4, 0xc4, 0xff}; //!< Bisque	 				
+	const GalaEngine::Colour Black	 				= {0x00, 0x00, 0x00, 0xff}; //!< Black	 				
+	const GalaEngine::Colour BlanchedAlmond	 		= {0xff, 0xeb, 0xcd, 0xff}; //!< BlanchedAlmond	 		
+	const GalaEngine::Colour Blue	 				= {0x00, 0x00, 0xff, 0xff}; //!< Blue	 				
+	const GalaEngine::Colour BlueViolet	 			= {0x8a, 0x2b, 0xe2, 0xff}; //!< BlueViolet	 			
+	const GalaEngine::Colour Brown	 				= {0xa5, 0x2a, 0x2a, 0xff}; //!< Brown	 				
+	const GalaEngine::Colour BurlyWood	 			= {0xde, 0xb8, 0x87, 0xff}; //!< BurlyWood	 			
+	const GalaEngine::Colour CadetBlue	 			= {0x5f, 0x9e, 0xa0, 0xff}; //!< CadetBlue	 			
+	const GalaEngine::Colour Chartreuse	 			= {0x7f, 0xff, 0x00, 0xff}; //!< Chartreuse	 			
+	const GalaEngine::Colour Chocolate	 			= {0xd2, 0x69, 0x1e, 0xff}; //!< Chocolate	 			
+	const GalaEngine::Colour Coral	 				= {0xff, 0x7f, 0x50, 0xff}; //!< Coral	 				
+	const GalaEngine::Colour CornflowerBlue	 		= {0x64, 0x95, 0xed, 0xff}; //!< CornflowerBlue	 		
+	const GalaEngine::Colour Cornsilk	 			= {0xff, 0xf8, 0xdc, 0xff}; //!< Cornsilk	 			
+	const GalaEngine::Colour Crimson	 			= {0xdc, 0x14, 0x3c, 0xff}; //!< Crimson	 			
+	const GalaEngine::Colour Cyan	 				= {0x00, 0xff, 0xff, 0xff}; //!< Cyan	 				
+	const GalaEngine::Colour DarkBlue	 			= {0x00, 0x00, 0x8b, 0xff}; //!< DarkBlue	 			
+	const GalaEngine::Colour DarkCyan	 			= {0x00, 0x8b, 0x8b, 0xff}; //!< DarkCyan	 			
+	const GalaEngine::Colour DarkGoldenrod	 		= {0xb8, 0x86, 0x0b, 0xff}; //!< DarkGoldenrod	 		
+	const GalaEngine::Colour DarkGray	 			= {0xa9, 0xa9, 0xa9, 0xff}; //!< DarkGray	 			
+	const GalaEngine::Colour DarkGreen	 			= {0x00, 0x64, 0x00, 0xff}; //!< DarkGreen	 			
+	const GalaEngine::Colour DarkKhaki	 			= {0xbd, 0xb7, 0x6b, 0xff}; //!< DarkKhaki	 			
+	const GalaEngine::Colour DarkMagenta	 		= {0x8b, 0x00, 0x8b, 0xff}; //!< DarkMagenta	 		
+	const GalaEngine::Colour DarkOliveGreen	 		= {0x55, 0x6b, 0x2f, 0xff}; //!< DarkOliveGreen	 		
+	const GalaEngine::Colour DarkOrange	 			= {0xff, 0x8c, 0x00, 0xff}; //!< DarkOrange	 			
+	const GalaEngine::Colour DarkOrchid	 			= {0x99, 0x32, 0xcc, 0xff}; //!< DarkOrchid	 			
+	const GalaEngine::Colour DarkRed	 			= {0x8b, 0x00, 0x00, 0xff}; //!< DarkRed	 			
+	const GalaEngine::Colour DarkSalmon	 			= {0xe9, 0x96, 0x7a, 0xff}; //!< DarkSalmon	 			
+	const GalaEngine::Colour DarkSeaGreen	 		= {0x8f, 0xbc, 0x8f, 0xff}; //!< DarkSeaGreen	 		
+	const GalaEngine::Colour DarkSlateBlue	 		= {0x48, 0x3d, 0x8b, 0xff}; //!< DarkSlateBlue	 		
+	const GalaEngine::Colour DarkSlateGray	 		= {0x2f, 0x4f, 0x4f, 0xff}; //!< DarkSlateGray	 		
+	const GalaEngine::Colour DarkTurquoise	 		= {0x00, 0xce, 0xd1, 0xff}; //!< DarkTurquoise	 		
+	const GalaEngine::Colour DarkViolet	 			= {0x94, 0x00, 0xd3, 0xff}; //!< DarkViolet	 			
+	const GalaEngine::Colour DeepPink	 			= {0xff, 0x14, 0x93, 0xff}; //!< DeepPink	 			
+	const GalaEngine::Colour DeepSkyBlue	 		= {0x00, 0xbf, 0xff, 0xff}; //!< DeepSkyBlue	 		
+	const GalaEngine::Colour DimGray	 			= {0x69, 0x69, 0x69, 0xff}; //!< DimGray	 			
+	const GalaEngine::Colour DodgerBlue	 			= {0x1e, 0x90, 0xff, 0xff}; //!< DodgerBlue	 			
+	const GalaEngine::Colour FireBrick	 			= {0xb2, 0x22, 0x22, 0xff}; //!< FireBrick	 			
+	const GalaEngine::Colour FloralWhite	 		= {0xff, 0xfa, 0xf0, 0xff}; //!< FloralWhite	 		
+	const GalaEngine::Colour ForestGreen	 		= {0x22, 0x8b, 0x22, 0xff}; //!< ForestGreen	 		
+	const GalaEngine::Colour Fuchsia	 			= {0xff, 0x00, 0xff, 0xff}; //!< Fuchsia	 			
+	const GalaEngine::Colour Gainsboro	 			= {0xdc, 0xdc, 0xdc, 0xff}; //!< Gainsboro	 			
+	const GalaEngine::Colour GhostWhite	 			= {0xf8, 0xf8, 0xff, 0xff}; //!< GhostWhite	 			
+	const GalaEngine::Colour Gold	 				= {0xff, 0xd7, 0x00, 0xff}; //!< Gold	 				
+	const GalaEngine::Colour Goldenrod	 			= {0xda, 0xa5, 0x20, 0xff}; //!< Goldenrod	 			
+	const GalaEngine::Colour Gray	 				= {0x80, 0x80, 0x80, 0xff}; //!< Gray	 				
+	const GalaEngine::Colour Green	 				= {0x00, 0x80, 0x00, 0xff}; //!< Green	 				
+	const GalaEngine::Colour GreenYellow	 		= {0xad, 0xff, 0x2f, 0xff}; //!< GreenYellow	 		
+	const GalaEngine::Colour Honeydew	 			= {0xf0, 0xff, 0xf0, 0xff}; //!< Honeydew	 			
+	const GalaEngine::Colour HotPink	 			= {0xff, 0x69, 0xb4, 0xff}; //!< HotPink	 			
+	const GalaEngine::Colour IndianRed	 			= {0xcd, 0x5c, 0x5c, 0xff}; //!< IndianRed	 			
+	const GalaEngine::Colour Indigo	 				= {0x4b, 0x00, 0x82, 0xff}; //!< Indigo	 				
+	const GalaEngine::Colour Ivory	 				= {0xff, 0xff, 0xf0, 0xff}; //!< Ivory	 				
+	const GalaEngine::Colour Khaki	 				= {0xf0, 0xe6, 0x8c, 0xff}; //!< Khaki	 				
+	const GalaEngine::Colour Lavender	 			= {0xe6, 0xe6, 0xfa, 0xff}; //!< Lavender	 			
+	const GalaEngine::Colour LavenderBlush	 		= {0xff, 0xf0, 0xf5, 0xff}; //!< LavenderBlush	 		
+	const GalaEngine::Colour LawnGreen	 			= {0x7c, 0xfc, 0x00, 0xff}; //!< LawnGreen	 			
+	const GalaEngine::Colour LemonChiffon	 		= {0xff, 0xfa, 0xcd, 0xff}; //!< LemonChiffon	 		
+	const GalaEngine::Colour LightBlue	 			= {0xad, 0xd8, 0xe6, 0xff}; //!< LightBlue	 			
+	const GalaEngine::Colour LightCoral	 			= {0xf0, 0x80, 0x80, 0xff}; //!< LightCoral	 			
+	const GalaEngine::Colour LightCyan	 			= {0xe0, 0xff, 0xff, 0xff}; //!< LightCyan	 			
+	const GalaEngine::Colour LightGoldenrodYellow	= {0xfa, 0xfa, 0xd2, 0xff}; //!< LightGoldenrodYellow	
+	const GalaEngine::Colour LightGreen	 	 		= {0x90, 0xee, 0x90, 0xff}; //!< LightGreen	 	 		
+	const GalaEngine::Colour LightGrey	 	 		= {0xd3, 0xd3, 0xd3, 0xff}; //!< LightGrey	 	 		
+	const GalaEngine::Colour LightPink	 	 		= {0xff, 0xb6, 0xc1, 0xff}; //!< LightPink	 	 		
+	const GalaEngine::Colour LightSalmon	 		= {0xff, 0xa0, 0x7a, 0xff}; //!< LightSalmon	 		
+	const GalaEngine::Colour LightSeaGreen	 		= {0x20, 0xb2, 0xaa, 0xff}; //!< LightSeaGreen	 		
+	const GalaEngine::Colour LightSkyBlue	 		= {0x87, 0xce, 0xfa, 0xff}; //!< LightSkyBlue	 		
+	const GalaEngine::Colour LightSlateGray	 		= {0x77, 0x88, 0x99, 0xff}; //!< LightSlateGray	 		
+	const GalaEngine::Colour LightSteelBlue	 		= {0xb0, 0xc4, 0xde, 0xff}; //!< LightSteelBlue	 		
+	const GalaEngine::Colour LightYellow	 		= {0xff, 0xff, 0xe0, 0xff}; //!< LightYellow	 		
+	const GalaEngine::Colour Lime	 				= {0x00, 0xff, 0x00, 0xff}; //!< Lime	 				
+	const GalaEngine::Colour LimeGreen	 			= {0x32, 0xcd, 0x32, 0xff}; //!< LimeGreen	 			
+	const GalaEngine::Colour Linen	 				= {0xfa, 0xf0, 0xe6, 0xff}; //!< Linen	 				
+	const GalaEngine::Colour Magenta				= {0xff, 0x00, 0xff, 0xff}; //!< Magenta				
+	const GalaEngine::Colour Maroon	 				= {0x80, 0x00, 0x00, 0xff}; //!< Maroon	 				
+	const GalaEngine::Colour MediumAquamarine	 	= {0x66, 0xcd, 0xaa, 0xff}; //!< MediumAquamarine	 	
+	const GalaEngine::Colour MediumBlue	 	 	 	= {0x00, 0x00, 0xcd, 0xff}; //!< MediumBlue	 	 	 	
+	const GalaEngine::Colour MediumOrchid	 	 	= {0xba, 0x55, 0xd3, 0xff}; //!< MediumOrchid	 	 	
+	const GalaEngine::Colour MediumPurple	 	 	= {0x93, 0x70, 0xdb, 0xff}; //!< MediumPurple	 	 	
+	const GalaEngine::Colour MediumSeaGreen	 	 	= {0x3c, 0xb3, 0x71, 0xff}; //!< MediumSeaGreen	 	 	
+	const GalaEngine::Colour MediumSlateBlue	 	= {0x7b, 0x68, 0xee, 0xff}; //!< MediumSlateBlue	 	
+	const GalaEngine::Colour MediumSpringGreen	 	= {0x00, 0xfa, 0x9a, 0xff}; //!< MediumSpringGreen	 	
+	const GalaEngine::Colour MediumTurquoise	 	= {0x48, 0xd1, 0xcc, 0xff}; //!< MediumTurquoise	 	
+	const GalaEngine::Colour MediumVioletRed	 	= {0xc7, 0x15, 0x85, 0xff}; //!< MediumVioletRed	 	
+	const GalaEngine::Colour MidnightBlue	 		= {0x19, 0x19, 0x70, 0xff}; //!< MidnightBlue	 		
+	const GalaEngine::Colour MintCream	 	 		= {0xf5, 0xff, 0xfa, 0xff}; //!< MintCream	 	 		
+	const GalaEngine::Colour MistyRose	 	 		= {0xff, 0xe4, 0xe1, 0xff}; //!< MistyRose	 	 		
+	const GalaEngine::Colour Moccasin	 	 		= {0xff, 0xe4, 0xb5, 0xff}; //!< Moccasin	 	 		
+	const GalaEngine::Colour NavajoWhite	 		= {0xff, 0xde, 0xad, 0xff}; //!< NavajoWhite	 		
+	const GalaEngine::Colour Navy	 	 			= {0x00, 0x00, 0x80, 0xff}; //!< Navy	 	 			
+	const GalaEngine::Colour OldLace	 			= {0xfd, 0xf5, 0xe6, 0xff}; //!< OldLace	 			
+	const GalaEngine::Colour Olive	 				= {0x80, 0x80, 0x00, 0xff}; //!< Olive	 				
+	const GalaEngine::Colour OliveDrab	 			= {0x6b, 0x8e, 0x23, 0xff}; //!< OliveDrab	 			
+	const GalaEngine::Colour Orange	 	 			= {0xff, 0xa5, 0x00, 0xff}; //!< Orange	 	 			
+	const GalaEngine::Colour OrangeRed	 			= {0xff, 0x45, 0x00, 0xff}; //!< OrangeRed	 			
+	const GalaEngine::Colour Orchid	 		 		= {0xda, 0x70, 0xd6, 0xff}; //!< Orchid	 		 		
+	const GalaEngine::Colour PaleGoldenrod	 		= {0xee, 0xe8, 0xaa, 0xff}; //!< PaleGoldenrod	 		
+	const GalaEngine::Colour PaleGreen	 	 		= {0x98, 0xfb, 0x98, 0xff}; //!< PaleGreen	 	 		
+	const GalaEngine::Colour PaleTurquoise	 		= {0xaf, 0xee, 0xee, 0xff}; //!< PaleTurquoise	 		
+	const GalaEngine::Colour PaleVioletRed	 		= {0xdb, 0x70, 0x93, 0xff}; //!< PaleVioletRed	 		
+	const GalaEngine::Colour PapayaWhip	 			= {0xff, 0xef, 0xd5, 0xff}; //!< PapayaWhip	 			
+	const GalaEngine::Colour PeachPuff	 			= {0xff, 0xda, 0xb9, 0xff}; //!< PeachPuff	 			
+	const GalaEngine::Colour Peru	 	 			= {0xcd, 0x85, 0x3f, 0xff}; //!< Peru	 	 			
+	const GalaEngine::Colour Pink	 	 			= {0xff, 0xc0, 0xcb, 0xff}; //!< Pink	 	 			
+	const GalaEngine::Colour Plum	 	 			= {0xdd, 0xa0, 0xdd, 0xff}; //!< Plum	 	 			
+	const GalaEngine::Colour PowderBlue	 			= {0xb0, 0xe0, 0xe6, 0xff}; //!< PowderBlue	 			
+	const GalaEngine::Colour Purple	 	 			= {0x80, 0x00, 0x80, 0xff}; //!< Purple	 	 			
+	const GalaEngine::Colour Red	 	 			= {0xff, 0x00, 0x00, 0xff}; //!< Red	 	 			
+	const GalaEngine::Colour RosyBrown	 			= {0xbc, 0x8f, 0x8f, 0xff}; //!< RosyBrown	 			
+	const GalaEngine::Colour RoyalBlue	 			= {0x41, 0x69, 0xe1, 0xff}; //!< RoyalBlue	 			
+	const GalaEngine::Colour SaddleBrown	 		= {0x8b, 0x45, 0x13, 0xff}; //!< SaddleBrown	 		
+	const GalaEngine::Colour Salmon	 	 			= {0xfa, 0x80, 0x72, 0xff}; //!< Salmon	 	 			
+	const GalaEngine::Colour SandyBrown	 			= {0xf4, 0xa4, 0x60, 0xff}; //!< SandyBrown	 			
+	const GalaEngine::Colour SeaGreen	 			= {0x2e, 0x8b, 0x57, 0xff}; //!< SeaGreen	 			
+	const GalaEngine::Colour Seashell	 			= {0xff, 0xf5, 0xee, 0xff}; //!< Seashell	 			
+	const GalaEngine::Colour Sienna	 	 			= {0xa0, 0x52, 0x2d, 0xff}; //!< Sienna	 	 			
+	const GalaEngine::Colour Silver	 	 			= {0xc0, 0xc0, 0xc0, 0xff}; //!< Silver	 	 			
+	const GalaEngine::Colour SkyBlue	 			= {0x87, 0xce, 0xeb, 0xff}; //!< SkyBlue	 			
+	const GalaEngine::Colour SlateBlue	 			= {0x6a, 0x5a, 0xcd, 0xff}; //!< SlateBlue	 			
+	const GalaEngine::Colour SlateGray	 			= {0x70, 0x80, 0x90, 0xff}; //!< SlateGray	 			
+	const GalaEngine::Colour Snow	 		 		= {0xff, 0xfa, 0xfa, 0xff}; //!< Snow	 		 		
+	const GalaEngine::Colour SpringGreen	 		= {0x00, 0xff, 0x7f, 0xff}; //!< SpringGreen	 		
+	const GalaEngine::Colour SteelBlue	 			= {0x46, 0x82, 0xb4, 0xff}; //!< SteelBlue	 			
+	const GalaEngine::Colour Tan	 	 			= {0xd2, 0xb4, 0x8c, 0xff}; //!< Tan	 	 			
+	const GalaEngine::Colour Teal	 	 			= {0x00, 0x80, 0x80, 0xff}; //!< Teal	 	 			
+	const GalaEngine::Colour Thistle	 			= {0xd8, 0xbf, 0xd8, 0xff}; //!< Thistle	 			
+	const GalaEngine::Colour Tomato	 	 			= {0xff, 0x63, 0x47, 0xff}; //!< Tomato	 	 			
+	const GalaEngine::Colour Turquoise	 			= {0x40, 0xe0, 0xd0, 0xff}; //!< Turquoise	 			
+	const GalaEngine::Colour Violet	 	 			= {0xee, 0x82, 0xee, 0xff}; //!< Violet	 	 			
+	const GalaEngine::Colour Wheat	 	 			= {0xf5, 0xde, 0xb3, 0xff}; //!< Wheat	 	 			
+	const GalaEngine::Colour White	 	 			= {0xff, 0xff, 0xff, 0xff}; //!< White	 	 			
+	const GalaEngine::Colour WhiteSmoke	 			= {0xf5, 0xf5, 0xf5, 0xff}; //!< WhiteSmoke	 			
+	const GalaEngine::Colour Yellow	 				= {0xff, 0xff, 0x00, 0xff}; //!< Yellow	 				
+	const GalaEngine::Colour YellowGreen	 		= {0x9a, 0xcd, 0x32, 0xff}; //!< YellowGreen	 		
+	///@}
 }
