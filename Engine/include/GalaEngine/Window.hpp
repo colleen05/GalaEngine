@@ -50,6 +50,10 @@ namespace GalaEngine {
             bool IsMaximised();     //!< Get whether or not the window is maximised.
             bool IsFocused();       //!< Get whether or not the window is focused.
             bool IsResized();       //!< Get whether or not the window has been resized.
+            bool IsResizable();     //!< Get whether or not the window can be resized.
+            bool IsUndecorated();   //!< Get whether or not the window is undecorated (borderless).
+            bool IsHidden();        //!< Get whether or not the window is hidden.
+            bool IsTopmost();       //!< Get whether or not the window is topmost.
 
             float GetFPS(); //!< Get the current FPS.
 
@@ -76,11 +80,17 @@ namespace GalaEngine {
              */
             /// @{
             void SetTitle(const std::string &title);    //!< Set the current 
+            
+            void Minimise();    //!< Set minimised.
+            void Maximise();    //!< Set maximised.
+            void Restore();     //!< Set netural (not minimised or maximised).
 
             void ToggleFullscreen();                    //!< Toggle whether or not the window is fullscreen.
             void SetFullscreen(const bool fullscreen);  //!< Set whether or not the window is fullscreen.
-            void SetMinimised();                        //!< Set minimised.
-            void SetMaximised();                        //!< Set maximised.
+            void SetResizable(const bool resizable);    //!< Get whether or not the window can be resized.
+            void SetUndecorated(const bool undecorated);//!< Get whether or not the window is undecorated (borderless).
+            void SetHidden(const bool hidden);          //!< Get whether or not the window is hidden.
+            void SetTopmost(const bool topmost);        //!< Get whether or not the window is topmost.
 
             void SetWidth       (const int width);                      //!< Set the width of the window.
             void SetHeight      (const int height);                     //!< Set the height of the window.

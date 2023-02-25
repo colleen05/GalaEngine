@@ -94,6 +94,22 @@ bool GalaEngine::Window::IsResized() {
     return ::IsWindowResized();
 }
 
+bool GalaEngine::Window::IsResizable() {
+    return ::IsWindowState(FLAG_WINDOW_RESIZABLE);
+}
+
+bool GalaEngine::Window::IsUndecorated() {
+    return ::IsWindowState(FLAG_WINDOW_UNDECORATED);
+}
+
+bool GalaEngine::Window::IsHidden() {
+    return ::IsWindowHidden();
+}
+
+bool GalaEngine::Window::IsTopmost() {
+    return ::IsWindowState(FLAG_WINDOW_TOPMOST);
+}
+
 int GalaEngine::Window::GetWidth() {
     return IsFullscreen() ? GetMonitorWidth() : (::GetScreenWidth());
 }
@@ -180,6 +196,18 @@ void GalaEngine::Window::SetTitle(const std::string &title) {
     SetWindowTitle(title.c_str());
 }
 
+void GalaEngine::Window::Minimise() {
+    ::MinimizeWindow();
+}
+
+void GalaEngine::Window::Maximise() {
+    ::MaximizeWindow();
+}
+
+void GalaEngine::Window::Restore() {
+    ::RestoreWindow();
+}
+
 void GalaEngine::Window::ToggleFullscreen() {
     ::ToggleFullscreen();
 }
@@ -188,12 +216,24 @@ void GalaEngine::Window::SetFullscreen(const bool fullscreen) {
     if(fullscreen != IsFullscreen()) ToggleFullscreen();
 }
 
-void GalaEngine::Window::SetMinimised() {
-    ::MinimizeWindow();
+void GalaEngine::Window::SetResizable(const bool resizable) {
+    if(resizable)   ::SetWindowState    (FLAG_WINDOW_RESIZABLE);
+    else            ::ClearWindowState  (FLAG_WINDOW_RESIZABLE);
 }
 
-void GalaEngine::Window::SetMaximised() {
-    ::MaximizeWindow();
+void GalaEngine::Window::SetUndecorated(const bool undecorated) {
+    if(undecorated) ::SetWindowState    (FLAG_WINDOW_UNDECORATED);
+    else            ::ClearWindowState  (FLAG_WINDOW_UNDECORATED);
+}
+
+void GalaEngine::Window::SetHidden(const bool hidden) {
+    if(hidden)      ::SetWindowState    (FLAG_WINDOW_HIDDEN);
+    else            ::ClearWindowState  (FLAG_WINDOW_HIDDEN);
+}
+
+void GalaEngine::Window::SetTopmost(const bool topmost) {
+    if(topmost)     ::SetWindowState    (FLAG_WINDOW_TOPMOST);
+    else            ::ClearWindowState  (FLAG_WINDOW_TOPMOST);
 }
 
 void GalaEngine::Window::SetWidth(const int width) {
