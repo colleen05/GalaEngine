@@ -79,8 +79,9 @@ namespace GalaEngine {
              *  window.
              */
             /// @{
-            void SetTitle(const std::string &title);    //!< Set the current 
-            
+            void SetTitle(const std::string &title);    //!< Set the window title.
+            void SetIcon(const Image &image);           //!< Set the window icon.
+
             void Minimise();    //!< Set minimised.
             void Maximise();    //!< Set maximised.
             void Restore();     //!< Set netural (not minimised or maximised).
@@ -95,6 +96,7 @@ namespace GalaEngine {
             void SetWidth       (const int width);                      //!< Set the width of the window.
             void SetHeight      (const int height);                     //!< Set the height of the window.
             void SetSize        (const int width, const int height);    //!< Set the size of the window.
+            void SetMinSize     (const int width, const int height);    //!< Set the minimum size of the window.
             void SetPosition    (const int x, const int y);             //!< Set the position of the window.
             void SetTargetFPS   (const float fps);                      //!< Set the target FPS of the window.
             /// @}

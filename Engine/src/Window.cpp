@@ -159,6 +159,10 @@ void GalaEngine::Window::SetTitle(const std::string &title) {
     SetWindowTitle(title.c_str());
 }
 
+void GalaEngine::Window::SetIcon(const Image &image) {
+    SetWindowIcon(image);
+}
+
 void GalaEngine::Window::Minimise   () { ::MinimizeWindow();    }
 void GalaEngine::Window::Maximise   () { ::MaximizeWindow();    }
 void GalaEngine::Window::Restore    () { ::RestoreWindow();     }
@@ -197,6 +201,10 @@ void GalaEngine::Window::SetSize(const int width, const int height) {
     _height = height;
     ::SetWindowSize(width, height);
     surface.Resize(width, height);
+}
+
+void GalaEngine::Window::SetMinSize(const int width, const int height) {
+    ::SetWindowMinSize(width, height);
 }
 
 void GalaEngine::Window::SetPosition(const int x, const int y) { ::SetWindowPosition(x, y); }

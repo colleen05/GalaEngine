@@ -43,7 +43,7 @@
   - [x] Get and set the following properties: resizable, undecorated, hidden, and topmost.
   - [ ] Support multiple scaling options: `Contain`, `Stretch`, `IntegerScale`.
   - [ ] Support window surface filtering (nearest neighbour or bilinear).
-  - [ ] Set icon, minimum size, and maximum size.
+  - [x] Set icon and minimum size.
   - [ ] ``Window::Centre()``: Centre window on screen.
 
 ### Core features
