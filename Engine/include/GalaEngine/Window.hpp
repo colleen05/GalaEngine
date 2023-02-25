@@ -77,9 +77,10 @@ namespace GalaEngine {
             /// @{
             void SetTitle(const std::string &title);    //!< Set the current 
 
-            void ToggleFullscreen();    //!< Toggle whether or not the window is fullscreen.
-            void SetMinimised();        //!< Set minimised.
-            void SetMaximised();        //!< Set maximised.
+            void ToggleFullscreen();                    //!< Toggle whether or not the window is fullscreen.
+            void SetFullscreen(const bool fullscreen);  //!< Set whether or not the window is fullscreen.
+            void SetMinimised();                        //!< Set minimised.
+            void SetMaximised();                        //!< Set maximised.
 
             void SetWidth       (const int width);                      //!< Set the width of the window.
             void SetHeight      (const int height);                     //!< Set the height of the window.

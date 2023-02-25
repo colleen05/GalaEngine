@@ -184,6 +184,10 @@ void GalaEngine::Window::ToggleFullscreen() {
     ::ToggleFullscreen();
 }
 
+void GalaEngine::Window::SetFullscreen(const bool fullscreen) {
+    if(fullscreen != IsFullscreen()) ToggleFullscreen();
+}
+
 void GalaEngine::Window::SetMinimised() {
     ::MinimizeWindow();
 }
