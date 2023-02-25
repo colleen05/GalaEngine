@@ -8,6 +8,12 @@ void Demo_Window::OnLoad() {
     // Allow resizing, set minimum size.
     window->SetResizable(true);
     window->SetMinSize(640, 480);
+
+    // Set window icon
+    auto tex_icon = assets->GetTexture("tex_colourX");
+    Image img_icon = LoadImageFromTexture(tex_icon);
+    window->SetIcon(img_icon);
+    UnloadImage(img_icon);
 }
 
 void Demo_Window::OnDraw() {
