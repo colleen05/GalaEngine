@@ -40,9 +40,11 @@
 - [ ] Layers and entities to have blend modes.
 - [ ] Fully implement Window class functionality.
   - [x] Set fullscreen explicitly (`Window::SetFullscreen(bool fullscreen)`).
-  - [ ] Get and set the following properties: resizable, undecorated, hidden, topmost, and V-Sync.
+  - [x] Get and set the following properties: resizable, undecorated, hidden, and topmost.
   - [ ] Support multiple scaling options: `Contain`, `Stretch`, `IntegerScale`.
   - [ ] Support window surface filtering (nearest neighbour or bilinear).
+  - [ ] Set icon, minimum size, and maximum size.
+  - [ ] ``Window::Centre()``: Centre window on screen.
 
 ### Core features
 - [ ] Shader class:
