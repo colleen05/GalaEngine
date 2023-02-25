@@ -19,11 +19,8 @@ void GalaEngine::Window::Render() {
     const float surfaceWidth  = (float)surface.renderTexture.texture.width;
     const float surfaceHeight = (float)surface.renderTexture.texture.height;
 
-    const float windowAspect = winWidth / winHeight;
-
-    const float surfaceAspect =
-        (float)surface.renderTexture.texture.width /
-        (float)surface.renderTexture.texture.height;
+    const float windowAspect  = winWidth     / winHeight;
+    const float surfaceAspect = surfaceWidth / surfaceHeight;
 
     float boxWidth  = winWidth;
     float boxHeight = winHeight;
