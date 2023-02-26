@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include <rlgl.h>
 #include <raylib.h>
+#include <rlgl.h>
 #include <string>
 
 // Grey tones & clear
