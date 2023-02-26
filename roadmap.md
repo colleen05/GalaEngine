@@ -38,11 +38,11 @@
 - [ ] AssetManager to have a `defaultTextureFilter` member.
 - [ ] `Colour.hpp` to contain BlendModes.
 - [ ] Layers and entities to have blend modes.
-- [ ] Fully implement Window class functionality.
+- [x] Fully implement Window class functionality.
   - [x] Set fullscreen explicitly (`Window::SetFullscreen(bool fullscreen)`).
   - [x] Get and set the following properties: resizable, undecorated, hidden, and topmost.
-  - [ ] Support multiple scaling options: `Contain`, `Stretch`, `IntegerScale`.
-  - [ ] Support window surface filtering (nearest neighbour or bilinear).
+  - [x] Support multiple scaling options: `Contain`, `Stretch`, `IntegerScale`.
+  - [x] Support window surface filtering (nearest neighbour or bilinear).
   - [x] Set icon and minimum size.
   - [x] ``Window::Centre()``: Centre window on screen.
 
@@ -61,7 +61,7 @@
 - [ ] Loading scenes from resource files.
 
 ### Utilities
-- [x] Math.hpp
+- [x] Math utility functions. 
 - [ ] 9-slicing (Surfaces).
 - [ ] CompositeLayer (layers beneath will render to this layer. allows fragment shading).
 

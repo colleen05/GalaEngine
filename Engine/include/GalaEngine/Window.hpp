@@ -11,6 +11,7 @@
 #include <string>
 #include <array>
 #include <GalaEngine/Surface.hpp>
+#include <GalaEngine/Math.hpp>
 
 namespace GalaEngine {
     /*! @brief Window class
@@ -24,7 +25,15 @@ namespace GalaEngine {
             int _targetFPS;         //!< Target FPS
 
         public:
-            Surface surface; //!< Top-level render target.
+            Surface surface             = {};       //!< Top-level render target.
+            bool    interpolateSurface  = false;    //!< Render surface smooth?
+
+            enum class ScaleMode {
+                Centre,
+                Contain,
+                Stretch,
+                IntegerScale
+            } scaleMode = ScaleMode::Contain;
 
             /*! @name General Functions
              *  @details These functions are called at different stages of the

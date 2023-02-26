@@ -12,25 +12,48 @@ void GalaEngine::Window::Init() {
 }
 
 void GalaEngine::Window::Render() {
-    // Letterboxing
-    const float winWidth  = GetWidth();
-    const float winHeight = GetHeight();
+    // Scaling
+    const float surfaceWidth  = surface.renderTexture.texture.width;
+    const float surfaceHeight = surface.renderTexture.texture.height;
+
+    Rectangle surfaceDest = {0};
     
-    const float surfaceWidth  = (float)surface.renderTexture.texture.width;
-    const float surfaceHeight = (float)surface.renderTexture.texture.height;
-
-    const float windowAspect  = winWidth     / winHeight;
-    const float surfaceAspect = surfaceWidth / surfaceHeight;
-
-    float boxWidth  = winWidth;
-    float boxHeight = winHeight;
-
-    if(windowAspect > surfaceAspect)            // Window wider than surface?
-        boxWidth = winHeight * surfaceAspect;
-    else if(windowAspect < surfaceAspect)       // Window taller than surface?
-        boxHeight = winWidth / surfaceAspect;
+    switch(scaleMode) {
+        case ScaleMode::Centre:
+            surfaceDest = (Rectangle) {
+                (GetWidth()  - surfaceWidth)  / 2.0f,
+                (GetHeight() - surfaceHeight) / 2.0f,
+                surfaceWidth, surfaceHeight
+            };
+            break;
+        case ScaleMode::Contain:
+            surfaceDest = Math::GetLetterboxedRectangle(
+                (Vector2)   {surfaceWidth, surfaceHeight},
+                (Rectangle) {0.0f, 0.0f, (float)GetWidth(), (float)GetHeight()}
+            );
+            break;
+        case ScaleMode::Stretch:
+            surfaceDest = (Rectangle) {
+                0.0f, 0.0f,
+                (float)GetWidth(), (float)GetHeight()
+            };
+            break;
+        case ScaleMode::IntegerScale:
+            surfaceDest = Math::GetIntegerScaledRectangle(
+                (Vector2)   {surfaceWidth, surfaceHeight},
+                (Rectangle) {0.0f, 0.0f, (float)GetWidth(), (float)GetHeight()}
+            );
+            break;
+    }
 
     // Draw surface
+    SetTextureFilter(
+        surface.renderTexture.texture,
+        interpolateSurface ?
+            TEXTURE_FILTER_BILINEAR :
+            TEXTURE_FILTER_POINT
+    );
+
     DrawTexturePro(
         surface.renderTexture.texture,
         Rectangle {
@@ -39,12 +62,7 @@ void GalaEngine::Window::Render() {
             surfaceWidth,
             -surfaceHeight
         },
-        Rectangle {
-            (GetWidth() - boxWidth) / 2.0f,
-            (GetHeight() - boxHeight) / 2.0f,
-            boxWidth,
-            boxHeight
-        },
+        surfaceDest,
         {0.0f, 0.0f},
         0.0f,
         C_WHITE
