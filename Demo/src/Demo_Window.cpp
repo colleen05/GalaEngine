@@ -7,7 +7,7 @@ void Demo_Window::OnLoad() {
 
     // Allow resizing, set minimum size.
     window->SetResizable(true);
-    window->SetMinSize(640, 480);
+    window->SetMinSize(320, 240);
 
     // Set window icon
     auto tex_icon = assets->GetTexture("tex_colourX");
@@ -23,6 +23,8 @@ void Demo_Window::OnDraw() {
     const int sceneWidth    = scene->GetSize().x;
     const int sceneHeight   = scene->GetSize().y;
 
+    const int fontSize = 10;
+
     const std::string sizeText =
         "Size: " + std::to_string(winWidth) + " x " + std::to_string(winHeight) + "\n" +
         "Surface: " + std::to_string(window->surface.renderTexture.texture.width) + " x " + std::to_string(window->surface.renderTexture.texture.height) + "\n" +
@@ -30,10 +32,10 @@ void Demo_Window::OnDraw() {
         "Fullscreen: " + (window->IsFullscreen() ? "Yes" : "No") + "\n" +
         "Fill window: " + (fillWindow ? "Yes" : "No");
 
-    Vector2 textSize = MeasureTextEx(GetFontDefault(), sizeText.c_str(), 20, 0);
-    window->surface.DrawText(sizeText, (sceneWidth - textSize.x) / 2, (sceneHeight - textSize.y) / 2, 20, C_DKGREY);
+    Vector2 textSize = MeasureTextEx(GetFontDefault(), sizeText.c_str(), fontSize, 0);
+    window->surface.DrawText(sizeText, (sceneWidth - textSize.x) / 2, (sceneHeight - textSize.y) / 2, fontSize, C_DKGREY);
     
-    window->surface.DrawText("F - Fullscreen  |  S - Toggle scaling  |  C - Centre", 16, sceneHeight - 32, 20, C_GREY);
+    window->surface.DrawText("F - Fullscreen  |  S - Toggle scaling  |  C - Centre", 16, sceneHeight - 32, fontSize, C_GREY);
 
     // Shade window if not focused.
     if(!window->IsFocused()) {
@@ -46,6 +48,12 @@ void Demo_Window::OnUpdate() {
     if(IsKeyPressed(KEY_F)) window->ToggleFullscreen();
     if(IsKeyPressed(KEY_S)) fillWindow = !fillWindow;
     if(IsKeyPressed(KEY_C)) window->Centre();
+    if(IsKeyPressed(KEY_I)) window->interpolateSurface = !window->interpolateSurface;
+
+    if(IsKeyPressed(KEY_ONE))   window->scaleMode = GalaEngine::Window::ScaleMode::Centre;
+    if(IsKeyPressed(KEY_TWO))   window->scaleMode = GalaEngine::Window::ScaleMode::Contain;
+    if(IsKeyPressed(KEY_THREE)) window->scaleMode = GalaEngine::Window::ScaleMode::Stretch;
+    if(IsKeyPressed(KEY_FOUR))  window->scaleMode = GalaEngine::Window::ScaleMode::IntegerScale;
 
     // Resize scene and camera if resized
     if(window->IsResized() && fillWindow) {
@@ -67,8 +75,8 @@ Demo_Window::Demo_Window() : Game(
         "GalaEngine Window Demo (GalaEngine v" GALAENGINE_VERSION_STRING ")",
         "GalaEngine example project.",
         "Colleen (colleen05)",
-        800,
-        600,
+        320,
+        240,
         GalaEngine::AssetPathLayout {
             "./resources/",
             "textures/",
