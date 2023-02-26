@@ -31,10 +31,10 @@
 ## Version 0.3.0
 ### Updates
 - [ ] Add Entity context members: `sceneWidth`, `sceneHeight`, `sceneEntities`, and `sceneLayers`.
-- [ ] InputManager allows for direct checking:
-  - [ ] Direct keyboard key checking.
-  - [ ] Direct gamepad buttons and axis checking.
-  - [ ] Get mouse wheel deltas.
+- [x] InputManager allows for direct checking:
+  - [x] Direct keyboard key checking.
+  - [x] Direct gamepad buttons and axis checking.
+  - [x] Get mouse wheel deltas.
 - [ ] AssetManager to have a `defaultTextureFilter` member.
 - [ ] `Colour.hpp` to contain BlendModes.
 - [ ] Layers and entities to have blend modes.
@@ -76,6 +76,9 @@
 
 
 ## Version 0.4.0
+### Updates
+- [ ] Window background.
+
 ### Core features
 - [ ] Debug::Logger class.
 - [ ] Timeline class.

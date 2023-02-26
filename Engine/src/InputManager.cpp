@@ -1,6 +1,28 @@
 #include <GalaEngine/InputManager.hpp>
 
+// Gamepad availability
+bool GalaEngine::InputManager::IsGamepadAvailable(const int device) { return ::IsGamepadAvailable(device); }
+
 // State-getting
+bool GalaEngine::InputManager::IsKeyPressed          (const KeyboardKey key)    { return ::IsKeyPressed(key);              }
+bool GalaEngine::InputManager::IsKeyDown             (const KeyboardKey key)    { return ::IsKeyDown(key);                 }
+bool GalaEngine::InputManager::IsKeyReleased         (const KeyboardKey key)    { return ::IsKeyReleased(key);             }
+bool GalaEngine::InputManager::IsMouseButtonPressed  (const MouseButton button) { return ::IsMouseButtonPressed(button);   }
+bool GalaEngine::InputManager::IsMouseButtonDown     (const MouseButton button) { return ::IsMouseButtonDown(button);      }
+bool GalaEngine::InputManager::IsMouseButtonReleased (const MouseButton button) { return ::IsMouseButtonReleased(button);  }
+
+bool GalaEngine::InputManager::IsGamepadButtonPressed(const GamepadButton button, const int device) {
+    return ::IsGamepadButtonPressed(device, button);
+}
+
+bool GalaEngine::InputManager::IsGamepadButtonDown(const GamepadButton button, const int device) {
+    return ::IsGamepadButtonDown(device, button);
+}
+
+bool GalaEngine::InputManager::IsGamepadButtonReleased(const GamepadButton button, const int device) {
+    return ::IsGamepadButtonReleased(device, button);
+}
+
 bool GalaEngine::InputManager::IsPressed(const Input &input, const int device) {
     for(auto &k : input.keys) {
         if(IsKeyPressed(k)) return true;
@@ -12,7 +34,7 @@ bool GalaEngine::InputManager::IsPressed(const Input &input, const int device) {
 
     if(IsGamepadAvailable(device)) {
         for(auto &b : input.gamepadButtons) {
-            if(IsGamepadButtonPressed(device, b)) return true;
+            if(IsGamepadButtonPressed(b, device)) return true;
         }
     }
     
@@ -30,7 +52,7 @@ bool GalaEngine::InputManager::IsDown(const Input &input, const int device) {
 
     if(IsGamepadAvailable(device)) {
         for(auto &b : input.gamepadButtons) {
-            if(IsGamepadButtonDown(device, b)) return true;
+            if(IsGamepadButtonDown(b, device)) return true;
         }
     }
     
@@ -48,21 +70,34 @@ bool GalaEngine::InputManager::IsReleased(const Input &input, const int device) 
 
     if(IsGamepadAvailable(device)) {
         for(auto &b : input.gamepadButtons) {
-            if(IsGamepadButtonReleased(device, b)) return true;
+            if(IsGamepadButtonReleased(b, device)) return true;
         }
     }
     
     return false;
 }
 
-Vector2 GalaEngine::InputManager::GetMouseDelta() {
-    return ::GetMouseDelta();
+float GalaEngine::InputManager::GetGamepadAxisMovement(const GamepadAxis axis, const int device) {
+    const float movement = ::GetGamepadAxisMovement(device, axis);
+
+    switch(axis) {
+        case GAMEPAD_AXIS_LEFT_TRIGGER:
+        case GAMEPAD_AXIS_RIGHT_TRIGGER:
+            return (movement + 1.0f) / 2.0f;
+        case GAMEPAD_AXIS_LEFT_Y:
+        case GAMEPAD_AXIS_RIGHT_Y:
+            return (movement == 0.0f) ? 0.0f : -movement;
+        default: break;
+    }
+
+    return movement;
 }
 
-Vector2 GalaEngine::InputManager::GetMousePosition() {
-    return ::GetMousePosition();
-}
+Vector2 GalaEngine::InputManager::GetMouseDelta     () { return ::GetMouseDelta();      }
+Vector2 GalaEngine::InputManager::GetMouseWheelDelta() { return ::GetMouseWheelMoveV(); }
+Vector2 GalaEngine::InputManager::GetMousePosition  () { return ::GetMousePosition();   }
 
+// Named input checking
 bool GalaEngine::InputManager::IsPressed(const std::string &inputName, const int device) {
     if(binds.find(inputName) != binds.end()) {
         return IsPressed(binds[inputName], device);
@@ -95,19 +130,7 @@ float GalaEngine::InputManager::GetFloat(const Input &input, const int device) {
     // Gamepad inputs
     if((!input.hasAxis) || (!IsGamepadAvailable(device))) return 0.0f;
 
-    const float movement = GetGamepadAxisMovement(device, input.gamepadAxis);
-
-    switch(input.gamepadAxis) {
-        case GAMEPAD_AXIS_LEFT_TRIGGER:
-        case GAMEPAD_AXIS_RIGHT_TRIGGER:
-            return (movement + 1.0f) / 2.0f;
-        case GAMEPAD_AXIS_LEFT_Y:
-        case GAMEPAD_AXIS_RIGHT_Y:
-            return (movement == 0.0f) ? 0.0f : -movement;
-        default: break;
-    }
-
-    return movement;
+    return GetGamepadAxisMovement(input.gamepadAxis, device);
 }
 
 float GalaEngine::InputManager::GetFloat(const std::string &inputName, const int device) {
@@ -122,8 +145,8 @@ Vector2 GalaEngine::InputManager::GetLeftJoystick(const int device) {
     if(!IsGamepadAvailable(device)) return {0.0f, 0.0f};
 
     return Vector2 {
-        GetGamepadAxisMovement(device, GAMEPAD_AXIS_LEFT_X),
-        GetGamepadAxisMovement(device, GAMEPAD_AXIS_LEFT_Y)
+        GetGamepadAxisMovement(GAMEPAD_AXIS_LEFT_X, device),
+        GetGamepadAxisMovement(GAMEPAD_AXIS_LEFT_Y, device)
     };
 }
 
@@ -131,8 +154,8 @@ Vector2 GalaEngine::InputManager::GetRightJoystick(const int device) {
     if(!IsGamepadAvailable(device)) return {0.0f, 0.0f};
 
     return Vector2 {
-        GetGamepadAxisMovement(device, GAMEPAD_AXIS_RIGHT_X),
-        GetGamepadAxisMovement(device, GAMEPAD_AXIS_RIGHT_Y)
+        GetGamepadAxisMovement(GAMEPAD_AXIS_RIGHT_X, device),
+        GetGamepadAxisMovement(GAMEPAD_AXIS_RIGHT_Y, device)
     };
 }
 

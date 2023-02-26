@@ -36,17 +36,34 @@ namespace GalaEngine {
         public:
             std::map<std::string, Input> binds; //!< Map of names to inputs
 
+            static bool IsGamepadAvailable(const int device = 0); //!< Check if a given gamepad is available.
+
             /*! @name Direct Input Checking
-             *  @details Get input states directly from Input struct.
+             *  @details Get input states directly from Input struct or
+             *  keyboard key code.
              *  @param input The input struct.
              *  @param device The device to check.
+             *  @attention Mouse position is returned in absolute window space.
+             *  If you want to get the mouse position relative to the window
+             *  surface, use `Window::GetMousePosition()`.
              */
             /// @{
-            static bool IsPressed(const Input &input, const int device = 0);    //!< If an input has just be activated.
-            static bool IsDown(const Input &input, const int device = 0);       //!< If an input is currently activated.
-            static bool IsReleased(const Input &input, const int device = 0);   //!< If an input has just be de-activated.
-            static Vector2 GetMouseDelta();     //!< Get mouse movement delta.
-            static Vector2 GetMousePosition();  //!< Get mouse position within window.
+            static bool IsKeyPressed            (const KeyboardKey key);                            //!< Check if key has just been pressed.
+            static bool IsKeyDown               (const KeyboardKey key);                            //!< Check if key is currently down.
+            static bool IsKeyReleased           (const KeyboardKey key);                            //!< Check if key has just been release.
+            static bool IsMouseButtonPressed    (const MouseButton button);                         //!< Check if mouse button has just been pressed.
+            static bool IsMouseButtonDown       (const MouseButton button);                         //!< Check if mouse button is currently down.
+            static bool IsMouseButtonReleased   (const MouseButton button);                         //!< Check if mouse button has just been released.
+            static bool IsGamepadButtonPressed  (const GamepadButton button, const int device = 0); //!< Check if gamepad button has just been pressed.
+            static bool IsGamepadButtonDown     (const GamepadButton button, const int device = 0); //!< Check if gamepad button is currently down.
+            static bool IsGamepadButtonReleased (const GamepadButton button, const int device = 0); //!< Check if gamepad button has just been released.
+            static bool IsPressed               (const Input &input, const int device = 0);         //!< Check if an input has just be activated.
+            static bool IsDown                  (const Input &input, const int device = 0);         //!< Check if an input is currently activated.
+            static bool IsReleased              (const Input &input, const int device = 0);         //!< Check if an input has just be de-activated.
+            static float GetGamepadAxisMovement (const GamepadAxis axis, const int device = 0);     //!< Get gamepad axis movement.
+            static Vector2  GetMouseDelta           (); //!< Get mouse movement delta.
+            static Vector2  GetMouseWheelDelta      (); //!< Get mouse wheel movement delta.
+            static Vector2  GetMousePosition        (); //!< Get mouse position within window.
             /// @}
 
             /*! @name Named Input Checking
@@ -55,9 +72,9 @@ namespace GalaEngine {
              *  @param device The device to check.
              */
             /// @{
-            bool IsPressed(const std::string &inputName, const int device = 0);     //!< If an input has just be activated.
-            bool IsDown(const std::string &inputName, const int device = 0);        //!< If an input is currently activated.
-            bool IsReleased(const std::string &inputName, const int device = 0);    //!< If an input has just be de-activated.
+            bool IsPressed  (const std::string &inputName, const int device = 0);   //!< If an input has just be activated.
+            bool IsDown     (const std::string &inputName, const int device = 0);   //!< If an input is currently activated.
+            bool IsReleased (const std::string &inputName, const int device = 0);   //!< If an input has just be de-activated.
             /// @}
 
             /*! @name Floating-point Inputs
@@ -70,8 +87,8 @@ namespace GalaEngine {
              *  @param device The device to check.
              */
             /// @{
-            static float GetFloat(const Input &input, const int device = 0);    //!< Get float of input by struct.
-            float GetFloat(const std::string &inputName, const int device = 0); //!< Get float of input by name.
+            static float GetFloat(const Input &input, const int device = 0);     //!< Get float of input by struct.
+            float GetFloat (const std::string &inputName, const int device = 0); //!< Get float of input by name.
             /// @}
 
             /*! @name Direct Joystick Checking
