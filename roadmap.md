@@ -36,7 +36,7 @@
   - [ ] Direct gamepad buttons and axis checking.
   - [ ] Get mouse wheel deltas.
 - [ ] AssetManager to have a `defaultTextureFilter` member.
-- [ ] `Colour.hpp` to contain a `BlendMode` enum class.
+- [ ] `Colour.hpp` to contain BlendModes.
 - [ ] Layers and entities to have blend modes.
 - [ ] Fully implement Window class functionality.
   - [x] Set fullscreen explicitly (`Window::SetFullscreen(bool fullscreen)`).
@@ -61,6 +61,7 @@
 - [ ] Loading scenes from resource files.
 
 ### Utilities
+- [x] Math.hpp
 - [ ] 9-slicing (Surfaces).
 - [ ] CompositeLayer (layers beneath will render to this layer. allows fragment shading).
 
