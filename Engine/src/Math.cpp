@@ -7,8 +7,8 @@ Rectangle Math::GetLetterboxedRectangle(const Vector2 contentSize, const Rectang
     
     // Calculate "box" (the new rectangle)'s dimensions.
     const float boxWidth =
-        (containerAspect > innerAspect) ?   // Container proportionally wider than inner?
-        (container.height * innerAspect) :   // Only take up a portion of the width.
+        (containerAspect  > innerAspect) ?  // Container proportionally wider than inner?
+        (container.height * innerAspect) :  // Only take up a portion of the width.
         (container.width);                  // Otherwise, take up the entire width.
     
     const float boxHeight =
@@ -23,6 +23,28 @@ Rectangle Math::GetLetterboxedRectangle(const Vector2 contentSize, const Rectang
         boxWidth, boxHeight     // (We already know the box dimensions!)
     };
     
+    // Return the new rectangle.
+    return box;
+}
+
+Rectangle Math::GetIntegerScaledRectangle(const Vector2 contentSize, const Rectangle container) {
+    // Determine largest contained scale factor.
+    const float scaleFactor = floor(fmin(
+        (container.width  / contentSize.x),
+        (container.height / contentSize.y)
+    ));
+
+    // Get the scaled content dimensions.
+    const float boxWidth  = contentSize.x * scaleFactor;
+    const float boxHeight = contentSize.y * scaleFactor;
+
+    // Construct the new rectangle.
+    const Rectangle box = {
+        (container.width  - boxWidth)  / 2.0f,
+        (container.height - boxHeight) / 2.0f,
+        boxWidth, boxHeight
+    };
+
     // Return the new rectangle.
     return box;
 }
