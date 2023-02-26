@@ -22,7 +22,6 @@ namespace GalaEngine {
             int _width;             //!< Window width
             int _height;            //!< Window height
             int _targetFPS;         //!< Target FPS
-            std::array<bool, KEY_KP_EQUAL> _keyStates; //!< Key states
 
         public:
             Surface surface; //!< Top-level render target.
