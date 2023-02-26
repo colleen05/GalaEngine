@@ -170,6 +170,18 @@ namespace GalaEngine {
 	};
 }
 
+/*! @brief Blend modes namespace
+ *  @details Contains common blend modes, such as modes used in visual effects,
+ *  and image-editing programs.
+ */
+namespace BlendModes {
+    const GalaEngine::BlendMode Normal = {
+        GalaEngine::BlendMode::Factor::One,
+        GalaEngine::BlendMode::Factor::SourceAlphaInverted,
+        GalaEngine::BlendMode::Equation::Add
+    };
+};
+
 /*! @brief Colours namespace
  *  @details Contains colour presets from the X11 palette.
  */
@@ -179,10 +191,10 @@ namespace Colours {
 	 *  to have anyway.
 	 */
 	///@{
-	const GalaEngine::Colour GalaRed				= C_GALARED;    //!< Red colour used in the GalaEngine logo and website.
-	const GalaEngine::Colour GalaWhite				= C_GALAWHITE;  //!< Slightly off-white.
-	const GalaEngine::Colour GalaBlack				= C_GALABLACK;  //!< Very dark navy.
-	const GalaEngine::Colour Clear					= C_CLEAR;      //!< Transparent.
+	const GalaEngine::Colour GalaRed				= C_GALARED;    //!< `(GalaEngine::Colour) {0xdd, 0x00, 0x22, 0xff}`: Red colour used in the GalaEngine logo and website.
+	const GalaEngine::Colour GalaWhite				= C_GALAWHITE;  //!< `(GalaEngine::Colour) {0xff, 0xf8, 0xf8, 0xff}`: Slightly off-white.
+	const GalaEngine::Colour GalaBlack				= C_GALABLACK;  //!< `(GalaEngine::Colour) {0x08, 0x08, 0x10, 0xff}`: Very dark navy.
+	const GalaEngine::Colour Clear					= C_CLEAR;      //!< `(GalaEngine::Colour) {0x00, 0x00, 0x00, 0x00}` Transparent.
 	///@}
 
 	/*! @name X11 colours
