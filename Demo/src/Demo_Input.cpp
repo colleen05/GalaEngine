@@ -57,7 +57,7 @@ std::vector<MouseButton> Demo_Input::GetMouseButtonsPressed() {
         MOUSE_BUTTON_FORWARD,
         MOUSE_BUTTON_BACK
     }) {
-        if(IsMouseButtonPressed(b))
+        if(input->IsMouseButtonPressed(b))
             buttons.push_back(b);
     }
 
@@ -104,7 +104,7 @@ void Demo_Input::Applet_Log() {
 // GUI Components
 bool Demo_Input::GUI_Button(const std::string &text, const int x, const int y, const int w, const int h, const bool highlighted) {
     const bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        input->GetMousePosition(),
         (Rectangle) {
             (float)x, (float)y,
             (float)w, (float)h
@@ -119,7 +119,7 @@ bool Demo_Input::GUI_Button(const std::string &text, const int x, const int y, c
 
     window->surface.DrawText(text, x + 8, y + 6, 20, C_WHITE);
 
-    return hovered && IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
+    return hovered && input->IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
 }
 
 void Demo_Input::GUI_Nav(const int x, const int y) {
@@ -222,25 +222,25 @@ void Demo_Input::GUI_DrawMouse(const int x, const int y) {
     // LMB
     window->surface.DrawRectangleRounded(
         x, y + 32, 64, 96, 8.0f,
-        IsMouseButtonDown(MOUSE_BUTTON_LEFT) ?
+        input->IsMouseButtonDown(MOUSE_BUTTON_LEFT) ?
             C_LTGREY : C_GREY
     );
 
     // RMB
     window->surface.DrawRectangleRounded(
         x + 80, y + 32, 64, 96, 8.0f,
-        IsMouseButtonDown(MOUSE_BUTTON_RIGHT) ?
+        input->IsMouseButtonDown(MOUSE_BUTTON_RIGHT) ?
             C_LTGREY : C_GREY
     );
 
     // Wheel
     window->surface.DrawRectangleRounded(
         x + 56, y + 32, 32, 96, 4.0f,
-        IsMouseButtonDown(MOUSE_BUTTON_MIDDLE) ?
+        input->IsMouseButtonDown(MOUSE_BUTTON_MIDDLE) ?
             C_LTGREY : GalaEngine::Colour {0x22, 0x22, 0x22, 0xff}
     );
 
-    const float wheelMovement = GetMouseWheelMove();
+    const float wheelMovement = input->GetMouseWheelDelta().y;
     if(abs(wheelMovement) > EPSILON) {
         window->surface.DrawSprite(
             *assets->GetSprite("ui_input_wheel"),
@@ -278,25 +278,25 @@ void Demo_Input::GUI_GamepadStick(const int x, const int y, const int side, cons
         input->GetRightJoystick(device);
 
     const bool stickButtonDown = (side == 0) ?
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_LEFT_THUMB) :
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_RIGHT_THUMB);
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_LEFT_THUMB, device) :
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_RIGHT_THUMB, device);
 
     window->surface.DrawCircle(x, y, 40.0f, {0x22, 0x22, 0x22, 0xff});
     window->surface.DrawCircle(
         x + (stickOffset.x * 20.0f),
-        y + (stickOffset.y * 20.0f),
+        y - (stickOffset.y * 20.0f),
         20.0f, stickButtonDown ? C_DKGREY : C_GREY
     );
 }
 
 void Demo_Input::GUI_GamepadShoulder(const int x, const int y, const int side, const int device) {
     const float trigger = (side == 0) ?
-        GetGamepadAxisMovement(device, GAMEPAD_AXIS_LEFT_TRIGGER) :
-        GetGamepadAxisMovement(device, GAMEPAD_AXIS_RIGHT_TRIGGER);
+        input->GetGamepadAxisMovement(GAMEPAD_AXIS_LEFT_TRIGGER, device) :
+        input->GetGamepadAxisMovement(GAMEPAD_AXIS_RIGHT_TRIGGER, device);
     
     const bool shoulderButtonDown = (side == 0) ?
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_LEFT_TRIGGER_1) :
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_RIGHT_TRIGGER_1);
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_LEFT_TRIGGER_1, device) :
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_RIGHT_TRIGGER_1, device);
 
     // Trigger
     window->surface.DrawRectangleRounded(
@@ -319,20 +319,20 @@ void Demo_Input::GUI_GamepadShoulder(const int x, const int y, const int side, c
 
 void Demo_Input::GUI_GamepadFaceButtons(const int x, const int y, const int side, const int device) {
     const bool up = (side == 0) ?
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_LEFT_FACE_UP) :
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_RIGHT_FACE_UP);
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_LEFT_FACE_UP, device) :
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_RIGHT_FACE_UP, device);
 
     const bool down = (side == 0) ?
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_LEFT_FACE_DOWN) :
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_RIGHT_FACE_DOWN);
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_LEFT_FACE_DOWN, device) :
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_RIGHT_FACE_DOWN, device);
 
     const bool left = (side == 0) ?
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_LEFT_FACE_LEFT) :
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_RIGHT_FACE_LEFT);
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_LEFT_FACE_LEFT, device) :
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_RIGHT_FACE_LEFT, device);
 
     const bool right = (side == 0) ?
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_LEFT_FACE_RIGHT) :
-        IsGamepadButtonDown(device, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT);
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_LEFT_FACE_RIGHT, device) :
+        input->IsGamepadButtonDown(GAMEPAD_BUTTON_RIGHT_FACE_RIGHT, device);
 
     window->surface.DrawCircle(x, y - 24, 16.0f, up    ? C_GREY : GalaEngine::Colour {0x22, 0x22, 0x22, 0xff});
     window->surface.DrawCircle(x, y + 24, 16.0f, down  ? C_GREY : GalaEngine::Colour {0x22, 0x22, 0x22, 0xff});
@@ -341,9 +341,9 @@ void Demo_Input::GUI_GamepadFaceButtons(const int x, const int y, const int side
 }
 
 void Demo_Input::GUI_GamepadMiddleButtons(const int x, const int y, const int device) {
-    const bool leftDown   = IsGamepadButtonDown(device, GAMEPAD_BUTTON_MIDDLE_LEFT);
-    const bool middleDown = IsGamepadButtonDown(device, GAMEPAD_BUTTON_MIDDLE);
-    const bool rightDown  = IsGamepadButtonDown(device, GAMEPAD_BUTTON_MIDDLE_RIGHT);
+    const bool leftDown   = input->IsGamepadButtonDown(GAMEPAD_BUTTON_MIDDLE_LEFT, device);
+    const bool middleDown = input->IsGamepadButtonDown(GAMEPAD_BUTTON_MIDDLE, device);
+    const bool rightDown  = input->IsGamepadButtonDown(GAMEPAD_BUTTON_MIDDLE_RIGHT, device);
 
     // Left (Select)
     window->surface.DrawRectangleRounded(
