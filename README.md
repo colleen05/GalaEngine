@@ -9,6 +9,20 @@
     <a href="roadmap.md">Roadmap</a>
 </p>
 
+<a href="https://choosealicense.com/licenses/zlib/" target="_blank">
+    <img alt="GitHub" src="https://img.shields.io/github/license/colleen05/GalaEngine?style=flat-square">
+</a>
+<a href="https://twitter.com/GalaEngine" target="_blank">
+    <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/GalaEngine?logo=twitter&style=flat-square">
+</a>
+<a href="https://discord.gg/VkNHdEYYaf" target="_blank">
+    <img alt="Discord" src="https://img.shields.io/discord/1050169573636313139?label=Discord&logo=discord&logoColor=white&style=flat-square">
+</a>
+<a href="https://www.reddit.com/r/GalaEngine/" target="_blank">
+    <img alt="Subreddit subscribers" src="https://img.shields.io/reddit/subreddit-subscribers/GalaEngine?logo=reddit&logoColor=white&style=flat-square">
+</a>
+
+
 ## PLEASE NOTE
 GalaEngine is in a very early development stage. Expect bugs and lack of documentation and cross-platform support. If you run into a bug, please report it in the issues section of the GitHub repository.
 
