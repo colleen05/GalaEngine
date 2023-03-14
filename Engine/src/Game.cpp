@@ -35,8 +35,10 @@ void GalaEngine::Game::Start() {
         ClearBackground(window->surface.clearColour);
         window->surface.Clear();
 
+        BeginBlendMode(BLEND_ALPHA);
         scene->RenderLayers();
         OnDraw(); // Call draw code from child class
+        EndBlendMode();
 
         window->Render();
         EndDrawing();
