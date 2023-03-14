@@ -87,6 +87,12 @@ int main(int argc, char **argv) {
                 "Window",
                 "Demonstrates management of window via\nGalaEngine::Window functions."
             }
+        },
+        {"testgfx",
+            DemoProfile {
+                "Test Graphics",
+                "Displays various test graphics for blending."
+            }
         }
     };
 
@@ -213,6 +219,8 @@ int main(int argc, char **argv) {
                 game = new Demo_Input();
             }else if(currentProfile == "window") {
                 game = new Demo_Window();
+            }else if(currentProfile == "testgfx") {
+                game = new Demo_TestGfx();
             }
         }
 
