@@ -28,7 +28,9 @@ void GalaEngine::Game::Start() {
         // Update
         scene->Update();
         OnUpdate();
-        // window->UpdateInput();
+        
+        if(IsKeyPressed(KEY_F11))
+            window->ToggleFullscreen();
 
         // Drawing
         BeginDrawing();

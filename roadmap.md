@@ -45,6 +45,7 @@
   - [x] Support window surface filtering (nearest neighbour or bilinear).
   - [x] Set icon and minimum size.
   - [x] ``Window::Centre()``: Centre window on screen.
+- [x] Game class to support F11 for fullscreen toggle.
 
 ### Core features
 - [ ] Shader class:
