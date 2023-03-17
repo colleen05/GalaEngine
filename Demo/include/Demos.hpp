@@ -15,3 +15,4 @@
 #include <Demo_Input.hpp>
 #include <Demo_Window.hpp>
 #include <Demo_TestGfx.hpp>
+#include <Demo_NPatches.hpp>

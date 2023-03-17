@@ -82,6 +82,12 @@ int main(int argc, char **argv) {
                 "Demonstrates use of GalaEngine::InputManager\nfor detecting and binding input, with GUI."
             }
         },
+        {"npatches",
+            DemoProfile {
+                "9-Patches",
+                "Demonstrates drawing of 9-Patches."
+            }
+        },
         {"window",
             DemoProfile {
                 "Window",
@@ -221,6 +227,8 @@ int main(int argc, char **argv) {
                 game = new Demo_Window();
             }else if(currentProfile == "testgfx") {
                 game = new Demo_TestGfx();
+            }else if(currentProfile == "npatches") {
+                game = new Demo_NPatches();
             }
         }
 
