@@ -54,7 +54,13 @@ namespace GalaEngine {
      */
     class AssetManager {
         public:
-            AssetPathLayout pathLayout; //!< Where game resource files are looked for.
+            /** @name Asset properties
+             *  @details These members control various aspects about how assets
+             *  should be loaded.
+             */
+            /// @{
+            AssetPathLayout pathLayout = {0}; //!< Where game resource files are looked for.
+            /// @}
 
             /** @name Asset containers
              *  @details These are the containers which map asset names to
