@@ -12,6 +12,7 @@
 #include <libxdt.hpp>
 #include <GalaEngine/Sprite.hpp>
 #include <GalaEngine/Tileset.hpp>
+#include <GalaEngine/NSlice.hpp>
 
 namespace GalaEngine {
     /*! @brief Resource loading functions
@@ -44,6 +45,15 @@ namespace GalaEngine {
         /// @{
         Tileset LoadTilesetData(const std::vector<uint8_t> &data);  //!< Load Tileset from resource file data.
         Tileset LoadTileset(const std::string &filePath);           //!< Load Tileset from resource file (by path).
+        /// @}
+
+        /*! @name Loading 9-slices
+         *  @param data Resource file bytes.
+         *  @param filePath Resource file path.
+         */
+        /// @{
+        NSlice LoadNSliceData(const std::vector<uint8_t> &data);    //!< Load NSlice from resource file data.
+        NSlice LoadNSlice(const std::string &filePath);             //!< Load NSlice from resource file (by path).
         /// @}
 
         /*! @name Loading sounds
