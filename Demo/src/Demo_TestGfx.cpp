@@ -1,14 +1,34 @@
 #include <Demo_TestGfx.hpp>
 
 void Demo_TestGfx::OnLoad() {
-
+    assets->LoadTexture("filter_test");
+    SetTextureFilter(assets->GetTexture("filter_test"), TEXTURE_FILTER_BILINEAR);
 }
 
 void Demo_TestGfx::OnDraw() {
-    window->surface.DrawTexture(assets->GetTexture("alpha_test"), 16, 16);
-    window->surface.DrawTexture(assets->GetTexture("filter_test"), 16, 16 + 16 + 256, 4.0f, 3.0f);
+    GalaEngine::Colour winClear = {0x00, 0x00, 0x00, 0xff};
+    
+    if(input->IsKeyDown(KEY_ONE)) {
+        winClear.r = 0xff;
+    }
 
-    SetTextureFilter(assets->GetTexture("filter_test"), TEXTURE_FILTER_BILINEAR);
+    if(input->IsKeyDown(KEY_TWO)) {
+        winClear.g = 0xff;
+    }
+
+    if(input->IsKeyDown(KEY_THREE)) {
+        winClear.b = 0xff;
+    }
+
+    window->surface.Clear(winClear);
+
+    // Separate textures
+    window->surface.DrawTexture(assets->GetTexture("alpha_test"), 16, 16);
+    window->surface.DrawTexture(assets->GetTexture("filter_test"), 16, 16 + 16 + 256, 4.0f, 4.0f);
+
+    // Drawn overlayed
+    window->surface.DrawTexture(assets->GetTexture("alpha_test"),  16 + 16 + 256, 16);
+    window->surface.DrawTexture(assets->GetTexture("filter_test"), 16 + 16 + 256, 16, 4.0f, 4.0f);
 }
 
 void Demo_TestGfx::OnUpdate() {
