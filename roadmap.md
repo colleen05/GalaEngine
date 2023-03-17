@@ -45,6 +45,7 @@
   - [x] Set icon and minimum size.
   - [x] ``Window::Centre()``: Centre window on screen.
 - [x] Game class to support F11 for fullscreen toggle.
+- [x] Textures and sprites have texture filters.
 
 ### Core features
 - [ ] Shader class:
@@ -65,10 +66,10 @@
 - [ ] 9-slicing (Surfaces).
 - [ ] CompositeLayer (layers beneath will render to this layer. allows fragment shading).
 
-### GalaMake
-- [ ] Build scenes.
-- [ ] Build fonts.
-- [ ] Add "filter" option to textures.
+### Gres
+- [ ] Load scenes.
+- [x] Load fonts.
+- [x] Add "filter" option to textures and sprites.
 
 ### Tasks
 - [ ] Document changes.

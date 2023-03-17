@@ -20,6 +20,19 @@ Texture GalaEngine::Gres::LoadTextureData(const std::vector<uint8_t> &data) {
     ) return {0};
 
     Texture tex = LoadTextureFromImage(img);
+
+    // Set texture filter
+    if(gresTable.ItemExists("texture_filter")) {
+        std::string filterStr = gresTable.GetString("texture_filter");
+        TextureFilter filter = TEXTURE_FILTER_POINT;
+
+        if      (filterStr == "bilinear")   filter = TEXTURE_FILTER_BILINEAR;
+        else if (filterStr == "trilinear")  filter = TEXTURE_FILTER_TRILINEAR;
+
+        SetTextureFilter(tex, filter);
+    }
+
+    // Unload image & return
     UnloadImage(img);
     
     return tex;
@@ -62,6 +75,19 @@ GalaEngine::Sprite GalaEngine::Gres::LoadSpriteData(const std::vector<uint8_t> &
     ) return {{0}, {0}, {{0}}};
 
     spr.texture = LoadTextureFromImage(img);
+
+    // Set texture filter
+    if(gresTable.ItemExists("texture_filter")) {
+        std::string filterStr = gresTable.GetString("texture_filter");
+        TextureFilter filter = TEXTURE_FILTER_POINT;
+
+        if      (filterStr == "bilinear")   filter = TEXTURE_FILTER_BILINEAR;
+        else if (filterStr == "trilinear")  filter = TEXTURE_FILTER_TRILINEAR;
+
+        SetTextureFilter(spr.texture, filter);
+    }
+
+    // Unload image
     UnloadImage(img);
 
     // Decode origin data

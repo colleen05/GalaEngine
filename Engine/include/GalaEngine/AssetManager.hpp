@@ -59,7 +59,7 @@ namespace GalaEngine {
              *  should be loaded.
              */
             /// @{
-            AssetPathLayout pathLayout = {0}; //!< Where game resource files are looked for.
+            AssetPathLayout pathLayout; //!< Where game resource files are looked for.
             /// @}
 
             /** @name Asset containers
