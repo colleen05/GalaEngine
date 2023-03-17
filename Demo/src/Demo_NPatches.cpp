@@ -1,7 +1,7 @@
 #include <Demo_NPatches.hpp>
 
 void Demo_NPatches::OnLoad() {
-
+    
 }
 
 void Demo_NPatches::OnDraw() {
