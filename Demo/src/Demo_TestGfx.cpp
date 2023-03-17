@@ -2,7 +2,6 @@
 
 void Demo_TestGfx::OnLoad() {
     assets->LoadTexture("filter_test");
-    SetTextureFilter(assets->GetTexture("filter_test"), TEXTURE_FILTER_BILINEAR);
 }
 
 void Demo_TestGfx::OnDraw() {
