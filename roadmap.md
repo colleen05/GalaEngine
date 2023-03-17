@@ -35,7 +35,6 @@
   - [x] Direct keyboard key checking.
   - [x] Direct gamepad buttons and axis checking.
   - [x] Get mouse wheel deltas.
-- [ ] AssetManager to have a `defaultTextureFilter` member.
 - [ ] `Colour.hpp` to contain BlendModes.
 - [ ] Layers and entities to have blend modes.
 - [x] Fully implement Window class functionality.
