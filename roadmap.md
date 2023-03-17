@@ -59,7 +59,6 @@
   - [ ] Scene to have a list of cameras and their on-screen placements.
 - [ ] Fonts properly supported.
 - [ ] Immediate-mode GUI (IMGUI).
-- [ ] Loading scenes from resource files.
 
 ### Utilities
 - [x] Math utility functions. 
@@ -67,7 +66,6 @@
 - [ ] CompositeLayer (layers beneath will render to this layer. allows fragment shading).
 
 ### Gres
-- [ ] Load scenes.
 - [x] Load fonts.
 - [x] Add "filter" option to textures and sprites.
 
@@ -86,6 +84,7 @@
 - [ ] Path class.
 - [ ] Particle system.
 - [ ] Audio listener & emitter system.
+- [ ] Scene loading from files.
 
 ### Utilities
 - [ ] OS interaction:
@@ -99,6 +98,7 @@
   - `PushNotification(...)`: Send a notification to the user.
   
 ### Tasks
+- [ ] Rewrite GalaMake.
 - [ ] Document changes.
 - [ ] Write in manual:
   - [ ] Downloading & Prerequisites
@@ -108,6 +108,9 @@
   - [ ] Using Layers
   - [ ] Creating Entities
 - [ ] Add appropriate demos.
+
+### Gres
+- [ ] Implement scene loading from .gres.
 
 
 ## Version 0.5.0
