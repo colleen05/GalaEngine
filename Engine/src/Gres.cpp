@@ -143,9 +143,9 @@ GalaEngine::NSlice GalaEngine::Gres::LoadNSliceData(const std::vector<uint8_t> &
     if(gresTable.GetItemType("centre_slice.w") != xdt::ItemType::Int16) return {{0}, {0}, {0}};
     if(gresTable.GetItemType("centre_slice.h") != xdt::ItemType::Int16) return {{0}, {0}, {0}};
 
-    if(!gresTable.ItemExists("stretch_slices.up"))      return {{0}, {0}, {0}};
+    if(!gresTable.ItemExists("stretch_slices.top"))      return {{0}, {0}, {0}};
     if(!gresTable.ItemExists("stretch_slices.right"))   return {{0}, {0}, {0}};
-    if(!gresTable.ItemExists("stretch_slices.down"))    return {{0}, {0}, {0}};
+    if(!gresTable.ItemExists("stretch_slices.bottom"))    return {{0}, {0}, {0}};
     if(!gresTable.ItemExists("stretch_slices.left"))    return {{0}, {0}, {0}};
     if(!gresTable.ItemExists("stretch_slices.centre"))  return {{0}, {0}, {0}};
 
@@ -187,12 +187,11 @@ GalaEngine::NSlice GalaEngine::Gres::LoadNSliceData(const std::vector<uint8_t> &
     };
 
     // Decode stretched slice
-    nslice.stretchSlices[0] = gresTable.GetBool("stretch_slices.up");
+    nslice.stretchSlices[0] = gresTable.GetBool("stretch_slices.top");
     nslice.stretchSlices[1] = gresTable.GetBool("stretch_slices.right");
-    nslice.stretchSlices[2] = gresTable.GetBool("stretch_slices.down");
+    nslice.stretchSlices[2] = gresTable.GetBool("stretch_slices.bottom");
     nslice.stretchSlices[3] = gresTable.GetBool("stretch_slices.left");
     nslice.stretchSlices[4] = gresTable.GetBool("stretch_slices.centre");
-
 
     return nslice;
 }
