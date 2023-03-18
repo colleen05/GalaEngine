@@ -34,8 +34,9 @@ class Demo_Assets : public GalaEngine::Game {
         int availableAssetsCount = 0;
 
         const GalaEngine::Colour textureCardColour  = {0xdd, 0x00, 0x22, 0xff};
-        const GalaEngine::Colour spriteCardColour   = {0xdd, 0xdd, 0x22, 0xff};
-        const GalaEngine::Colour tilesetCardColour  = {0x00, 0xdd, 0x22, 0xff};
+        const GalaEngine::Colour spriteCardColour   = {0xdd, 0x88, 0x22, 0xff};
+        const GalaEngine::Colour tilesetCardColour  = {0xdd, 0xdd, 0x22, 0xff};
+        const GalaEngine::Colour nsliceCardColour   = {0x00, 0xdd, 0x22, 0xff};
         const GalaEngine::Colour soundCardColour    = {0x00, 0xaa, 0xdd, 0xff};
         const GalaEngine::Colour fontCardColour     = {0xaa, 0x22, 0xdd, 0xff};
 
@@ -51,6 +52,7 @@ class Demo_Assets : public GalaEngine::Game {
         bool GUI_TextureCard(const int x, const int y, const std::string &resName);
         bool GUI_SpriteCard(const int x, const int y, const std::string &resName);
         bool GUI_TilesetCard(const int x, const int y, const std::string &resName);
+        bool GUI_NSliceCard(const int x, const int y, const std::string &resName);
         bool GUI_SoundCard(const int x, const int y, const std::string &resName);
         bool GUI_FontCard(const int x, const int y, const std::string &resName);
 

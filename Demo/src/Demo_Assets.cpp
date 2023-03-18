@@ -43,6 +43,7 @@ void Demo_Assets::GUI_TitleBar() {
         assets->textures.size() +
         assets->sprites.size() +
         assets->tilesets.size() +
+        assets->nslices.size() +
         assets->sounds.size() +
         assets->fonts.size();
 
@@ -211,6 +212,44 @@ bool Demo_Assets::GUI_TilesetCard(const int x, const int y, const std::string &r
     return (hovered && IsMouseButtonPressed(MOUSE_BUTTON_LEFT));
 }
 
+bool Demo_Assets::GUI_NSliceCard(const int x, const int y, const std::string &resName) {
+    bool hovered = CheckCollisionPointRec(
+        GetMousePosition(),
+        Rectangle {(float)x, (float)y, 160.0f, 192.0f}    
+    );
+
+    if(hovered) mouseCursor = MOUSE_CURSOR_POINTING_HAND;
+
+    // Background
+    scene->targetSurface->DrawRectangleRounded(
+        x, y, 160, 192, 8.0f,
+        GalaEngine::Colour {
+            nsliceCardColour.r,
+            nsliceCardColour.g,
+            nsliceCardColour.b,
+            hovered ? (uint8_t)0xdd : (uint8_t)0xaa
+        }
+    );
+
+    // Draw texture
+    scene->targetSurface->DrawRectangle(x + 16, y + 16, 128.0f, 128.0f, {0x00, 0x00, 0x00, 0xaa});
+
+    const auto &resTexture = assets->GetNSlice(resName)->texture;
+    float smallLength = (resTexture.width > resTexture.height) ? resTexture.height : resTexture.width;
+    scene->targetSurface->DrawTexture(
+        resTexture,
+        showWholeTexture ?
+            ((Rectangle) {0.0f, 0.0f, (float)resTexture.width, (float)resTexture.height}) :
+            ((Rectangle) {0.0f, 0.0f, smallLength, smallLength}),
+        (Rectangle) {(float)x + 16.0f, (float)y + 16.0f, 128.0f, 128.0f}
+    );
+
+    // Draw name
+    scene->targetSurface->DrawText("9-Slice\n" + resName, x + 16, y + 152, 10);
+
+    return (hovered && IsMouseButtonPressed(MOUSE_BUTTON_LEFT));
+}
+
 bool Demo_Assets::GUI_SoundCard(const int x, const int y, const std::string &resName) {
     bool hovered = CheckCollisionPointRec(
         GetMousePosition(),
@@ -294,6 +333,13 @@ void Demo_Assets::View_Loaded() {
         const int cardRow = card / 7;
         const int cardCol = card % 7;
         GUI_TilesetCard(16 + (160 + 16) * cardCol, (132 + (192 + 16) * cardRow) - scroll, t.first);
+        card++;
+    }
+
+    for(auto &s : assets->nslices) {
+        const int cardRow = card / 7;
+        const int cardCol = card % 7;
+        GUI_NSliceCard(16 + (160 + 16) * cardCol, (132 + (192 + 16) * cardRow) - scroll, s.first);
         card++;
     }
 
@@ -401,6 +447,27 @@ void Demo_Assets::View_Available() {
         entry++;
     }
 
+    // List 9-slices
+    const std::string nslicesPath = assets->pathLayout.base + assets->pathLayout.nslices;
+    for(const auto &e : std::filesystem::directory_iterator(nslicesPath)) {
+        if(e.is_directory() || e.is_symlink()) continue;
+        const std::string resName = e.path().stem();
+
+        const bool isLoaded = (assets->nslices.find(resName) != assets->nslices.end());
+        const std::string btnText = std::string(isLoaded ? "[L] " : "* ") + "[9-slice] " + resName;
+
+        if(GUI_Button(btnText, 16, (80 + (36 + 8) * entry) - scroll, 1280 - 32, 36, nsliceCardColour)) {
+            if(!isLoaded) {
+                assets->LoadNSLice(resName);
+            }else {
+                if(IsKeyDown(KEY_LEFT_SHIFT))
+                    assets->UnloadNSlice(resName, true);
+            }
+        }
+
+        entry++;
+    }
+
     // List sounds
     const std::string soundsPath = assets->pathLayout.base + assets->pathLayout.sounds;
     for(const auto &e : std::filesystem::directory_iterator(soundsPath)) {
@@ -474,6 +541,14 @@ void Demo_Assets::LoadAllResources() {
         if(e.is_directory() || e.is_symlink()) continue;
         const std::string resName = e.path().stem();
         assets->LoadTileset(resName);
+    }
+
+    // Load 9-slices
+    const std::string nslicesPath = assets->pathLayout.base + assets->pathLayout.nslices;
+    for(const auto &e : std::filesystem::directory_iterator(nslicesPath)) {
+        if(e.is_directory() || e.is_symlink()) continue;
+        const std::string resName = e.path().stem();
+        assets->LoadNSLice(resName);
     }
 
     // Load sounds
