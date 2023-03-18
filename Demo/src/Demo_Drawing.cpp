@@ -176,6 +176,7 @@ Demo_Drawing::Demo_Drawing() : Game(
             "textures/",
             "sprites/",
             "tilesets/",
+            "nslices/",
             "sounds/",
             "fonts/"
         }

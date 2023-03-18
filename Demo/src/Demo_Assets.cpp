@@ -507,6 +507,7 @@ Demo_Assets::Demo_Assets() : Game(
             "textures/",
             "sprites/",
             "tilesets/",
+            "nslices/",
             "sounds/",
             "fonts/"
         }

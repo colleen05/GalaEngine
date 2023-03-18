@@ -50,6 +50,7 @@ Demo_TestGfx::Demo_TestGfx() : Game(
             "textures/",
             "sprites/",
             "tilesets/",
+            "nslices/",
             "sounds/",
             "fonts/"
         }

@@ -424,6 +424,7 @@ Demo_Tiles::Demo_Tiles() : Game(
             "textures/",
             "sprites/",
             "tilesets/",
+            "nslices/",
             "sounds/",
             "fonts/"
         }

@@ -82,6 +82,7 @@ Demo_Window::Demo_Window() : Game(
             "textures/",
             "sprites/",
             "tilesets/",
+            "nslices/",
             "sounds/",
             "fonts/"
         }

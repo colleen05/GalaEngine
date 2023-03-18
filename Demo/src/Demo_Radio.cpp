@@ -151,6 +151,7 @@ Demo_Radio::Demo_Radio() : Game(
             "textures/",
             "sprites/",
             "tilesets/",
+            "nslices/",
             "sounds/",
             "fonts/"
         }

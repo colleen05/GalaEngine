@@ -92,6 +92,7 @@ Demo_Scene::Demo_Scene() : Game(
             "textures/",
             "sprites/",
             "tilesets/",
+            "nslices/",
             "sounds/",
             "fonts/"
         }

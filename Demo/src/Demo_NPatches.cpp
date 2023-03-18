@@ -28,6 +28,7 @@ Demo_NPatches::Demo_NPatches() : Game(
             "textures/",
             "sprites/",
             "tilesets/",
+            "nslices/",
             "sounds/",
             "fonts/"
         }

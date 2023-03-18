@@ -408,6 +408,7 @@ Demo_Input::Demo_Input() : Game(
             "textures/",
             "sprites/",
             "tilesets/",
+            "nslices/",
             "sounds/",
             "fonts/"
         }

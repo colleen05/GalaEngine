@@ -33,6 +33,7 @@ namespace GalaEngine {
         std::string textures = "textures/";     //!< Where an AssetManager may look for textures.
         std::string sprites  = "sprites/";      //!< Where an AssetManager may look for sprites.
         std::string tilesets = "tilesets/";     //!< Where an AssetManager may look for tilesets.
+        std::string nslices  = "nslices/";      //!< Where an AssetManager may look for 9-slices.
         std::string sounds   = "sounds/";       //!< Where an AssetManager may look for sounds.
         std::string fonts    = "fonts/";        //!< Where an AssetManager may look for fonts.
     };
@@ -285,7 +286,8 @@ namespace GalaEngine {
                 "./resources/",
                 "textures/",
                 "sprites/",
-                "tilesets/"
+                "tilesets/",
+                "nslices/",
                 "sounds/",
                 "fonts/"
             });
