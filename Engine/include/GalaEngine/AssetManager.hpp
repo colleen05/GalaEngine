@@ -71,6 +71,7 @@ namespace GalaEngine {
             std::map<std::string, Texture>  textures;   //!< Map of names to textures.
             std::map<std::string, Sprite*>  sprites;    //!< Map of names to sprites.
             std::map<std::string, Tileset>  tilesets;   //!< Map of names to tilesets.
+            std::map<std::string, NSlice*>  nslices;    //!< Map of names to 9-slices.
             std::map<std::string, Sound>    sounds;     //!< Map of names to sounds.
             std::map<std::string, Font>     fonts;      //!< Map of names to fonts.
             /// @}
@@ -107,6 +108,14 @@ namespace GalaEngine {
              *  @returns Loaded, or existing tileset.
              */
             Tileset GetTileset(const std::string &name);
+            /*! @brief Get 9-slice by name.
+             *  @details Looks for 9-slice by name in the nslices container.
+             *  If the 9-slice is not found, it will attempt to load it from
+             *  a resource file.
+             *  @param name The **name** of the 9-slice asset (**not** the resource file path).
+             *  @returns Pointer to loaded, or existing 9-slice.
+             */
+            NSlice *GetNSlice(const std::string &name);
             /*! @brief Get sound by name.
              *  @details Looks for sound by name in the sounds container.
              *  If the sound is not found, it will attempt to load it from
@@ -164,6 +173,15 @@ namespace GalaEngine {
              *  @returns Loaded tileset.
              */
             Tileset LoadTileset(const std::string &name);
+            /*! @brief Load 9-slice by name.
+             *  @details Loads a 9-slice asset from a resource file (the
+             *  directory of which is determined by the *pathLayout*), and
+             *  either inserts or replaces the asset in the nslices container
+             *  for future use.
+             *  @param name The **name** of the 9-slice asset (**not** the resource file path).
+             *  @returns Pointer to loaded 9-slice.
+             */
+            NSlice *LoadNSLice(const std::string &name);
             /*! @brief Load sound by name.
              *  @details Loads a sound asset from a resource file (the
              *  directory of which is determined by the *pathLayout*), and
@@ -218,6 +236,15 @@ namespace GalaEngine {
              *  @param erase Whether or not to erase the tileset from the tilesets container.
              */
             void UnloadTileset(const std::string &name, const bool unloadTexture = true, const bool erase = true);
+            /*! @brief Unload 9-slice by name.
+             *  @details Clears 9-slice data in memory. By default, will unload
+             *  the associated texture, and erase the 9-slice from the nslices
+             *  container.
+             *  @param name The name of the 9-slice asset.
+             *  @param unloadTexture Whether or not to erase the associated texture.
+             *  @param erase Whether or not to erase the tileset from the nslices container.
+             */
+            void UnloadNSlice(const std::string &name, const bool unloadTexture = true, const bool erase = true);
             /*! @brief Unload sound by name.
              *  @details Clears the audio data in memory. By default, will
              *  erase the sound from the sounds container.
@@ -261,6 +288,13 @@ namespace GalaEngine {
              *  @param unloadTextures Unloads associated textures from GPU.
              */
             void UnloadAllTilesets(const bool unloadTextures = true);
+            /*! @brief Unload all 9-slices.
+             *  @details Unloads all 9-slices data from memory, erases assets
+             *  from nslices container, and (by default) unloads associated
+             *  textures.
+             *  @param unloadTextures Unloads associated textures from GPU.
+             */
+            void UnloadAllNSlices(const bool unloadTextures = true);
             /*! @brief Unload all sounds.
              *  @details Unloads all sound data from memory, and erases
              *  assets from sounds container.

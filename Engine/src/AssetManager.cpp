@@ -16,6 +16,11 @@ GalaEngine::Tileset GalaEngine::AssetManager::GetTileset(const std::string &name
     return LoadTileset(name);
 }
 
+GalaEngine::NSlice *GalaEngine::AssetManager::GetNSlice(const std::string &name) {
+    if(nslices.find(name) != nslices.end()) return nslices[name];
+    return LoadNSLice(name);
+}
+
 Sound GalaEngine::AssetManager::GetSound(const std::string &name) {
     if(sounds.find(name) != sounds.end()) return sounds[name];
     return LoadSound(name);
@@ -57,6 +62,15 @@ GalaEngine::Tileset GalaEngine::AssetManager::LoadTileset(const std::string &nam
     tilesets.insert_or_assign(name, ts);
 
     return ts;
+}
+
+GalaEngine::NSlice *GalaEngine::AssetManager::LoadNSLice(const std::string &name) {
+    NSlice *nslice = new NSlice(Gres::LoadNSlice(pathLayout.base + "/" + pathLayout.nslices + "/" + name + ".gres"));
+
+    if(nslices.find(name) != nslices.end()) UnloadNSlice(name);
+    nslices.insert_or_assign(name, nslice);
+
+    return nslice;
 }
 
 Sound GalaEngine::AssetManager::LoadSound(const std::string &name) {
@@ -102,6 +116,14 @@ void GalaEngine::AssetManager::UnloadTileset(const std::string &name, const bool
     else      tilesets[name] = Tileset();
 }
 
+void GalaEngine::AssetManager::UnloadNSlice(const std::string &name, const bool unloadTexture, const bool erase) {
+    if(nslices.find(name) == nslices.end()) return;
+
+    if(unloadTexture) ::UnloadTexture(nslices[name]->texture);
+    delete nslices[name];
+    if(erase) nslices.erase(name);
+}
+
 void GalaEngine::AssetManager::UnloadSound(const std::string &name, const bool erase) {
     if(sounds.find(name) == sounds.end()) return;
 
@@ -131,6 +153,11 @@ void GalaEngine::AssetManager::UnloadAllTilesets(const bool unloadTextures) {
     tilesets.clear();
 }
 
+void GalaEngine::AssetManager::UnloadAllNSlices(const bool unloadTextures) {
+    for(auto &s : nslices) UnloadNSlice(s.first, unloadTextures, false);
+    nslices.clear();
+}
+
 void GalaEngine::AssetManager::UnloadAllSounds() {
     for(auto &s : sounds) UnloadSound(s.first, false);
     sounds.clear();
@@ -145,6 +172,7 @@ void GalaEngine::AssetManager::UnloadAll(const bool unloadAllTextures) {
     UnloadAllTextures();
     UnloadAllSprites(unloadAllTextures);
     UnloadAllTilesets(unloadAllTextures);
+    UnloadAllNSlices(unloadAllTextures);
     UnloadAllSounds();
     UnloadAllFonts();
 }
