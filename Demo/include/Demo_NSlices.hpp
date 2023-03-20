@@ -1,6 +1,6 @@
 // Project: GalaEngine
-// File: Demo_NPatches.hpp
-// Description: Demo for demonstrating 9-Patches.
+// File: Demo_NSlices.hpp
+// Description: Demo for demonstrating 9-slices.
 // Authors: Colleen (@colleen05)
 // https://github.com/colleen05/GalaEngine
 // Distributed under the zlib license.
@@ -17,7 +17,7 @@
 #include <iostream>
 #include <cmath>
 
-class Demo_NPatches : public GalaEngine::Game {
+class Demo_NSlices : public GalaEngine::Game {
     public:
         // Game class overrides
         void OnLoad();
@@ -26,5 +26,5 @@ class Demo_NPatches : public GalaEngine::Game {
         void OnUnload();
 
         // Constructor
-        Demo_NPatches();
+        Demo_NSlices();
 };

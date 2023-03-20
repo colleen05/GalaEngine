@@ -1,24 +1,24 @@
-#include <Demo_NPatches.hpp>
+#include <Demo_NSlices.hpp>
 
-void Demo_NPatches::OnLoad() {
+void Demo_NSlices::OnLoad() {
     
 }
 
-void Demo_NPatches::OnDraw() {
+void Demo_NSlices::OnDraw() {
 
 }
 
-void Demo_NPatches::OnUpdate() {
+void Demo_NSlices::OnUpdate() {
 
 }
 
-void Demo_NPatches::OnUnload() {
+void Demo_NSlices::OnUnload() {
     scene->assets->UnloadAll();
 }
 
-Demo_NPatches::Demo_NPatches() : Game(
+Demo_NSlices::Demo_NSlices() : Game(
     GalaEngine::GameInfo {
-        "GalaEngine 9-Patch Demo (GalaEngine v" GALAENGINE_VERSION_STRING ")",
+        "GalaEngine 9-Slice Demo (GalaEngine v" GALAENGINE_VERSION_STRING ")",
         "GalaEngine example project.",
         "Colleen (colleen05)",
         1280,
