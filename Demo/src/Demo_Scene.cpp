@@ -7,9 +7,6 @@ void Demo_Scene::OnLoad() {
 
     ts_test = assets->GetTileset("ts_testtiles");
 
-    scene->mainCamera.position  = {0.0f, 0.0f};
-    scene->mainCamera.size      = {1024.0f, 576.0f};
-
     lay_background0 = scene->AddBackgroundLayer(tex_bgSky, C_BLACK);
     lay_background0->scrollSpeed = {32.0f, 12.0f};
 
@@ -31,29 +28,21 @@ void Demo_Scene::OnLoad() {
     
     ent_ball0 = new Ent_Ball(360, 256);
     ent_ball0->spriteFrame = 0;
-    ent_ball0->sceneWidth = 1024.0f;
-    ent_ball0->sceneHeight = 576.0f;
     scene->PushEntity(ent_ball0, "ball_0");
     lay_entities->AddEntity(ent_ball0);
 
     ent_ball1 = new Ent_Ball(440, 256);
     ent_ball1->spriteFrame = 1;
-    ent_ball1->sceneWidth = 1024.0f;
-    ent_ball1->sceneHeight = 576.0f;
     scene->PushEntity(ent_ball1, "ball_1");
     lay_entities->AddEntity(ent_ball1);
 
     ent_ball2 = new Ent_Ball(520, 256);
     ent_ball2->spriteFrame = 2;
-    ent_ball2->sceneWidth = 1024.0f;
-    ent_ball2->sceneHeight = 576.0f;
     scene->PushEntity(ent_ball2, "ball_2");
     lay_entities->AddEntity(ent_ball2);
 
     ent_ball3 = new Ent_Ball(600, 256);
     ent_ball3->spriteFrame = 3;
-    ent_ball3->sceneWidth = 1024.0f;
-    ent_ball3->sceneHeight = 576.0f;
     scene->PushEntity(ent_ball3, "ball_3");
     lay_entities->AddEntity(ent_ball3);
 

@@ -12,8 +12,6 @@
 class Ent_Ball : public GalaEngine::Entity {
     public:
         Vector2 velocity = {0.0f, 0.0f};
-        int sceneWidth = 0;
-        int sceneHeight = 0;
 
         void OnStart();
         void OnUpdate();
