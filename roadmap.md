@@ -30,7 +30,7 @@
 
 ## Version 0.3.0
 ### Updates
-- [ ] Add Entity context members: `sceneWidth`, `sceneHeight`, `sceneEntities`, and `sceneLayers`.
+- [x] Add Entity context members: `sceneWidth`, `sceneHeight`, `sceneEntities`, and `sceneLayers`.
 - [x] InputManager allows for direct checking:
   - [x] Direct keyboard key checking.
   - [x] Direct gamepad buttons and axis checking.

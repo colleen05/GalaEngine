@@ -15,6 +15,7 @@
 #include <GalaEngine/InputManager.hpp>
 #include <GalaEngine/SoundManager.hpp>
 #include <GalaEngine/Window.hpp>
+#include <GalaEngine/Layer.hpp>
 
 namespace GalaEngine {
     /*! @brief Entity base class
@@ -34,6 +35,17 @@ namespace GalaEngine {
             GalaEngine::AssetManager *assets = nullptr; //!< Pointer to the game's asset management interface.
             GalaEngine::InputManager *input  = nullptr; //!< Pointer to the game's input management interface.
             GalaEngine::SoundManager *sound  = nullptr; //!< Pointer to the game's sound management interface.
+            /// @}
+
+            /*! @name Scene Context Members
+             *  @details These members are of scene context elements, which are
+             *  updated by the Scene class.
+             */
+            /// @{
+            int sceneWidth  = 0; //!< Scene width
+            int sceneHeight = 0; //!< Scene height
+            std::map<std::string, Entity*>  *sceneEntities  = nullptr; //!< Pointer to the scene's entities container.
+            std::vector<Layer*>             *sceneLayers    = nullptr; //!< Pointer to the scene's layers container.
             /// @}
             
             /*! @brief The current layer's Surface.

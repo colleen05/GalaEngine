@@ -132,6 +132,14 @@ void GalaEngine::Scene::Update() {
     for(auto &layer : layers) {
         layer->OnUpdate();
     }
+
+    // Update scene context members
+    for(auto &[name, ent] : entities) {
+        ent->sceneWidth = _width;
+        ent->sceneHeight = _height;
+        ent->sceneEntities = &entities;
+        ent->sceneLayers = &layers;
+    }
 }
 
 void GalaEngine::Scene::RenderLayers() {
