@@ -287,6 +287,104 @@ void GalaEngine::Surface::DrawSprite(Sprite sprite, int frame, int x, int y, flo
     EndTextureMode();
 }
 
+void GalaEngine::Surface::DrawNSlice(NSlice nslice, int x, int y, int width, int height, Colour blendColour) {
+    BeginTextureMode(renderTexture);
+    BeginScissorMode(x, y, width, height);
+
+    // Borders
+    const int topBorder     = nslice.centreSlice.y;
+    const int rightBorder   = nslice.centreSlice.x + nslice.centreSlice.width;
+    const int bottomBorder  = nslice.centreSlice.y + nslice.centreSlice.height;
+    const int leftBorder    = nslice.centreSlice.x;
+
+    const Rectangle srcTopLeft      = { 0.0f, 0.0f, (float)leftBorder, (float)topBorder };
+    const Rectangle srcTop          = { (float)leftBorder, 0.0f, nslice.centreSlice.width, (float)topBorder};
+    const Rectangle srcTopRight     = { (float)rightBorder, 0.0f, (float)(nslice.texture.width - rightBorder), (float)topBorder };
+    const Rectangle srcLeft         = { 0.0f, (float)topBorder, (float)leftBorder, nslice.centreSlice.height };
+    const Rectangle srcCentre       = nslice.centreSlice;
+    const Rectangle srcRight        = { (float)rightBorder, (float)topBorder, (float)(nslice.texture.width - rightBorder), nslice.centreSlice.height };
+    const Rectangle srcBottomLeft   = { 0.0f, (float)bottomBorder, (float)leftBorder, (float)(nslice.texture.height - bottomBorder) };
+    const Rectangle srcBottom       = { (float)leftBorder, (float)bottomBorder, nslice.centreSlice.width, (float)(nslice.texture.height - bottomBorder)};
+    const Rectangle srcBottomRight  = { (float)rightBorder, (float)bottomBorder, (float)(nslice.texture.width - rightBorder), (float)(nslice.texture.height - bottomBorder) };
+
+    // Centre
+    const Rectangle destCentre = {
+        (float)x + srcTopLeft.width,
+        (float)y + srcTopLeft.height, 
+        (float)(width - srcLeft.width - srcRight.width),
+        (float)(height - srcTop.height - srcBottom.height)
+    };
+
+    if(nslice.stretchSlices[4]) {
+        ::DrawTexturePro(nslice.texture, srcCentre, destCentre, Vector2 {0.0f, 0.0f}, 0.0f, blendColour);
+    }else {
+        ::DrawTextureTiled(nslice.texture, srcCentre, destCentre, Vector2 {0.0f, 0.0f}, 0.0f, 1.0f, blendColour);
+    }
+
+    // Top
+    const Rectangle destTop = { destCentre.x, (float)y, destCentre.width, srcTop.height };
+
+    if(nslice.stretchSlices[0]) {
+        ::DrawTexturePro(nslice.texture, srcTop, destTop, Vector2 {0.0f, 0.0f}, 0.0f, blendColour);
+    }else {
+        ::DrawTextureTiled(nslice.texture, srcTop, destTop, Vector2 {0.0f, 0.0f}, 0.0f, 1.0f, blendColour);
+    }
+
+    // Right
+    const Rectangle destRight = { destCentre.x + destCentre.width, destCentre.y, srcRight.width, destCentre.height };
+
+    if(nslice.stretchSlices[1]) {
+        ::DrawTexturePro(nslice.texture, srcRight, destRight, Vector2 {0.0f, 0.0f}, 0.0f, blendColour);
+    }else {
+        ::DrawTextureTiled(nslice.texture, srcRight, destRight, Vector2 {0.0f, 0.0f}, 0.0f, 1.0f, blendColour);
+    }
+
+    // Bottom
+    const Rectangle destBottom = { destCentre.x, destCentre.y + destCentre.height, destCentre.width, srcBottom.height };
+
+    if(nslice.stretchSlices[2]) {
+        ::DrawTexturePro(nslice.texture, srcBottom, destBottom, Vector2 {0.0f, 0.0f}, 0.0f, blendColour);
+    }else {
+        ::DrawTextureTiled(nslice.texture, srcBottom, destBottom, Vector2 {0.0f, 0.0f}, 0.0f, 1.0f, blendColour);
+    }
+
+    // Left
+    const Rectangle destLeft = { (float)x, destCentre.y, srcLeft.width, destCentre.height };
+
+    if(nslice.stretchSlices[3]) {
+        ::DrawTexturePro(nslice.texture, srcLeft, destLeft, Vector2 {0.0f, 0.0f}, 0.0f, blendColour);
+    }else {
+        ::DrawTextureTiled(nslice.texture, srcLeft, destLeft, Vector2 {0.0f, 0.0f}, 0.0f, 1.0f, blendColour);
+    }
+
+    // Top-left
+    ::DrawTextureRec(
+        nslice.texture, srcTopLeft,
+        Vector2 { (float)x, (float)y }, blendColour
+    );
+
+    // Top-right
+    ::DrawTextureRec(
+        nslice.texture, srcTopRight,
+        Vector2 { (float)(x+width)-srcTopRight.width, (float)y }, blendColour
+    );
+
+    // Bottom-left
+    ::DrawTextureRec(
+        nslice.texture, srcBottomLeft,
+        Vector2 { (float)x, (float)(y+height)-srcBottomLeft.height }, blendColour
+    );
+
+    // Bottom-right
+    ::DrawTextureRec(
+        nslice.texture, srcBottomRight,
+        Vector2 { (float)(x+width)-srcBottomRight.width, (float)(y+height)-srcBottomRight.height }, blendColour
+    );
+
+    EndScissorMode();
+    EndTextureMode();
+}
+
 void GalaEngine::Surface::Resize(int width, int height) {
     UnloadRenderTexture(renderTexture);
     renderTexture = LoadRenderTexture(width, height);

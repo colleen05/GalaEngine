@@ -9,6 +9,7 @@
 
 #include <raylib.h>
 #include <raymath.h>
+#include <GalaEngine/NSlice.hpp>
 #include <GalaEngine/Sprite.hpp>
 #include <GalaEngine/Colour.hpp>
 
@@ -296,6 +297,27 @@ namespace GalaEngine {
                 int x, int y,
                 float scaleX = 1.0f, float scaleY = 1.0f,
                 float rotation = 0.0f,
+                Colour blendColour = C_WHITE
+            );
+            /// @}
+
+            /*! @name Drawing 9-slices
+             *  @details Use these functions to draw 9-slices.
+             */
+            /// @{
+            /*! @brief Draw a 9-slice.
+             *  @details Draws a 9-slice onto the **renderTexture**.
+             *  @param sprite The 9-slice to draw.
+             *  @param x The X position of the sprite (before rotation).
+             *  @param y The Y position of the sprite (before rotation).
+             *  @param width The horizontal scale of the sprite.
+             *  @param height The vertical scale of the sprite.
+             *  @param blendColour The blend colour to draw the sprite with.
+             */
+            void DrawNSlice(
+                NSlice nslice,
+                int x, int y,
+                int width, int height,
                 Colour blendColour = C_WHITE
             );
             /// @}
