@@ -19,6 +19,13 @@
 
 class Demo_NSlices : public GalaEngine::Game {
     public:
+        bool showPreview = false;
+
+        Rectangle slicePreview = {32.0f, 32.0f, 96.0f, 96.0f};
+        Rectangle sliceWindow = {32.0f, 32.0f, 96.0f, 96.0f};
+
+        std::string currentNSlice = "numbers";
+
         // Game class overrides
         void OnLoad();
         void OnDraw();

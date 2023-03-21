@@ -1,0 +1,16 @@
+{
+    "texture_filter": "point",
+    "centre_slice": [
+        32.0,
+        32.0,
+        32.0,
+        32.0
+    ],
+    "stretch_slices": [
+        false,
+        false,
+        false,
+        false,
+        false
+    ]
+}
