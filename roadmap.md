@@ -62,7 +62,7 @@
 
 ### Utilities
 - [x] Math utility functions. 
-- [ ] 9-slicing (Surfaces).
+- [x] 9-slicing (Surfaces).
 - [ ] CompositeLayer (layers beneath will render to this layer. allows fragment shading).
 
 ### Gres
