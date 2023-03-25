@@ -43,9 +43,6 @@ namespace GalaEngine {
              *  keyboard key code.
              *  @param input The input struct.
              *  @param device The device to check.
-             *  @attention Mouse position is returned in absolute window space.
-             *  If you want to get the mouse position relative to the window
-             *  surface, use `Window::GetMousePosition()`.
              */
             /// @{
             static bool IsKeyPressed            (const KeyboardKey key);                            //!< Check if key has just been pressed.
@@ -61,9 +58,15 @@ namespace GalaEngine {
             static bool IsDown                  (const Input &input, const int device = 0);         //!< Check if an input is currently activated.
             static bool IsReleased              (const Input &input, const int device = 0);         //!< Check if an input has just be de-activated.
             static float GetGamepadAxisMovement (const GamepadAxis axis, const int device = 0);     //!< Get gamepad axis movement.
-            static Vector2  GetMouseDelta           (); //!< Get mouse movement delta.
-            static Vector2  GetMouseWheelDelta      (); //!< Get mouse wheel movement delta.
-            static Vector2  GetMousePosition        (); //!< Get mouse position within window.
+            static Vector2 GetMouseDelta        (); //!< Get mouse movement delta.
+            static Vector2 GetMouseWheelDelta   (); //!< Get mouse wheel movement delta.
+            /** @brief Get mouse position within window.
+             *  @details Returns the offset of the mouse from the window's
+             *  origin (top-left corner below title bar).
+             *  @attention This does not correct for window scale or surface
+             *  position. For this behaviour, use Window::GetMousePosition().
+             */
+            static Vector2 GetMousePosition();
             /// @}
 
             /*! @name Named Input Checking
