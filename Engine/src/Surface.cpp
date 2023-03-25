@@ -288,6 +288,8 @@ void GalaEngine::Surface::DrawSprite(Sprite sprite, int frame, int x, int y, flo
 }
 
 void GalaEngine::Surface::DrawNSlice(NSlice nslice, int x, int y, int width, int height, Colour blendColour) {
+    if((width <= 0) || (height <= 0)) return;
+
     BeginTextureMode(renderTexture);
     BeginScissorMode(x, y, width, height);
 
