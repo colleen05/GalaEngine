@@ -16,30 +16,30 @@ void GalaEngine::Window::Render() {
     const float surfaceWidth  = surface.renderTexture.texture.width;
     const float surfaceHeight = surface.renderTexture.texture.height;
 
-    Rectangle surfaceDest = {0};
+    _surfaceRect = {0.0f, 0.0f};
     
     switch(scaleMode) {
         case ScaleMode::Centre:
-            surfaceDest = (Rectangle) {
+            _surfaceRect = (Rectangle) {
                 (GetWidth()  - surfaceWidth)  / 2.0f,
                 (GetHeight() - surfaceHeight) / 2.0f,
                 surfaceWidth, surfaceHeight
             };
             break;
         case ScaleMode::Contain:
-            surfaceDest = Math::GetLetterboxedRectangle(
+            _surfaceRect = Math::GetLetterboxedRectangle(
                 (Vector2)   {surfaceWidth, surfaceHeight},
                 (Rectangle) {0.0f, 0.0f, (float)GetWidth(), (float)GetHeight()}
             );
             break;
         case ScaleMode::Stretch:
-            surfaceDest = (Rectangle) {
+            _surfaceRect = (Rectangle) {
                 0.0f, 0.0f,
                 (float)GetWidth(), (float)GetHeight()
             };
             break;
         case ScaleMode::IntegerScale:
-            surfaceDest = Math::GetIntegerScaledRectangle(
+            _surfaceRect = Math::GetIntegerScaledRectangle(
                 (Vector2)   {surfaceWidth, surfaceHeight},
                 (Rectangle) {0.0f, 0.0f, (float)GetWidth(), (float)GetHeight()}
             );
@@ -62,7 +62,7 @@ void GalaEngine::Window::Render() {
             surfaceWidth,
             -surfaceHeight
         },
-        surfaceDest,
+        _surfaceRect,
         {0.0f, 0.0f},
         0.0f,
         C_WHITE
@@ -168,6 +168,18 @@ std::string GalaEngine::Window::GetMonitorName(const int monitor) {
     const int m = monitor >= 0 ? monitor : GetCurrentMonitor();
     return std::string(::GetMonitorName(m));
 }
+
+Vector2 GalaEngine::Window::GetMousePosition() {
+    const Vector2 mousePosition = ::GetMousePosition();
+    const float   surfaceWidth  = surface.renderTexture.texture.width;
+    const float   surfaceHeight = surface.renderTexture.texture.height;
+
+    return Vector2 {
+        Clamp((mousePosition.x - _surfaceRect.x) / _surfaceRect.width  * surfaceWidth , 0.0f, surfaceWidth),
+        Clamp((mousePosition.y - _surfaceRect.y) / _surfaceRect.height * surfaceHeight, 0.0f, surfaceHeight)
+    };
+}
+
 
 // Setters
 void GalaEngine::Window::SetTitle(const std::string &title) {

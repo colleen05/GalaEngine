@@ -23,6 +23,7 @@ namespace GalaEngine {
             int _width;             //!< Window width
             int _height;            //!< Window height
             int _targetFPS;         //!< Target FPS
+            Rectangle _surfaceRect; //!< On-screen rectangle for surface.
 
         public:
             Surface surface             = {};       //!< Top-level render target.
@@ -80,6 +81,8 @@ namespace GalaEngine {
             Vector2     GetMonitorPhysicalSize   (const int monitor = -1);  //!< Get the specified monitor's physical size.
             float       GetMonitorRefreshRate    (const int monitor = -1);  //!< Get the specified monitor's refresh rate.
             std::string GetMonitorName           (const int monitor = -1);  //!< Get the name of the specified monitor.
+            
+            Vector2 GetMousePosition(); //!< Get the position in surface-space, corrected for scale.
             /// @}
 
             /*! @name Setters

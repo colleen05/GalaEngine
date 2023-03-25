@@ -37,14 +37,14 @@
   - [x] Get mouse wheel deltas.
 - [ ] `Colour.hpp` to contain BlendModes.
 - [ ] Layers and entities to have blend modes.
-- [ ] Fully implement Window class functionality.
+- [x] Fully implement Window class functionality.
   - [x] Set fullscreen explicitly (`Window::SetFullscreen(bool fullscreen)`).
   - [x] Get and set the following properties: resizable, undecorated, hidden, and topmost.
   - [x] Support multiple scaling options: `Contain`, `Stretch`, `IntegerScale`.
   - [x] Support window surface filtering (nearest neighbour or bilinear).
   - [x] Set icon and minimum size.
   - [x] ``Window::Centre()``: Centre window on screen.
-  - [ ] ``Window::GetMousePosition()``: Get proper mouse position (in surface-space).
+  - [x] ``Window::GetMousePosition()``: Get proper mouse position (in surface-space).
 - [x] Game class to support F11 for fullscreen toggle.
 - [x] Textures and sprites have texture filters.
 
