@@ -25,7 +25,7 @@ html {
     --side-nav-background: #8881 !important;
 
     --fragment-background: #1a1a1a !important;
-    --fragment-linenumber-background: #303030 !important;
+    --fragment-linenumber-background: #222 !important;
 
     --content-maxwidth: auto;
     --side-nav-arrow-opacity: 0.75;
@@ -91,7 +91,7 @@ tr.heading h2 {
 }
 
 .contents .fragment {
-    background-color: #111;
+    background-color: #080808;
 }
 
 .note,
