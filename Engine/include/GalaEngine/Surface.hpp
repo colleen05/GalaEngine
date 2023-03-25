@@ -307,7 +307,7 @@ namespace GalaEngine {
             /// @{
             /*! @brief Draw a 9-slice.
              *  @details Draws a 9-slice onto the **renderTexture**.
-             *  @param sprite The 9-slice to draw.
+             *  @param nslice The 9-slice to draw.
              *  @param x The X position of the sprite (before rotation).
              *  @param y The Y position of the sprite (before rotation).
              *  @param width The horizontal scale of the sprite.

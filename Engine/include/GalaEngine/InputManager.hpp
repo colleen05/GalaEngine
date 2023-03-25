@@ -60,7 +60,7 @@ namespace GalaEngine {
             static float GetGamepadAxisMovement (const GamepadAxis axis, const int device = 0);     //!< Get gamepad axis movement.
             static Vector2 GetMouseDelta        (); //!< Get mouse movement delta.
             static Vector2 GetMouseWheelDelta   (); //!< Get mouse wheel movement delta.
-            /** @brief Get mouse position within window.
+            /*! @brief Get mouse position within window.
              *  @details Returns the offset of the mouse from the window's
              *  origin (top-left corner below title bar).
              *  @attention This does not correct for window scale or surface

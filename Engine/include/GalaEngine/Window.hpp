@@ -26,15 +26,21 @@ namespace GalaEngine {
             Rectangle _surfaceRect; //!< On-screen rectangle for surface.
 
         public:
+            /*! @brief Surface scale mode.
+             *  @details Determines how a surface should be scaled and
+             *  positioned within the window. 
+             */
+            enum class ScaleMode {
+                Centre,         //!< Centre the surface on window, without scaling.
+                Contain,        //!< Scales the surface to fit within the window (with letterboxing).
+                Stretch,        //!< Stretch the surface to fill the window.
+                IntegerScale    //!< Scale up the surface to the largest factor which will fit within the window.
+            };
+
             Surface surface             = {};       //!< Top-level render target.
             bool    interpolateSurface  = false;    //!< Render surface smooth?
-
-            enum class ScaleMode {
-                Centre,
-                Contain,
-                Stretch,
-                IntegerScale
-            } scaleMode = ScaleMode::Contain;
+            
+            ScaleMode scaleMode = ScaleMode::Contain;   //!< The scale mode to use for the surface.
 
             /*! @name General Functions
              *  @details These functions are called at different stages of the

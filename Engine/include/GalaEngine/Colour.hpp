@@ -175,6 +175,8 @@ namespace GalaEngine {
  *  and image-editing programs.
  */
 namespace BlendModes {
+	/*! @brief Normal blend mode.
+	 */
     const GalaEngine::BlendMode Normal = {
         GalaEngine::BlendMode::Factor::One,
         GalaEngine::BlendMode::Factor::SourceAlphaInverted,
