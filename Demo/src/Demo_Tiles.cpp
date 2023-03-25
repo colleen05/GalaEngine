@@ -74,7 +74,7 @@ void Demo_Tiles::OnUpdate() {
     const int prevSelectionX = selectionX;
     const int prevSelectionY = selectionY;
 
-    const Vector2 mousePosition = GetMousePosition();
+    const Vector2 mousePosition = window->GetMousePosition();
     selectionX = (mousePosition.x - sidebarWidth) / tileSize;
     selectionY = mousePosition.y / tileSize;
 
@@ -118,7 +118,7 @@ void Demo_Tiles::OnUnload() {
 // Editor
 bool Demo_Tiles::GUI_Button(const std::string &text, const int x, const int y, const int w, const int h, const bool highlighted) {
     const bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         (Rectangle) {
             (float)x, (float)y,
             (float)w, (float)h
@@ -177,7 +177,7 @@ void Demo_Tiles::GUI_Picker() {
     }
 
     // Selection
-    const Vector2 mousePos = GetMousePosition();
+    const Vector2 mousePos = window->GetMousePosition();
 
     const int setSelectionX = Clamp((mousePos.x - 32) / 64, 0, 7);
     const int setSelectionY = Clamp((mousePos.y - 48) / 64, 0, 7);
@@ -209,7 +209,7 @@ void Demo_Tiles::GUI_Picker() {
 
 void Demo_Tiles::GUI_BrushPreview(const int x, const int y) {
     const bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         (Rectangle) {
             (float)x, (float)y + 32.0f,
             (float)tileSize, (float)tileSize
@@ -258,7 +258,7 @@ void Demo_Tiles::GUI_LayerToggle(const int x, const int y) {
 
 void Demo_Tiles::GUI_FlagsToggle(const int x, const int y) {
     const bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         (Rectangle) {
             (float)x, (float)y,
             40.0f, 40.0f
@@ -278,7 +278,7 @@ void Demo_Tiles::GUI_FlagsToggle(const int x, const int y) {
 
 void Demo_Tiles::GUI_GridToggle(const int x, const int y) {
     const bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         (Rectangle) {
             (float)x, (float)y,
             40.0f, 40.0f
@@ -305,7 +305,7 @@ void Demo_Tiles::GUI_ViewSelector(const int x, const int y) {
         bool iconLit = false;
 
         if(CheckCollisionPointRec(
-            GetMousePosition(),
+            window->GetMousePosition(),
             (Rectangle) {
                 x + (64.0f * i), y + 24.0f,
                 64.0f, 64.0f

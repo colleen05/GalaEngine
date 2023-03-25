@@ -57,7 +57,7 @@ void Demo_Assets::GUI_TitleBar() {
     // Back button
     if(currentView == View::Loaded) return;
 
-    bool hovered = CheckCollisionPointCircle(GetMousePosition(), {32.0f, 32.0f}, 24.0f);
+    bool hovered = CheckCollisionPointCircle(window->GetMousePosition(), {32.0f, 32.0f}, 24.0f);
 
     if(hovered) mouseCursor = MOUSE_CURSOR_POINTING_HAND;
 
@@ -83,7 +83,7 @@ void Demo_Assets::GUI_TitleBar() {
 
 bool Demo_Assets::GUI_Button(const std::string &text, const int x, const int y, const int width, const int height, const GalaEngine::Colour colour) {
     bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         Rectangle {(float)x, (float)y, (float)width, (float)height}
     );
 
@@ -103,7 +103,7 @@ bool Demo_Assets::GUI_Button(const std::string &text, const int x, const int y, 
 
 bool Demo_Assets::GUI_TextureCard(const int x, const int y, const std::string &resName) {
     bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         Rectangle {(float)x, (float)y, 160.0f, 192.0f}    
     );
 
@@ -141,7 +141,7 @@ bool Demo_Assets::GUI_TextureCard(const int x, const int y, const std::string &r
 
 bool Demo_Assets::GUI_SpriteCard(const int x, const int y, const std::string &resName) {
     bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         Rectangle {(float)x, (float)y, 160.0f, 192.0f}    
     );
 
@@ -179,7 +179,7 @@ bool Demo_Assets::GUI_SpriteCard(const int x, const int y, const std::string &re
 
 bool Demo_Assets::GUI_TilesetCard(const int x, const int y, const std::string &resName) {
     bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         Rectangle {(float)x, (float)y, 160.0f, 192.0f}    
     );
 
@@ -214,7 +214,7 @@ bool Demo_Assets::GUI_TilesetCard(const int x, const int y, const std::string &r
 
 bool Demo_Assets::GUI_NSliceCard(const int x, const int y, const std::string &resName) {
     bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         Rectangle {(float)x, (float)y, 160.0f, 192.0f}    
     );
 
@@ -252,7 +252,7 @@ bool Demo_Assets::GUI_NSliceCard(const int x, const int y, const std::string &re
 
 bool Demo_Assets::GUI_SoundCard(const int x, const int y, const std::string &resName) {
     bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         Rectangle {(float)x, (float)y, 160.0f, 192.0f}    
     );
 
@@ -280,7 +280,7 @@ bool Demo_Assets::GUI_SoundCard(const int x, const int y, const std::string &res
 
 bool Demo_Assets::GUI_FontCard(const int x, const int y, const std::string &resName) {
     bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         Rectangle {(float)x, (float)y, 160.0f, 192.0f}    
     );
 

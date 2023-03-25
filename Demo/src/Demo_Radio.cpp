@@ -60,7 +60,7 @@ void Demo_Radio::GUI_DrawAlbum(const TrackListing &track, const int x, const int
 
 void Demo_Radio::GUI_ListItem(const TrackListing &track, const int x, const int y) {
     const bool hovered = CheckCollisionPointRec(
-        GetMousePosition(),
+        window->GetMousePosition(),
         Rectangle {(float)x, (float)y, 400.0f, 80.0f}
     );
 
@@ -91,7 +91,7 @@ void Demo_Radio::GUI_BackButton() {
     if(currentTrack == firstName) return;
 
     if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
-        CheckCollisionPointRec(GetMousePosition(), {528.0f, 480.0f, 48.0f, 48.0f})
+        CheckCollisionPointRec(window->GetMousePosition(), {528.0f, 480.0f, 48.0f, 48.0f})
     ) {
         const auto &curSound = assets->GetSound(currentTrack);
         sound->Stop(curSound);
@@ -108,7 +108,7 @@ void Demo_Radio::GUI_PlayButton() {
     window->surface.DrawSprite(*spr_button, sound->IsPlaying(curSound) ? 0 : 1, 592, 480);
 
     if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
-        CheckCollisionPointRec(GetMousePosition(), {592.0f, 480.0f, 48.0f, 48.0f})
+        CheckCollisionPointRec(window->GetMousePosition(), {592.0f, 480.0f, 48.0f, 48.0f})
     ) {
         if(sound->IsPlaying(curSound)) {
             sound->Pause(curSound);
@@ -127,7 +127,7 @@ void Demo_Radio::GUI_ForwardButton() {
     if(currentTrack == lastName) return;
 
     if( IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
-        CheckCollisionPointRec(GetMousePosition(), {656.0f, 480.0f, 48.0f, 48.0f})
+        CheckCollisionPointRec(window->GetMousePosition(), {656.0f, 480.0f, 48.0f, 48.0f})
     ) {
         const auto &curSound = assets->GetSound(currentTrack);
         sound->Stop(curSound);

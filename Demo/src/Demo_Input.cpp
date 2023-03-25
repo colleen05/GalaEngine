@@ -104,7 +104,7 @@ void Demo_Input::Applet_Log() {
 // GUI Components
 bool Demo_Input::GUI_Button(const std::string &text, const int x, const int y, const int w, const int h, const bool highlighted) {
     const bool hovered = CheckCollisionPointRec(
-        input->GetMousePosition(),
+        window->GetMousePosition(),
         (Rectangle) {
             (float)x, (float)y,
             (float)w, (float)h
