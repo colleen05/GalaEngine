@@ -25,9 +25,14 @@ void Demo_Window::OnDraw() {
 
     const int fontSize = 10;
 
+    const Vector2 mousePosition = window->GetMousePosition();
+
+    window->surface.DrawCircle(mousePosition.x, mousePosition.y, 4.0f, C_GALARED);
+
     const std::string sizeText =
         "Size: " + std::to_string(winWidth) + " x " + std::to_string(winHeight) + "\n" +
         "Surface: " + std::to_string(window->surface.renderTexture.texture.width) + " x " + std::to_string(window->surface.renderTexture.texture.height) + "\n" +
+        "Mouse: " + std::to_string((int)mousePosition.x) + ", " + std::to_string((int)mousePosition.y) + "\n" +
         "Monitor: " + std::to_string(window->GetMonitorWidth()) + " x " + std::to_string(window->GetMonitorHeight()) + "\n" +
         "Fullscreen: " + (window->IsFullscreen() ? "Yes" : "No") + "\n" +
         "Fill window: " + (fillWindow ? "Yes" : "No");

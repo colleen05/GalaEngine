@@ -25,14 +25,16 @@ void Demo_NSlices::OnDraw() {
 void Demo_NSlices::OnUpdate() {
     showPreview = input->IsMouseButtonDown(MOUSE_BUTTON_LEFT);
 
+    const Vector2 mousePosition = window->GetMousePosition();
+
     if(input->IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        slicePreview.x = GetMouseX();
-        slicePreview.y = GetMouseY();
+        slicePreview.x = mousePosition.x;
+        slicePreview.y = mousePosition.y;
     }
 
     if(input->IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-        slicePreview.width = (GetMouseX() - slicePreview.x);
-        slicePreview.height = (GetMouseY() - slicePreview.y);
+        slicePreview.width = (mousePosition.x - slicePreview.x);
+        slicePreview.height = (mousePosition.y - slicePreview.y);
     }
 
     if(input->IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
