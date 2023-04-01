@@ -24,7 +24,7 @@ namespace GalaEngine {
      */
     class Font {
         private:
-            size_t _cachedFontCount = 0;
+            size_t _cachedFontCount = 0; //!< Count of cached fonts.
             std::array<int, GALAENGINE_FONT_CACHE_SIZE>                         _cachedFontGetCounts {}; //!< Count of gets for each cache slot. 
             std::array<std::pair<int, BitmapFont>, GALAENGINE_FONT_CACHE_SIZE>  _cachedFonts         {}; //!< Array of cached fonts at different sizes.
 
