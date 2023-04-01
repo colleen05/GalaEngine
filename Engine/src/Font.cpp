@@ -4,9 +4,11 @@ BitmapFont GalaEngine::Font::GetAtSize(int size) {
     /* TODO: Implement O(n) caching algorithm:
      * 1. If cache slots are not full, use first free cache slot for new font,
      *    and increment the "get count" of that slot. Otherwise, ...
-     * 2. Find font slot with lowest "get count".
-     * 3. Unload font in that slot.
-     * 4. Use that slot to store new font. Set "get count" to 1.
+     * 2. Search for font in cache. If found, incremenet get-count and return.
+     *    Otherwise, ...
+     * 3. Find font slot with lowest "get count".
+     * 4. Unload font in that slot.
+     * 5. Use that slot to store new font. Set "get count" to 1.
      */
 
     // Search cache.
