@@ -7,4 +7,10 @@
 
 #pragma end
 
-#define GALAENGINE_DEBUG true
+#ifndef GALAENGINE_DEBUG
+    #define GALAENGINE_DEBUG true
+#endif
+
+#ifndef GALAENGINE_FONT_CACHE_SIZE
+    #define GALAENGINE_FONT_CACHE_SIZE 16
+#endif
