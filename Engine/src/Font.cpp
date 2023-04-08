@@ -9,15 +9,15 @@ BitmapFont GalaEngine::Font::GetAtSize(const int size) {
     
     // If the cached bitmap font is found...
     if(it != _fontCacheList.end()) {
-        // Move it to the back.
-        _fontCacheList.push_back(*it);
+        // Move it to the front.
+        _fontCacheList.push_front(*it);
         
         if(_fontCacheList.size() > 1)
             _fontCacheList.erase(it);
     }else { // Otherwise...
-        // Clear first (least recently used) item if reached max cache size.
+        // Clear last (least recently used) item if reached max cache size.
         if(_fontCacheList.size() >= GALAENGINE_FONT_CACHE_SIZE)
-            _fontCacheList.erase(_fontCacheList.begin());
+            _fontCacheList.pop_back();
        
         // TODO: Load new font.
         const _FontCacheItem newFont = {
@@ -25,12 +25,12 @@ BitmapFont GalaEngine::Font::GetAtSize(const int size) {
             GetFontDefault()
         };
 
-        // Push it to the back.
-        _fontCacheList.push_back(newFont);
+        // Push it to the front.
+        _fontCacheList.push_front(newFont);
     }
 
     // Return resource.
-    return _fontCacheList.back().font;
+    return _fontCacheList.front().font;
 }
 
 GalaEngine::Font::Font() {

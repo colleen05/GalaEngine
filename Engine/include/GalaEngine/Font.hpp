@@ -10,7 +10,7 @@
 #include <raylib.h>
 #include <raymath.h>
 
-#include <vector>
+#include <list>
 #include <algorithm>
 
 #include <GalaEngine/Config.hpp>
@@ -29,7 +29,7 @@ namespace GalaEngine {
                 BitmapFont font;
             };
 
-            std::vector<_FontCacheItem> _fontCacheList;
+            std::list<_FontCacheItem> _fontCacheList;
 
         public:
             BitmapFont GetAtSize(const int size); //!< Get bitmap font at specified size.
