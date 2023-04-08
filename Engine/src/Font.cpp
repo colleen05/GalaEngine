@@ -19,7 +19,7 @@ BitmapFont GalaEngine::Font::GetAtSize(const int size) {
         if(_fontCacheList.size() >= GALAENGINE_FONT_CACHE_SIZE)
             _fontCacheList.erase(_fontCacheList.begin());
        
-        // Load new font.
+        // TODO: Load new font.
         const _FontCacheItem newFont = {
             size,
             GetFontDefault()
