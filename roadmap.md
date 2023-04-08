@@ -67,7 +67,8 @@
 - [ ] CompositeLayer (layers beneath will render to this layer. allows fragment shading).
 
 ### Gres
-- [x] Load fonts & 9-slices.
+- [x] Load 9-slices.
+- [ ] Load fonts.
 - [x] Add "filter" option to textures and sprites.
 
 ### Tasks
