@@ -12,5 +12,5 @@
 #endif
 
 #ifndef GALAENGINE_FONT_CACHE_SIZE
-    #define GALAENGINE_FONT_CACHE_SIZE 16
+    #define GALAENGINE_FONT_CACHE_SIZE 8
 #endif

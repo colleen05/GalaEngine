@@ -11,7 +11,7 @@
 #include <raymath.h>
 
 #include <vector>
-#include <array>
+#include <algorithm>
 
 #include <GalaEngine/Config.hpp>
 
@@ -24,12 +24,15 @@ namespace GalaEngine {
      */
     class Font {
         private:
-            size_t _cachedFontCount = 0; //!< Count of cached fonts.
-            std::array<int, GALAENGINE_FONT_CACHE_SIZE>                         _cachedFontGetCounts {}; //!< Count of gets for each cache slot. 
-            std::array<std::pair<int, BitmapFont>, GALAENGINE_FONT_CACHE_SIZE>  _cachedFonts         {}; //!< Array of cached fonts at different sizes.
+            struct _FontCacheItem {
+                int size;
+                BitmapFont font;
+            };
+
+            std::vector<_FontCacheItem> _fontCacheList;
 
         public:
-            BitmapFont GetAtSize (int size); //!< Get bitmap font at specified size.
+            BitmapFont GetAtSize(const int size); //!< Get bitmap font at specified size.
 
             Font(); //!< Default constructor
     };

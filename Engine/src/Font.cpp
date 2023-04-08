@@ -1,36 +1,36 @@
 #include <GalaEngine/Font.hpp>
 
-BitmapFont GalaEngine::Font::GetAtSize(int size) {
-    /* TODO: Implement O(n) caching algorithm:
-     * 1. If cache slots are not full, use first free cache slot for new font,
-     *    and increment the "get count" of that slot. Otherwise, ...
-     * 2. Search for font in cache. If found, incremenet get-count and return.
-     *    Otherwise, ...
-     * 3. Find font slot with lowest "get count".
-     * 4. Unload font in that slot.
-     * 5. Use that slot to store new font. Set "get count" to 1.
-     */
+BitmapFont GalaEngine::Font::GetAtSize(const int size) {
+    // Search for cached bitmap font at size.
+    const auto &it = std::find_if(
+        _fontCacheList.begin(), _fontCacheList.end(),
+        [size](const auto &item) { return item.size == size; }
+    );
+    
+    // If the cached bitmap font is found...
+    if(it != _fontCacheList.end()) {
+        // Move it to the back.
+        _fontCacheList.push_back(*it);
+        
+        if(_fontCacheList.size() > 1)
+            _fontCacheList.erase(it);
+    }else { // Otherwise...
+        // Clear first (least recently used) item if reached max cache size.
+        if(_fontCacheList.size() >= GALAENGINE_FONT_CACHE_SIZE)
+            _fontCacheList.erase(_fontCacheList.begin());
+       
+        // Load new font.
+        const _FontCacheItem newFont = {
+            size,
+            GetFontDefault()
+        };
 
-    // Search cache.
-    for(const auto &[fSize, font] : _cachedFonts) {
-        // Return if font cached at size.
-        if(fSize == size) return font;
+        // Push it to the back.
+        _fontCacheList.push_back(newFont);
     }
 
-    // If font has not been cached at size...
-    BitmapFont font = ::GetFontDefault(); // TODO: Generate font from data.
-
-    /* Load into "rolling cache"; The font slot which has had the longest time
-       since use will be replaced with new font. */
-    const size_t cachedFontIndex = _cachedFontCount % GALAENGINE_FONT_CACHE_SIZE;
-
-    if(_cachedFontCount >= GALAENGINE_FONT_CACHE_SIZE)      // If going to overwrite a loaded font slot...
-        ::UnloadFont(_cachedFonts[cachedFontIndex].second); // Unload the font first.
-
-    _cachedFonts[cachedFontIndex] = std::make_pair(size, font);
-    _cachedFontCount++;
-
-    return font;
+    // Return resource.
+    return _fontCacheList.back().font;
 }
 
 GalaEngine::Font::Font() {
