@@ -10,7 +10,10 @@
 #include <raylib.h>
 #include <raymath.h>
 
+#include <cstdint>
 #include <list>
+#include <vector>
+#include <string>
 #include <algorithm>
 
 #include <GalaEngine/Config.hpp>
@@ -25,13 +28,20 @@ namespace GalaEngine {
     class Font {
         private:
             struct _FontCacheItem {
-                int size;
-                BitmapFont font;
+                int size;           //!< Font size in bitmap.
+                BitmapFont font;    //!< Internal bitmap font.
             };
 
-            std::list<_FontCacheItem> _fontCacheList;
+            std::list<_FontCacheItem>   _fontCacheList; //!< Internal cache queue for rendered bitmaps.
+            std::vector<uint8_t>        _fontData;      //!< Font file data.
+            std::vector<int>            _fontChars;     //!< Character set to render from font data.
 
         public:
+            void ClearCache(); //!< Clear cached bitmap fonts.
+
+            bool LoadFontData(const std::vector<uint8_t> &data, const std::vector<int> &chars); //!< Load font data.
+
+            BitmapFont GenerateBitmapFont(const int size); //!< Generate bitmap font at specified size without caching.
             BitmapFont GetAtSize(const int size); //!< Get bitmap font at specified size.
 
             Font(); //!< Default constructor
