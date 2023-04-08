@@ -20,11 +20,13 @@ bool GalaEngine::Font::LoadFontData(const std::vector<uint8_t> &data, const std:
 }
 
 BitmapFont GalaEngine::Font::GenerateBitmapFont(const int size) {
+    int *fontChars = _fontChars.empty() ? nullptr : _fontChars.data();
+
     return ::LoadFontFromMemory(
         ".ttf",
         _fontData.data(), _fontData.size(),
         size,
-        _fontChars.data(), _fontChars.size()
+        fontChars, _fontChars.size()
     );
 }
 
