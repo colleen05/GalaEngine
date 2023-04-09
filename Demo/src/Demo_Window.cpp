@@ -23,7 +23,7 @@ void Demo_Window::OnDraw() {
     const int sceneWidth    = scene->GetSize().x;
     const int sceneHeight   = scene->GetSize().y;
 
-    const int fontSize = 10;
+    const int fontSize = 20;
 
     const Vector2 mousePosition = window->GetMousePosition();
 
@@ -80,8 +80,8 @@ Demo_Window::Demo_Window() : Game(
         "GalaEngine Window Demo (GalaEngine v" GALAENGINE_VERSION_STRING ")",
         "GalaEngine example project.",
         "Colleen (colleen05)",
-        320,
-        240,
+        600,
+        400,
         GalaEngine::AssetPathLayout {
             "./resources/",
             "textures/",

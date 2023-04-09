@@ -1,8 +1,6 @@
 #include <Demo_Fonts.hpp>
 
 void Demo_Fonts::OnLoad() {
-    std::cout << "Loading GalaEngine::Font..." << std::endl;
-    //font = assets->LoadFont("LiberationMono-Regular");
     font = assets->LoadFont("Pointfree");
 }
 
@@ -24,7 +22,7 @@ void Demo_Fonts::OnDraw() {
 //        font.GetAtSize(20),
         "Current Size: " + std::to_string(fontSize) + "\nCached Sizes: " + cacheListString,
         8, 624,
-        20
+        16
     );
 }
 
