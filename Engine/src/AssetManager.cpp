@@ -135,6 +135,7 @@ void GalaEngine::AssetManager::UnloadFont(const std::string &name, const bool er
     if(fonts.find(name) == fonts.end()) return;
 
     fonts[name]->ClearCache();
+    delete fonts[name];
     if(erase) fonts.erase(name);
 }
 
