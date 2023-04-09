@@ -8,6 +8,8 @@ void GalaEngine::Game::OnUnload () {};
 void GalaEngine::Game::Start() {
     window->Init();
 
+    GalaEngine::LoadDefaultFont();
+
     // Create scene and bind assets, input manager, etc..
     scene = new GalaEngine::Scene(&window->surface, info.defaultWidth, info.defaultHeight);
     scene->window   = window;

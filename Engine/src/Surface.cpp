@@ -211,9 +211,7 @@ void GalaEngine::Surface::DrawText(Font *font, std::string text, int x, int y, i
 }
 
 void GalaEngine::Surface::DrawText(std::string text, int x, int y, int size, Colour colour) {
-    BeginTextureMode(renderTexture);
-    ::DrawText(text.c_str(), x, y, size, colour);
-    EndTextureMode();
+    DrawText(GalaEngine::DefaultFont, text, x, y, size, colour);
 }
 
 // Textures

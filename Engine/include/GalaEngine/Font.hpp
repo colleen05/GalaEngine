@@ -49,4 +49,8 @@ namespace GalaEngine {
 
             Font(); //!< Default constructor
     };
+
+    inline GalaEngine::Font *DefaultFont = nullptr;
+
+    void LoadDefaultFont();
 }

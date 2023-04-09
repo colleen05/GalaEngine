@@ -74,3 +74,8 @@ BitmapFont GalaEngine::Font::GetAtSize(const int size) {
 GalaEngine::Font::Font() {
 
 }
+
+void GalaEngine::LoadDefaultFont() {
+    DefaultFont = new GalaEngine::Font();
+    DefaultFont->LoadFontData(Data::DefaultFontTTF);
+}
