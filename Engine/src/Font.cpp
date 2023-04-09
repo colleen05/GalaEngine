@@ -2,15 +2,15 @@
 
 void GalaEngine::Font::ClearCache() {
     // Unload fonts.
-    for(const auto &fi : _fontCacheList)
+    for(const auto &fi : fontCacheList)
         ::UnloadFont(fi.font);
 
     // Clear cache list.
-    _fontCacheList.clear();
+    fontCacheList.clear();
 }
 
 bool GalaEngine::Font::LoadFontData(const std::vector<uint8_t> &data, const std::vector<int> &chars) {
-    if(data.empty() || chars.empty()) return false;
+    if(data.empty()) return false;
 
     ClearCache();
     _fontData = data;
@@ -19,8 +19,12 @@ bool GalaEngine::Font::LoadFontData(const std::vector<uint8_t> &data, const std:
     return true;
 }
 
+std::vector<uint8_t> GalaEngine::Font::GetFontData() {
+    return _fontData;
+}
+
 BitmapFont GalaEngine::Font::GenerateBitmapFont(const int size) {
-    int *fontChars = _fontChars.empty() ? nullptr : _fontChars.data();
+    int *fontChars = _fontChars.empty() ? NULL : _fontChars.data();
 
     return ::LoadFontFromMemory(
         ".ttf",
@@ -31,35 +35,40 @@ BitmapFont GalaEngine::Font::GenerateBitmapFont(const int size) {
 }
 
 BitmapFont GalaEngine::Font::GetAtSize(const int size) {
+    // FIXME: Memory leak when unloading fonts.
+
     // Search for cached bitmap font at size.
     const auto it = std::find_if(
-        _fontCacheList.begin(), _fontCacheList.end(),
+        fontCacheList.begin(), fontCacheList.end(),
         [size](const auto &item) { return item.size == size; }
     );
     
     // If the cached bitmap font is found...
-    if(it != _fontCacheList.end()) {
+    if(it != fontCacheList.end()) {
         // Move it to the front.
-        _fontCacheList.push_front(*it);
+        FontCacheItem item = *it;
         
-        if(_fontCacheList.size() > 1)
-            _fontCacheList.erase(it);
+        if(!fontCacheList.empty())
+            fontCacheList.erase(it);
+
+        fontCacheList.push_front(item);
+            
     }else { // Otherwise...
         // Clear last (least recently used) item if reached max cache size.
-        if(_fontCacheList.size() >= GALAENGINE_FONT_CACHE_SIZE) {
-            ::UnloadFont(_fontCacheList.back().font);
-            _fontCacheList.pop_back();
+        if(fontCacheList.size() >= GALAENGINE_FONT_CACHE_SIZE) {
+            ::UnloadFont(fontCacheList.back().font);
+            fontCacheList.pop_back();
         }
        
         // Load new font into cache item.
-        const _FontCacheItem newFont = { size, GenerateBitmapFont(size) };
+        const FontCacheItem newFont = { size, GenerateBitmapFont(size) };
 
         // Push it to the front.
-        _fontCacheList.push_front(newFont);
+        fontCacheList.push_front(newFont);
     }
 
     // Return resource.
-    return _fontCacheList.front().font;
+    return fontCacheList.front().font;
 }
 
 GalaEngine::Font::Font() {
