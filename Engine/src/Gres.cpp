@@ -300,14 +300,26 @@ Sound GalaEngine::Gres::LoadSound(const std::string &filePath) {
 
 
 // Fonts
-Font GalaEngine::Gres::LoadFontData(const std::vector<uint8_t> &data) {
-    return {0};
+GalaEngine::Font GalaEngine::Gres::LoadFontData(const std::vector<uint8_t> &data) {
+    // Load table
+    xdt::Table gresTable;
+    gresTable.Deserialise(data);
+
+    // Checking
+    if(gresTable.GetString("type")      != "font")              return GalaEngine::Font();
+    if(gresTable.GetItemType("font")    != xdt::ItemType::Raw)  return GalaEngine::Font();
+
+    // Decode audio
+    GalaEngine::Font font;
+    font.LoadFontData(gresTable.GetBytes("font"), {});
+
+    return font;
 }
 
-Font GalaEngine::Gres::LoadFont(const std::string &filePath) {
+GalaEngine::Font GalaEngine::Gres::LoadFont(const std::string &filePath) {
     std::ifstream f(filePath);
 
-    if(!f.good()) return {0};
+    if(!f.good()) return GalaEngine::Font();
 
     return LoadFontData(std::vector<uint8_t>(
         std::istreambuf_iterator<char>(f),

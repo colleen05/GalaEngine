@@ -13,6 +13,7 @@
 #include <GalaEngine/Sprite.hpp>
 #include <GalaEngine/Tileset.hpp>
 #include <GalaEngine/NSlice.hpp>
+#include <GalaEngine/Font.hpp>
 
 namespace GalaEngine {
     /*! @brief Resource loading functions
@@ -70,8 +71,8 @@ namespace GalaEngine {
          *  @param filePath Resource file path.
          */
         /// @{
-        Font LoadFontData(const std::vector<uint8_t> &data);    //!< Load Font from resource file data.
-        Font LoadFont(const std::string &filePath);             //!< Load Font from resource file (by path).
+        GalaEngine::Font LoadFontData(const std::vector<uint8_t> &data);    //!< Load Font from resource file data.
+        GalaEngine::Font LoadFont(const std::string &filePath);             //!< Load Font from resource file (by path).
         /// @}
     }
 }
