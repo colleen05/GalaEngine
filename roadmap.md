@@ -68,7 +68,7 @@
 
 ### Gres
 - [x] Load 9-slices.
-- [ ] Load fonts.
+- [x] Load fonts.
 - [x] Add "filter" option to textures and sprites.
 
 ### Tasks
