@@ -175,9 +175,9 @@ namespace GalaEngine {
              *  @details Use these functions to draw text.
              */
             /// @{
-            /*! @brief Draw text onto the **renderTexture** with font.
+            /*! @brief Draw text onto the **renderTexture** with bitmap font.
              *  @details Draw text with specified font.
-             *  @param font The font to draw with.
+             *  @param font The bitmap font to draw with.
              *  @param text The text of the string.
              *  @param x The top-left X position of the text.
              *  @param y The top-left Y position of the text.
@@ -185,6 +185,16 @@ namespace GalaEngine {
              *  @param colour The colour of the text.
              */
             void DrawText(BitmapFont font, std::string text, int x, int y, int size = 20, Colour colour = C_WHITE);
+            /*! @brief Draw text onto the **renderTexture** with font.
+             *  @details Draw text with specified font.
+             *  @param font Pointer to the font to draw with.
+             *  @param text The text of the string.
+             *  @param x The top-left X position of the text.
+             *  @param y The top-left Y position of the text.
+             *  @param size The size of the text.
+             *  @param colour The colour of the text.
+             */
+            void DrawText(Font *font, std::string text, int x, int y, int size = 20, Colour colour = C_WHITE);
             /*! @brief Draw text.
              *  @details Draw text onto the **renderTexture**.
              *  @param text The text of the string.

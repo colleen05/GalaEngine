@@ -204,6 +204,12 @@ void GalaEngine::Surface::DrawText(BitmapFont font, std::string text, int x, int
     EndTextureMode();
 }
 
+void GalaEngine::Surface::DrawText(Font *font, std::string text, int x, int y, int size, Colour colour) {
+    BeginTextureMode(renderTexture);
+    ::DrawTextEx(font->GetAtSize(size), text.c_str(), Vector2 {(float)x, (float)y}, size, 2.0f, colour);
+    EndTextureMode();
+}
+
 void GalaEngine::Surface::DrawText(std::string text, int x, int y, int size, Colour colour) {
     BeginTextureMode(renderTexture);
     ::DrawText(text.c_str(), x, y, size, colour);
