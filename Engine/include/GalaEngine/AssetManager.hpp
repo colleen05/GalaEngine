@@ -74,7 +74,7 @@ namespace GalaEngine {
             std::map<std::string, Tileset>  tilesets;   //!< Map of names to tilesets.
             std::map<std::string, NSlice*>  nslices;    //!< Map of names to 9-slices.
             std::map<std::string, Sound>    sounds;     //!< Map of names to sounds.
-            std::map<std::string, Font*>     fonts;     //!< Map of names to fonts.
+            std::map<std::string, Font*>    fonts;      //!< Map of names to fonts.
             /// @}
 
 
