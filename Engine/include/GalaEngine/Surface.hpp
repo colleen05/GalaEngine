@@ -11,6 +11,7 @@
 #include <raymath.h>
 #include <GalaEngine/NSlice.hpp>
 #include <GalaEngine/Sprite.hpp>
+#include <GalaEngine/Font.hpp>
 #include <GalaEngine/Colour.hpp>
 
 namespace GalaEngine {
@@ -183,7 +184,7 @@ namespace GalaEngine {
              *  @param size The size of the text.
              *  @param colour The colour of the text.
              */
-            void DrawText(Font font, std::string text, int x, int y, int size = 20, Colour colour = C_WHITE);
+            void DrawText(BitmapFont font, std::string text, int x, int y, int size = 20, Colour colour = C_WHITE);
             /*! @brief Draw text.
              *  @details Draw text onto the **renderTexture**.
              *  @param text The text of the string.

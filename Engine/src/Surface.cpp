@@ -198,7 +198,7 @@ void GalaEngine::Surface::DrawTriangle(int x1, int y1, int x2, int y2, int x3, i
 }
 
 // Text
-void GalaEngine::Surface::DrawText(Font font, std::string text, int x, int y, int size, Colour colour) {
+void GalaEngine::Surface::DrawText(BitmapFont font, std::string text, int x, int y, int size, Colour colour) {
     BeginTextureMode(renderTexture);
     ::DrawTextEx(font, text.c_str(), Vector2 {(float)x, (float)y}, size, 2.0f, colour);
     EndTextureMode();
