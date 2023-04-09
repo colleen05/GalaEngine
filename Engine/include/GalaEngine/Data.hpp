@@ -16,17 +16,17 @@
 
 namespace GalaEngine {
     namespace Data {
-        static Color MissingTexturePx[] = {
+        inline Color MissingTexturePx[] = {
             {0xff, 0xff, 0xff, 0xff}
         };  
 
-        static const Image MissingTextureImg = {
+        inline const Image MissingTextureImg = {
             MissingTexturePx,
             1, 1,
             1, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8
         };
         
-        static const std::vector<uint8_t> DefaultFontTTF = {
+        inline const std::vector<uint8_t> DefaultFontTTF = {
             #include <GalaEngine/Data/DefaultFontTTF.inc>
         };
     }
