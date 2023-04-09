@@ -7,7 +7,11 @@ void Demo_Fonts::OnLoad() {
 
 void Demo_Fonts::OnDraw() {
     const std::string displayString = "GalaEngine Font Demo\nThe quick brown fox jumps over the lazy dog.\n1234567890\n!@#$%^&*()";
-    window->surface.DrawText(font->GetAtSize(fontSize), displayString, 8, 8, fontSize);
+    window->surface.DrawText(font, displayString, 8, 8, fontSize);
+    window->surface.DrawText(font, displayString, 8, 8, fontSize+1);
+    window->surface.DrawText(font, displayString, 8, 8, fontSize+2);
+    window->surface.DrawText(font, displayString, 8, 8, fontSize+3);
+    window->surface.DrawText(font, displayString, 8, 8, fontSize+4);
 
     std::string cacheListString = "|";
 
