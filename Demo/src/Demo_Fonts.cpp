@@ -19,10 +19,8 @@ void Demo_Fonts::OnDraw() {
     }
 
     window->surface.DrawText(
-//        font.GetAtSize(20),
         "Current Size: " + std::to_string(fontSize) + "\nCached Sizes: " + cacheListString,
-        8, 624,
-        16
+        8, 624
     );
 }
 
