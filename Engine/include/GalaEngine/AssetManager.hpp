@@ -9,6 +9,7 @@
 
 #include <GalaEngine/Sprite.hpp>
 #include <GalaEngine/Tileset.hpp>
+#include <GalaEngine/Font.hpp>
 #include <GalaEngine/Colour.hpp>
 #include <GalaEngine/Data.hpp>
 #include <GalaEngine/Gres.hpp>
