@@ -311,7 +311,7 @@ GalaEngine::Font GalaEngine::Gres::LoadFontData(const std::vector<uint8_t> &data
 
     // Decode audio
     GalaEngine::Font font;
-    font.LoadFontData(gresTable.GetBytes("font"), {});
+    font.LoadFontData(gresTable.GetBytes("font"));
 
     return font;
 }

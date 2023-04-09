@@ -16,6 +16,7 @@
 #include <string>
 #include <algorithm>
 
+#include <GalaEngine/Data.hpp>
 #include <GalaEngine/Config.hpp>
 
 using BitmapFont = ::Font;
@@ -40,7 +41,7 @@ namespace GalaEngine {
 
             void ClearCache(); //!< Clear cached bitmap fonts.
 
-            bool LoadFontData(const std::vector<uint8_t> &data, const std::vector<int> &chars); //!< Load font data.
+            bool LoadFontData(const std::vector<uint8_t> &data, const std::vector<int> &chars = {}); //!< Load font data.
             std::vector<uint8_t> GetFontData(); //!< Get the loaded font file data.
 
             BitmapFont GenerateBitmapFont(const int size); //!< Generate bitmap font at specified size without caching.
