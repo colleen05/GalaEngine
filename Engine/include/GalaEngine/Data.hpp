@@ -10,6 +10,8 @@
 #include <stdint.h>
 #include <raylib.h>
 
+#include <vector>
+
 #define ARRAY_LENGTH(x) sizeof(x) / sizeof(x[0])
 
 namespace GalaEngine {
@@ -22,6 +24,10 @@ namespace GalaEngine {
             MissingTexturePx,
             1, 1,
             1, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8
+        };
+        
+        static const std::vector<uint8_t> DefaultFontTTF = {
+            #include <GalaEngine/Data/DefaultFontTTF.inc>
         };
     }
 }
