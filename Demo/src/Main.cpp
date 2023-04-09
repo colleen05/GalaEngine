@@ -94,6 +94,12 @@ int main(int argc, char **argv) {
                 "Demonstrates management of window via\nGalaEngine::Window functions."
             }
         },
+        {"fonts",
+            DemoProfile {
+                "Fonts",
+                "Demonstrates GalaEngine::Font loading and\nrendering."
+            }
+        },
         {"testgfx",
             DemoProfile {
                 "Test Graphics",
@@ -225,6 +231,8 @@ int main(int argc, char **argv) {
                 game = new Demo_Input();
             }else if(currentProfile == "window") {
                 game = new Demo_Window();
+            }else if(currentProfile == "fonts") {
+                game = new Demo_Fonts();
             }else if(currentProfile == "testgfx") {
                 game = new Demo_TestGfx();
             }else if(currentProfile == "nslices") {

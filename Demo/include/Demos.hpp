@@ -16,3 +16,4 @@
 #include <Demo_Window.hpp>
 #include <Demo_TestGfx.hpp>
 #include <Demo_NSlices.hpp>
+#include <Demo_Fonts.hpp>

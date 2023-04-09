@@ -298,7 +298,7 @@ bool Demo_Assets::GUI_FontCard(const int x, const int y, const std::string &resN
     );
 
     // Draw preview
-    scene->targetSurface->DrawText(assets->GetFont(resName), "Abcde\n123.!?", x + 16, y + 16, 40, C_WHITE);
+    scene->targetSurface->DrawText(assets->GetFont(resName)->GetAtSize(40), "Abcde\n123.!?", x + 16, y + 16, 40, C_WHITE);
 
     // Draw name
     scene->targetSurface->DrawText("Font\n" + resName, x + 16, y + 152, 10);
