@@ -74,7 +74,7 @@ namespace GalaEngine {
             std::map<std::string, Tileset>  tilesets;   //!< Map of names to tilesets.
             std::map<std::string, NSlice*>  nslices;    //!< Map of names to 9-slices.
             std::map<std::string, Sound>    sounds;     //!< Map of names to sounds.
-            std::map<std::string, Font>     fonts;      //!< Map of names to fonts.
+            std::map<std::string, Font*>     fonts;     //!< Map of names to fonts.
             /// @}
 
 
@@ -130,9 +130,9 @@ namespace GalaEngine {
              *  If the font is not found, it will attempt to load it from
              *  a resource file.
              *  @param name The **name** of the font asset (**not** the resource file path).
-             *  @returns Loaded, or existing font.
+             *  @returns Pointer to loaded, or existing font.
              */
-            Font GetFont(const std::string &name);
+            Font *GetFont(const std::string &name);
             /// @}
 
 
@@ -198,9 +198,9 @@ namespace GalaEngine {
              *  either inserts or replaces the asset in the fonts container
              *  for future use.
              *  @param name The **name** of the font asset (**not** the resource file path).
-             *  @returns Loaded font.
+             *  @returns Pointer to loaded font.
              */
-            Font LoadFont(const std::string &name);
+            Font *LoadFont(const std::string &name);
             /// @}
 
 

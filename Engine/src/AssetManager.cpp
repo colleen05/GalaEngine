@@ -26,7 +26,7 @@ Sound GalaEngine::AssetManager::GetSound(const std::string &name) {
     return LoadSound(name);
 }
 
-GalaEngine::Font GalaEngine::AssetManager::GetFont(const std::string &name) {
+GalaEngine::Font *GalaEngine::AssetManager::GetFont(const std::string &name) {
     if(fonts.find(name) != fonts.end()) return fonts[name];
     return LoadFont(name);
 }
@@ -82,10 +82,10 @@ Sound GalaEngine::AssetManager::LoadSound(const std::string &name) {
     return snd;
 }
 
-GalaEngine::Font GalaEngine::AssetManager::LoadFont(const std::string &name) {
-    Font fnt = Gres::LoadFont(pathLayout.base + "/" + pathLayout.fonts + "/" + name + ".gres");
+GalaEngine::Font *GalaEngine::AssetManager::LoadFont(const std::string &name) {
+    Font *fnt = new Font(Gres::LoadFont(pathLayout.base + "/" + pathLayout.fonts + "/" + name + ".gres"));
 
-    if(fonts.find(name) != fonts.end()) fonts[name].ClearCache();
+    if(fonts.find(name) != fonts.end()) fonts[name]->ClearCache();
     fonts.insert_or_assign(name, fnt);
 
     return fnt;
@@ -134,7 +134,7 @@ void GalaEngine::AssetManager::UnloadSound(const std::string &name, const bool e
 void GalaEngine::AssetManager::UnloadFont(const std::string &name, const bool erase) {
     if(fonts.find(name) == fonts.end()) return;
 
-    fonts[name].ClearCache();
+    fonts[name]->ClearCache();
     if(erase) fonts.erase(name);
 }
 
