@@ -2,16 +2,17 @@
 
 void Demo_Fonts::OnLoad() {
     std::cout << "Loading GalaEngine::Font..." << std::endl;
-    font = assets->LoadFont("LiberationMono-Regular");
+    //font = assets->LoadFont("LiberationMono-Regular");
+    font = assets->LoadFont("Pointfree");
 }
 
 void Demo_Fonts::OnDraw() {
-    const std::string displayString = "GalaEngine Font Demo\nThe quick brown fox jumps over the lazy dog.\n1234567890\n!@#$%^&*()";
+    const std::string displayString = "GalaEngine Font Demo\nThe quick brown fox jumps over the lazy dog.\n1234567890\n!@#$%^&*()\n\nplayer_pos: <347.500, 12.000>\nplayer_vec: <0.3544, 1.000>\ndoFallDamage = true";
     window->surface.DrawText(font, displayString, 8, 8, fontSize);
-    window->surface.DrawText(font, displayString, 8, 8, fontSize+1);
-    window->surface.DrawText(font, displayString, 8, 8, fontSize+2);
-    window->surface.DrawText(font, displayString, 8, 8, fontSize+3);
-    window->surface.DrawText(font, displayString, 8, 8, fontSize+4);
+    // window->surface.DrawText(font, displayString, 8, 8, fontSize+1);
+    // window->surface.DrawText(font, displayString, 8, 8, fontSize+2);
+    // window->surface.DrawText(font, displayString, 8, 8, fontSize+3);
+    // window->surface.DrawText(font, displayString, 8, 8, fontSize+4);
 
     std::string cacheListString = "|";
 
