@@ -37,10 +37,10 @@ void Demo_Window::OnDraw() {
         "Fullscreen: " + (window->IsFullscreen() ? "Yes" : "No") + "\n" +
         "Fill window: " + (fillWindow ? "Yes" : "No");
 
-    Vector2 textSize = MeasureTextEx(GetFontDefault(), sizeText.c_str(), fontSize, 0);
+    Vector2 textSize = MeasureTextEx(GalaEngine::DefaultFont->GetAtSize(fontSize), sizeText.c_str(), fontSize, 0);
     window->surface.DrawText(sizeText, (sceneWidth - textSize.x) / 2, (sceneHeight - textSize.y) / 2, fontSize, C_DKGREY);
     
-    window->surface.DrawText("F - Fullscreen  |  S - Toggle scaling  |  C - Centre", 16, sceneHeight - 32, fontSize, C_GREY);
+    window->surface.DrawText("F - Fullscreen  |  S - Toggle scaling\nC - Centre", 16, sceneHeight - 64, fontSize, C_GREY);
 
     // Shade window if not focused.
     if(!window->IsFocused()) {

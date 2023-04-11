@@ -22,6 +22,9 @@ class Demo_Fonts : public GalaEngine::Game {
         GalaEngine::Font *font = nullptr;
         int fontSize = 20;
 
+        GalaEngine::Colour bgColour = C_BLACK;
+        GalaEngine::Colour fgColour = C_WHITE;
+
         // Game class overrides
         void OnLoad();
         void OnDraw();
