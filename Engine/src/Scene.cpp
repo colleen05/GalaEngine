@@ -116,9 +116,11 @@ void GalaEngine::Scene::Update() {
     for(auto &e : entities) {
         auto &ent = e.second;
 
+        const Vector2 cameraSize = mainCamera.GetSize();
+
         ent->sceneMousePosition = Vector2 {
-            (float) (GetMouseX()) / GetScreenWidth()  * mainCamera.size.x + mainCamera.position.x,
-            (float) (GetMouseY()) / GetScreenHeight() * mainCamera.size.y + mainCamera.position.y
+            (float) (GetMouseX()) / GetScreenWidth()  * cameraSize.x + mainCamera.position.x,
+            (float) (GetMouseY()) / GetScreenHeight() * cameraSize.y + mainCamera.position.y
         };
 
         ent->bbox = Rectangle {
@@ -146,6 +148,8 @@ void GalaEngine::Scene::RenderLayers() {
     if(targetSurface == nullptr) return;
 
     auto &cameraTexture = mainCamera.surface->renderTexture;
+    const Vector2 cameraPosition = mainCamera.position;
+    const Vector2 cameraSize = mainCamera.GetSize();
 
     for(const auto &layer : layers) {
         auto &layerTexture = layer->surface->renderTexture.texture;
@@ -156,10 +160,10 @@ void GalaEngine::Scene::RenderLayers() {
         DrawTexturePro(
             layerTexture,
             Rectangle {
-                std::floor(mainCamera.position.x),
-                layerTexture.height - (mainCamera.size.y + std::floor(mainCamera.position.y)),
-                mainCamera.size.x,
-                -mainCamera.size.y
+                std::floor(cameraPosition.x),
+                layerTexture.height - (cameraSize.y + std::floor(cameraPosition.y)),
+                cameraSize.x,
+                -cameraSize.y
             },
             Rectangle {
                 0.0f,
@@ -179,8 +183,8 @@ void GalaEngine::Scene::RenderLayers() {
     DrawTexturePro(
         cameraTexture.texture,
         Rectangle {
-            0, mainCamera.size.y,
-            mainCamera.size.x, -mainCamera.size.y
+            0, cameraSize.y,
+            cameraSize.x, -cameraSize.y
         },
         Rectangle {
             0.0f,
