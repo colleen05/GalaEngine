@@ -67,13 +67,13 @@ void GalaEngine::Window::Render() {
         0.0f,
         C_WHITE
     );
+    
 }
 
 void GalaEngine::Window::Close() {
     surface.Destroy();
     CloseWindow();
     CloseAudioDevice();
-    
 }
 
 // Getters
@@ -104,11 +104,11 @@ bool GalaEngine::Window::IsTopmost() {
 }
 
 int GalaEngine::Window::GetWidth() {
-    return IsFullscreen() ? GetMonitorWidth() : (_width);
+    return IsFullscreen() ? GetMonitorWidth() : ::GetScreenWidth();
 }
 
 int GalaEngine::Window::GetHeight() {
-    return IsFullscreen() ? GetMonitorHeight() : (_height);
+    return IsFullscreen() ? GetMonitorHeight() : ::GetScreenHeight();
 }
 
 Vector2 GalaEngine::Window::GetSize() {
