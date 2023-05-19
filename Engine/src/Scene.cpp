@@ -145,12 +145,14 @@ void GalaEngine::Scene::Update() {
 void GalaEngine::Scene::RenderLayers() {
     if(targetSurface == nullptr) return;
 
+    auto &cameraTexture = mainCamera.surface->renderTexture;
+
     for(const auto &layer : layers) {
         auto &layerTexture = layer->surface->renderTexture.texture;
-
+        
         layer->OnDraw(mainCamera);
 
-        BeginTextureMode(targetSurface->renderTexture);
+        BeginTextureMode(cameraTexture);
         DrawTexturePro(
             layerTexture,
             Rectangle {
@@ -162,8 +164,8 @@ void GalaEngine::Scene::RenderLayers() {
             Rectangle {
                 0.0f,
                 0.0f,
-                (float)targetSurface->renderTexture.texture.width,
-                (float)targetSurface->renderTexture.texture.height
+                (float)cameraTexture.texture.width,
+                (float)cameraTexture.texture.height
             },
             {0.0f, 0.0f},
             0.0f,
@@ -171,9 +173,31 @@ void GalaEngine::Scene::RenderLayers() {
         );
         EndTextureMode();
     }
+
+    // Copy camera texture to target surface
+    BeginTextureMode(targetSurface->renderTexture);
+    DrawTexturePro(
+        cameraTexture.texture,
+        Rectangle {
+            0, mainCamera.size.y,
+            mainCamera.size.x, -mainCamera.size.y
+        },
+        Rectangle {
+            0.0f,
+            0.0f,
+            (float)cameraTexture.texture.width,
+            (float)cameraTexture.texture.height
+        },
+        {0.0f, 0.0f},
+        0.0f,
+        C_WHITE
+    );
+    EndTextureMode();
 }
 
-GalaEngine::Scene::Scene(Surface *targetSurface, const int width, const int height) {
+GalaEngine::Scene::Scene(Surface *targetSurface, const int width, const int height) :
+    mainCamera(0, 0, width, height)
+{
     this->targetSurface = targetSurface;
     this->_width        = width;
     this->_height       = height;
