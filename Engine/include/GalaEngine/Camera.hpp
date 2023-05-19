@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <GalaEngine/Surface.hpp>
+
 #include <raylib.h>
 
 namespace GalaEngine {
@@ -18,7 +20,7 @@ namespace GalaEngine {
         public:
             Vector2 position = {0.0f, 0.0f}; //!< Position of the camera viewport.
             Vector2 size = {640.0f, 480.0f}; //!< Dimensions of the camera viewport.
-            RenderTexture texture = {0}; //!< Where stuff visible by the camera gets drawn.
+            Surface *surface = nullptr; //!< Target surface where stuff gets drawn to.
 
             /*! @brief Constructor
              *  @details Constructs with coordinates and viewport dimensions.
