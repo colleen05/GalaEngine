@@ -24,6 +24,7 @@ namespace GalaEngine {
             Vector2     position    = {0.0f, 0.0f};                 //!< Position of the camera viewport.
             Rectangle   screenport  = {0.0f, 0.0f, 640.0f, 480.0f}; //!< Where the viewport is drawn on screen.
             Surface     *surface    = nullptr;                      //!< Target surface where stuff gets drawn to.
+            bool        visible     = true;                         //!< Whether or not the camera should render on screen.
 
             /*! @name Transform Getters & Setters
              *  @details These functions get and set the camera transforms.
