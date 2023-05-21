@@ -64,6 +64,7 @@ void Demo_Window::OnUpdate() {
     if(window->IsResized() && fillWindow) {
         scene->Resize(window->GetWidth(), window->GetHeight());
         scene->mainCamera.SetSize((float)window->GetWidth(), (float)window->GetHeight());
+        scene->mainCamera.screenport = {0.0f, 0.0f, (float)window->GetWidth(), (float)window->GetHeight()};
     }
 
     // Update background (too make it look cool)
