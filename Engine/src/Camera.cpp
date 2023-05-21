@@ -10,10 +10,11 @@ Vector2 GalaEngine::Camera::GetSize() {
 }
 
 GalaEngine::Camera::Camera(const int x, const int y, const int width, const int height) {
-    this->position = Vector2 { (float)x, (float)y };
-    this->_size = Vector2 { (float)width, (float)height };
+    position = Vector2 { (float)x, (float)y };
+    _size = Vector2 { (float)width, (float)height };
+    screenport = Rectangle { 0.0f, 0.0f, _size.x, _size.y };
 
-    this->surface = new Surface(width, height, C_CLEAR);
+    surface = new Surface(width, height, C_CLEAR);
 }
 
 GalaEngine::Camera::Camera() { }

@@ -150,6 +150,7 @@ void GalaEngine::Scene::RenderLayers() {
     auto &cameraTexture = mainCamera.surface->renderTexture;
     const Vector2 cameraPosition = mainCamera.position;
     const Vector2 cameraSize = mainCamera.GetSize();
+    const Rectangle cameraScreenport = mainCamera.screenport;
 
     for(const auto &layer : layers) {
         auto &layerTexture = layer->surface->renderTexture.texture;
@@ -187,10 +188,10 @@ void GalaEngine::Scene::RenderLayers() {
             cameraSize.x, -cameraSize.y
         },
         Rectangle {
-            0.0f,
-            0.0f,
-            (float)cameraTexture.texture.width,
-            (float)cameraTexture.texture.height
+            cameraScreenport.x,
+            cameraScreenport.y,
+            (float)cameraScreenport.width,
+            (float)cameraScreenport.height
         },
         {0.0f, 0.0f},
         0.0f,
