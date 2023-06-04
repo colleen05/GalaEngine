@@ -1,0 +1,12 @@
+WASD            = Move active viewport
+Shift + WASD    = Scale active viewport
+IJKL            = Move active screenport
+Shift + IJKL    = Scale active screenport
+
+Insert          = Create camera
+Delete          = Delete camera
+Tab             = Cycle active camera
+Shift + Tab     = Toggle camera visibility
+Ctrl            = Show/hide camera numbers
+
+R               = Load default camera configuration
