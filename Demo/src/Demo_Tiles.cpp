@@ -62,7 +62,7 @@ void Demo_Tiles::OnUpdate() {
     lay_fgTiles->blendColour = viewForegroundTiles ? C_WHITE : C_CLEAR;
 
     // Camera
-    scene->mainCamera.position = (editMode == EditMode::PlaceTiles) ?
+    scene->GetCamera(0)->position = (editMode == EditMode::PlaceTiles) ?
         Vector2 {0.0f, 0.0f} :
         Vector2 {-128.0f, 0.0f};
 
