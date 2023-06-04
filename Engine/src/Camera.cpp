@@ -18,3 +18,8 @@ GalaEngine::Camera::Camera(const int x, const int y, const int width, const int 
 }
 
 GalaEngine::Camera::Camera() { }
+
+GalaEngine::Camera::~Camera() {
+    surface->Destroy();
+    delete surface;
+}

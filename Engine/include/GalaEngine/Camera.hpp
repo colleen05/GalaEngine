@@ -43,5 +43,6 @@ namespace GalaEngine {
              */
             Camera(const int x, const int y, const int width, const int height);
             Camera();
+            ~Camera();
     };
 }
