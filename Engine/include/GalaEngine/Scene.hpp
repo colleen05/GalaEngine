@@ -44,15 +44,36 @@ namespace GalaEngine {
             /// @{
             std::map<std::string, Entity*>  entities;  //!< Map of names to entities.
             std::vector<Layer*> layers; //!< Vector of layers.
+            std::vector<std::shared_ptr<GalaEngine::Camera>> cameras; //!< Cameras within the scene.
+            Surface *targetSurface = nullptr; //!< The Surface everything is rendered to.
             /// @}
 
-            // Surface, cameras, and asset manager
-            Surface *targetSurface = nullptr; //!< The Surface everything is rendered to.
-            std::vector<std::shared_ptr<GalaEngine::Camera>> cameras; //!< Cameras within the scene.
-            
-            std::shared_ptr<GalaEngine::Camera> GetCamera(int id); //!< Get a pointer to a specified camera, by index.
-            void PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int position = -1); // Push a camera to the scene.
-            void RemoveCamera(int position = -1); // Remove camera from scene.
+            /*! @name Camera System
+             *  @details Here are some functions which allow you to interface
+             *  with the camera system.
+             */
+            /// @{
+            /*! @brief Get a pointer to a camera by index.
+             *  @details Gets a shared pointer to a camera by index, or
+             *  **nullptr** if no camera exists at that index.
+             *  @param id The index of the camera to get.
+             *  @returns A shared pointer to a camera (or **nullptr**).
+             */
+            std::shared_ptr<GalaEngine::Camera> GetCamera(int id);
+            /*! @brief Push a camera to scene.
+             *  @details Pushes a shared pointer to a camera to the cameras
+             *  container.
+             *  @param camera A shared pointer to a camera.
+             *  @param position The position to insert into. If -1, will insert
+             *  at the end.
+             */
+            void PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int position = -1);
+            /*! @brief Removes a camera from the scene.
+             *  @details Removes a camera from the cameras container by index.
+             *  @param position The index of the camera (-1 will remove the highest-indexed camera). 
+             */
+            void RemoveCamera(int position = -1);
+            /// @}
 
             /*! @name Game Context Members
              *  @details These members are of game context elements, which are
