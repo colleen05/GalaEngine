@@ -59,21 +59,21 @@ namespace GalaEngine {
              *  @param id The index of the camera to get.
              *  @returns A shared pointer to a camera (or **nullptr**).
              */
-            std::shared_ptr<GalaEngine::Camera> GetCamera(int id);
+            std::shared_ptr<GalaEngine::Camera> GetCamera(int index);
             /*! @brief Push a camera to scene.
              *  @details Pushes a shared pointer to a camera to the cameras
              *  container.
              *  @param camera A shared pointer to a camera.
-             *  @param position The position to insert into. If -1, will insert
+             *  @param index The index to insert into. If -1, will insert
              *  at the end.
-             *  @returns Camera position.
+             *  @returns Camera index.
              */
-            size_t PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int position = -1);
+            size_t PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int index = -1);
             /*! @brief Removes a camera from the scene.
              *  @details Removes a camera from the cameras container by index.
-             *  @param position The index of the camera (-1 will remove the highest-indexed camera). 
+             *  @param index The index of the camera (-1 will remove the highest-indexed camera). 
              */
-            void RemoveCamera(int position = -1);
+            void RemoveCamera(int index = -1);
             /// @}
 
             /*! @name Game Context Members

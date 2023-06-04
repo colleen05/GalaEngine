@@ -1,23 +1,23 @@
 #include <GalaEngine/Scene.hpp>
 
-std::shared_ptr<GalaEngine::Camera> GalaEngine::Scene::GetCamera(const int id) {
-    if(id < 0 || id >= cameras.size()) return std::shared_ptr<GalaEngine::Camera>(nullptr);
-    return cameras[id];
+std::shared_ptr<GalaEngine::Camera> GalaEngine::Scene::GetCamera(const int index) {
+    if(index < 0 || index >= cameras.size()) return std::shared_ptr<GalaEngine::Camera>(nullptr);
+    return cameras[index];
 }
 
-size_t GalaEngine::Scene::PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int position) {
-    if(position < -1 || position >= cameras.size()) position = cameras.size();
-    if(position == -1) position = cameras.size();
+size_t GalaEngine::Scene::PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int index) {
+    if(index < -1 || index >= cameras.size()) index = cameras.size();
+    if(index == -1) index = cameras.size();
 
-    cameras.insert(cameras.begin() + position, camera);
-    return position;
+    cameras.insert(cameras.begin() + index, camera);
+    return index;
 }
 
-void GalaEngine::Scene::RemoveCamera(int position) {
-    if(position < -1 || position >= cameras.size()) return;
-    if(position == -1) position = cameras.size() - 1;
+void GalaEngine::Scene::RemoveCamera(int index) {
+    if(index < -1 || index >= cameras.size()) return;
+    if(index == -1) index = cameras.size() - 1;
 
-    cameras.erase(cameras.begin() + position);
+    cameras.erase(cameras.begin() + index);
 }
 
 void GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, const std::string &name) {
