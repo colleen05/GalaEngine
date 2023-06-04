@@ -19,6 +19,7 @@ class Demo_Cameras : public GalaEngine::Game {
         bool showCameraNumbers = true;
 
         // Custom functions
+        void RoomSetup_PlaceQuadrant(int tx, int ty, int col);
         void SetupRoomTiles();
 
         // Game class overrides

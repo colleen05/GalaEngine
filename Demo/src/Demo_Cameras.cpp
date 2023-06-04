@@ -1,11 +1,61 @@
 #include <Demo_Cameras.hpp>
 
+void Demo_Cameras::RoomSetup_PlaceQuadrant(int tx, int ty, int col) {
+    // Tileset regions
+    uint8_t floor_index = 0x00;
+    uint8_t details_index = 0x00;
+
+    switch(col) {
+        case 0: floor_index = 001; details_index = 060; break; // red
+        case 1: floor_index = 004; details_index = 064; break; // green
+        case 2: floor_index = 031; details_index = 070; break; // purple
+        case 3: floor_index = 034; details_index = 074; break; // orange
+    }
+
+    // Place centres and edges
+    const int quad_width = 14;
+    const int quad_height = 7;
+
+    for(int x = 0; x < quad_width; x++) {
+        for(int y = 0; y < quad_height; y++) {
+            const size_t tilemap_index = lay_tiles->GetTileIndex((tx + x) * 64, (ty + y) * 64);
+            size_t floor_offset = 011;
+
+            bool do_detail = false;
+
+            if(x == 0) {
+                floor_offset = 010;
+            } else if(x == quad_width - 1) {
+                floor_offset = 012;
+            } else if(y == 0) {
+                floor_offset = 001;
+            } else if(y == quad_height - 1) {
+                floor_offset = 021;
+            } else {
+                if(GetRandomValue(0, 10) == 0) {
+                    do_detail = true;
+                    floor_offset = GetRandomValue(0, 3);
+                }
+            }
+            
+            lay_tiles->tiles[tilemap_index] =
+                (do_detail ? details_index : floor_index) + floor_offset;
+        }
+    }
+
+    // Place corners
+    lay_tiles->tiles[lay_tiles->GetTileIndex((tx + 0) * 64,              (ty + 0) * 64)]                = floor_index + 000;
+    lay_tiles->tiles[lay_tiles->GetTileIndex((tx + quad_width - 1) * 64, (ty + 0) * 64)]                = floor_index + 002;
+    lay_tiles->tiles[lay_tiles->GetTileIndex((tx + 0) * 64,              (ty + quad_height - 1) * 64)]  = floor_index + 020;
+    lay_tiles->tiles[lay_tiles->GetTileIndex((tx + quad_width - 1) * 64, (ty + quad_height - 1) * 64)]  = floor_index + 022;
+}
+
 void Demo_Cameras::SetupRoomTiles() {
     // Red quadrant
-    lay_tiles->tiles[lay_tiles->GetTileIndex(1  * 64, 1 * 64)] = 001;
-    lay_tiles->tiles[lay_tiles->GetTileIndex(14 * 64, 1 * 64)] = 003;
-    lay_tiles->tiles[lay_tiles->GetTileIndex(1  * 64, 7 * 64)] = 021;
-    lay_tiles->tiles[lay_tiles->GetTileIndex(14 * 64, 7 * 64)] = 023;
+    RoomSetup_PlaceQuadrant(1,  1, 0);
+    RoomSetup_PlaceQuadrant(17, 1, 1);
+    RoomSetup_PlaceQuadrant(1,  10, 2);
+    RoomSetup_PlaceQuadrant(17, 10, 3);
 
     // Render
     lay_tiles->Render();
