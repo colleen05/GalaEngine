@@ -20,6 +20,7 @@
 #include <iostream>
 #include <map>
 #include <stdint.h>
+#include <memory>
 
 namespace GalaEngine {
     /*! @brief Scene class
@@ -45,9 +46,13 @@ namespace GalaEngine {
             std::vector<Layer*> layers; //!< Vector of layers.
             /// @}
 
-            // Surface, camera, and asset manager
-            Surface *targetSurface = nullptr;   //!< The Surface everything is rendered to.
-            GalaEngine::Camera mainCamera;      //!< The main Camera.
+            // Surface, cameras, and asset manager
+            Surface *targetSurface = nullptr; //!< The Surface everything is rendered to.
+            std::vector<std::shared_ptr<GalaEngine::Camera>> cameras; //!< Cameras within the scene.
+            
+            std::shared_ptr<GalaEngine::Camera> GetCamera(int id); //!< Get a pointer to a specified camera, by index.
+            void PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int position = -1); // Push a camera to the scene.
+            void RemoveCamera(int position = -1); // Remove camera from scene.
 
             /*! @name Game Context Members
              *  @details These members are of game context elements, which are
@@ -193,5 +198,6 @@ namespace GalaEngine {
              */
             Scene(Surface *targetSurface, const int width = 640, const int height = 480);
             Scene();
+            ~Scene();
     };
 }
