@@ -66,8 +66,9 @@ namespace GalaEngine {
              *  @param camera A shared pointer to a camera.
              *  @param position The position to insert into. If -1, will insert
              *  at the end.
+             *  @returns Camera position.
              */
-            void PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int position = -1);
+            size_t PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int position = -1);
             /*! @brief Removes a camera from the scene.
              *  @details Removes a camera from the cameras container by index.
              *  @param position The index of the camera (-1 will remove the highest-indexed camera). 

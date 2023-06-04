@@ -5,11 +5,12 @@ std::shared_ptr<GalaEngine::Camera> GalaEngine::Scene::GetCamera(const int id) {
     return cameras[id];
 }
 
-void GalaEngine::Scene::PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int position) {
+size_t GalaEngine::Scene::PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int position) {
     if(position < -1 || position >= cameras.size()) position = cameras.size();
     if(position == -1) position = cameras.size();
 
     cameras.insert(cameras.begin() + position, camera);
+    return position;
 }
 
 void GalaEngine::Scene::RemoveCamera(int position) {
