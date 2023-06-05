@@ -74,6 +74,13 @@
 ### Tasks
 - [ ] Document changes.
 - [ ] Add appropriate demos.
+- [ ] Update memory management:
+  - [ ] Create `Shared<T>` alias for shared pointers (`std::shared_ptr<T>`).
+  - [ ] Create `Make<T>(...)` alias for `std::make_shared<T>(...)`. 
+  - [ ] Update current pointers to shared pointers.
+  - [ ] Wrap raylib resources in classes.
+  - [ ] Move class member initialisation from constructor to initialiser lists.
+  - [ ] Move memory management to constructors and destructors.
 
 
 ## Version 0.4.0
