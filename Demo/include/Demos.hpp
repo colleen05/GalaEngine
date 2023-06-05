@@ -11,6 +11,7 @@
 #include <Demo_Assets.hpp>
 #include <Demo_Scene.hpp>
 #include <Demo_Tiles.hpp>
+#include <Demo_Cameras.hpp>
 #include <Demo_Radio.hpp>
 #include <Demo_Input.hpp>
 #include <Demo_Window.hpp>

@@ -20,6 +20,7 @@
 #include <iostream>
 #include <map>
 #include <stdint.h>
+#include <memory>
 
 namespace GalaEngine {
     /*! @brief Scene class
@@ -43,11 +44,37 @@ namespace GalaEngine {
             /// @{
             std::map<std::string, Entity*>  entities;  //!< Map of names to entities.
             std::vector<Layer*> layers; //!< Vector of layers.
+            std::vector<std::shared_ptr<GalaEngine::Camera>> cameras; //!< Cameras within the scene.
+            Surface *targetSurface = nullptr; //!< The Surface everything is rendered to.
             /// @}
 
-            // Surface, camera, and asset manager
-            Surface *targetSurface = nullptr;   //!< The Surface everything is rendered to.
-            GalaEngine::Camera mainCamera;      //!< The main Camera.
+            /*! @name Camera System
+             *  @details Here are some functions which allow you to interface
+             *  with the camera system.
+             */
+            /// @{
+            /*! @brief Get a pointer to a camera by index.
+             *  @details Gets a shared pointer to a camera by index, or
+             *  **nullptr** if no camera exists at that index.
+             *  @param id The index of the camera to get.
+             *  @returns A shared pointer to a camera (or **nullptr**).
+             */
+            std::shared_ptr<GalaEngine::Camera> GetCamera(int index);
+            /*! @brief Push a camera to scene.
+             *  @details Pushes a shared pointer to a camera to the cameras
+             *  container.
+             *  @param camera A shared pointer to a camera.
+             *  @param index The index to insert into. If -1, will insert
+             *  at the end.
+             *  @returns Camera index.
+             */
+            size_t PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int index = -1);
+            /*! @brief Removes a camera from the scene.
+             *  @details Removes a camera from the cameras container by index.
+             *  @param index The index of the camera (-1 will remove the highest-indexed camera). 
+             */
+            void RemoveCamera(int index = -1);
+            /// @}
 
             /*! @name Game Context Members
              *  @details These members are of game context elements, which are
@@ -193,5 +220,6 @@ namespace GalaEngine {
              */
             Scene(Surface *targetSurface, const int width = 640, const int height = 480);
             Scene();
+            ~Scene();
     };
 }

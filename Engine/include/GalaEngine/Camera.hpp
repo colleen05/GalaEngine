@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <GalaEngine/Surface.hpp>
+
 #include <raylib.h>
 
 namespace GalaEngine {
@@ -15,9 +17,22 @@ namespace GalaEngine {
      *  as to what to draw (a viewport).
      */
     class Camera {
+        protected:
+            Vector2 _size = { 640.0f, 480.0f }; //!< Size of the camera viewport.
+
         public:
-            Vector2 position = {0.0f, 0.0f}; //!< Position of the camera viewport.
-            Vector2 size = {640.0f, 480.0f}; //!< Dimensions of teh camera viewport.
+            Vector2     position    = {0.0f, 0.0f};                 //!< Position of the camera viewport.
+            Rectangle   screenport  = {0.0f, 0.0f, 640.0f, 480.0f}; //!< Where the viewport is drawn on screen.
+            Surface     *surface    = nullptr;                      //!< Target surface where stuff gets drawn to.
+            bool        visible     = true;                         //!< Whether or not the camera should render on screen.
+
+            /*! @name Transform Getters & Setters
+             *  @details These functions get and set the camera transforms.
+             */
+            /// @{
+            void SetSize(const float width, const float height); //!< Set the viewport size.
+            Vector2 GetSize(); //!< Get the viewport size.
+            /// @}
 
             /*! @brief Constructor
              *  @details Constructs with coordinates and viewport dimensions.
@@ -28,5 +43,6 @@ namespace GalaEngine {
              */
             Camera(const int x, const int y, const int width, const int height);
             Camera();
+            ~Camera();
     };
 }

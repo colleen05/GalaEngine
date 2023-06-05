@@ -55,9 +55,9 @@
   - [ ] ``Shader::Set<T>(...)``: Set attribute.
   - [ ] ``Shader::Get<T>(...)``: Get attribute.
   - [ ] ``Surface::UseShader(...)``: Set shader of surface.
-- [ ] Multi-camera support:
-  - [ ] `Camera` class to have a render target texture.
-  - [ ] Scene to have a list of cameras and their on-screen placements.
+- [x] Multi-camera support:
+  - [x] `Camera` class to have a render surface.
+  - [x] Scene to have a list of cameras and their on-screen placements.
 - [ ] Fonts properly supported.
 - [ ] Immediate-mode GUI (IMGUI).
 

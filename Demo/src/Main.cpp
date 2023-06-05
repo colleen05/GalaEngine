@@ -13,7 +13,7 @@
 #include <raygui.h>
 
 struct DemoProfile {
-    std::string name;
+    std::string title;
     std::string description;
 };
 
@@ -68,6 +68,12 @@ int main(int argc, char **argv) {
             DemoProfile {
                 "Tiles",
                 "Demonstrates tileset and tilemap features."
+            }
+        },
+        {"cameras",
+            DemoProfile {
+                "Camera System",
+                "Demonstrates the multi-camera system."
             }
         },
         {"radio",
@@ -174,7 +180,7 @@ int main(int argc, char **argv) {
                 }, C_GALARED);
             }
 
-            if(GuiButton(btnRec, profileData.name.c_str())) {
+            if(GuiButton(btnRec, profileData.title.c_str())) {
                 currentProfile = profileID;
             }
         }
@@ -223,6 +229,8 @@ int main(int argc, char **argv) {
                 game = new Demo_Scene();
             }else if(currentProfile == "tiles") {
                 game = new Demo_Tiles();
+            }else if(currentProfile == "cameras") {
+                game = new Demo_Cameras();
             }else if(currentProfile == "assets") {
                 game = new Demo_Assets();
             }else if(currentProfile == "radio") {

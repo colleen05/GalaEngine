@@ -17,12 +17,13 @@ void GalaEngine::Game::Start() {
     scene->input    = input;
     scene->sound    = sound;
     
-    scene->mainCamera.position = {0.0f, 0.0f};
-
-    scene->mainCamera.size = Vector2 {
-        (float) info.defaultWidth,
-        (float) info.defaultHeight
-    };
+    scene->cameras.push_back(
+        std::make_shared<GalaEngine::Camera>(
+            0, 0,
+            (float)(info.defaultWidth),
+            (float)(info.defaultHeight)
+        )
+    );
 
     OnLoad();
 

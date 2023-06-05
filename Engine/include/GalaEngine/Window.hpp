@@ -111,9 +111,9 @@ namespace GalaEngine {
             void SetHidden          (const bool hidden);        //!< Get whether or not the window is hidden.
             void SetTopmost         (const bool topmost);       //!< Get whether or not the window is topmost.
 
-            void SetWidth       (const int width);                      //!< Set the width of the window.
-            void SetHeight      (const int height);                     //!< Set the height of the window.
-            void SetSize        (const int width, const int height);    //!< Set the size of the window.
+            void SetWidth       (const int width);  //!< Set the width of the window.
+            void SetHeight      (const int height); //!< Set the height of the window.
+            void SetSize        (const int width, const int height, const bool resizeSurface = true); //!< Set the size of the window (optionally resizing surface).
             void SetMinSize     (const int width, const int height);    //!< Set the minimum size of the window.
             void SetPosition    (const int x, const int y);             //!< Set the position of the window.
             void SetTargetFPS   (const float fps);                      //!< Set the target FPS of the window.

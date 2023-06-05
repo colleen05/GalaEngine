@@ -1,5 +1,25 @@
 #include <GalaEngine/Scene.hpp>
 
+std::shared_ptr<GalaEngine::Camera> GalaEngine::Scene::GetCamera(const int index) {
+    if(index < 0 || index >= cameras.size()) return std::shared_ptr<GalaEngine::Camera>(nullptr);
+    return cameras[index];
+}
+
+size_t GalaEngine::Scene::PushCamera(std::shared_ptr<GalaEngine::Camera> camera, int index) {
+    if(index < -1 || index >= cameras.size()) index = cameras.size();
+    if(index == -1) index = cameras.size();
+
+    cameras.insert(cameras.begin() + index, camera);
+    return index;
+}
+
+void GalaEngine::Scene::RemoveCamera(int index) {
+    if(index < -1 || index >= cameras.size()) return;
+    if(index == -1) index = cameras.size() - 1;
+
+    cameras.erase(cameras.begin() + index);
+}
+
 void GalaEngine::Scene::PushEntity(GalaEngine::Entity *entity, const std::string &name) {
     if(entity == nullptr) return;
 
@@ -116,9 +136,11 @@ void GalaEngine::Scene::Update() {
     for(auto &e : entities) {
         auto &ent = e.second;
 
+        const Vector2 cameraSize = cameras[0]->GetSize();
+
         ent->sceneMousePosition = Vector2 {
-            (float) (GetMouseX()) / GetScreenWidth()  * mainCamera.size.x + mainCamera.position.x,
-            (float) (GetMouseY()) / GetScreenHeight() * mainCamera.size.y + mainCamera.position.y
+            (float) (GetMouseX()) / GetScreenWidth()  * cameraSize.x + cameras[0]->position.x,
+            (float) (GetMouseY()) / GetScreenHeight() * cameraSize.y + cameras[0]->position.y
         };
 
         ent->bbox = Rectangle {
@@ -144,30 +166,60 @@ void GalaEngine::Scene::Update() {
 
 void GalaEngine::Scene::RenderLayers() {
     if(targetSurface == nullptr) return;
+    if(cameras.empty()) return;
 
-    for(const auto &layer : layers) {
-        auto &layerTexture = layer->surface->renderTexture.texture;
+    for(auto &camera : cameras) {
+        if(!camera->visible) continue;
 
-        layer->OnDraw(mainCamera);
+        auto            &cameraTexture      = camera->surface->renderTexture;
+        const Vector2   cameraPosition      = camera->position;
+        const Vector2   cameraSize          = camera->GetSize();
+        const Rectangle cameraScreenport    = camera->screenport;
 
+        for(const auto &layer : layers) {
+            auto &layerTexture = layer->surface->renderTexture.texture;
+            
+            layer->OnDraw(*camera);
+
+            BeginTextureMode(cameraTexture);
+            DrawTexturePro(
+                layerTexture,
+                Rectangle {
+                    std::floor(cameraPosition.x),
+                    layerTexture.height - (cameraSize.y + std::floor(cameraPosition.y)),
+                    cameraSize.x,
+                    -cameraSize.y
+                },
+                Rectangle {
+                    0.0f,
+                    0.0f,
+                    (float)cameraTexture.texture.width,
+                    (float)cameraTexture.texture.height
+                },
+                {0.0f, 0.0f},
+                0.0f,
+                layer->blendColour
+            );
+            EndTextureMode();
+        }
+
+        // Copy camera texture to target surface
         BeginTextureMode(targetSurface->renderTexture);
         DrawTexturePro(
-            layerTexture,
+            cameraTexture.texture,
             Rectangle {
-                std::floor(mainCamera.position.x),
-                layerTexture.height - (mainCamera.size.y + std::floor(mainCamera.position.y)),
-                mainCamera.size.x,
-                -mainCamera.size.y
+                0, cameraSize.y,
+                cameraSize.x, -cameraSize.y
             },
             Rectangle {
-                0.0f,
-                0.0f,
-                (float)targetSurface->renderTexture.texture.width,
-                (float)targetSurface->renderTexture.texture.height
+                cameraScreenport.x,
+                cameraScreenport.y,
+                (float)cameraScreenport.width,
+                (float)cameraScreenport.height
             },
             {0.0f, 0.0f},
             0.0f,
-            layer->blendColour
+            C_WHITE
         );
         EndTextureMode();
     }
@@ -179,6 +231,8 @@ GalaEngine::Scene::Scene(Surface *targetSurface, const int width, const int heig
     this->_height       = height;
 }
 
-GalaEngine::Scene::Scene() {
+GalaEngine::Scene::Scene() { }
 
+GalaEngine::Scene::~Scene() {
+    cameras.clear();
 }

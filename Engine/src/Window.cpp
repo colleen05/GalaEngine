@@ -67,13 +67,13 @@ void GalaEngine::Window::Render() {
         0.0f,
         C_WHITE
     );
+    
 }
 
 void GalaEngine::Window::Close() {
     surface.Destroy();
     CloseWindow();
     CloseAudioDevice();
-    
 }
 
 // Getters
@@ -104,11 +104,11 @@ bool GalaEngine::Window::IsTopmost() {
 }
 
 int GalaEngine::Window::GetWidth() {
-    return IsFullscreen() ? GetMonitorWidth() : (::GetScreenWidth());
+    return IsFullscreen() ? GetMonitorWidth() : ::GetScreenWidth();
 }
 
 int GalaEngine::Window::GetHeight() {
-    return IsFullscreen() ? GetMonitorHeight() : (::GetScreenHeight());
+    return IsFullscreen() ? GetMonitorHeight() : ::GetScreenHeight();
 }
 
 Vector2 GalaEngine::Window::GetSize() {
@@ -230,11 +230,13 @@ void GalaEngine::Window::SetTopmost(const bool topmost) {
 void GalaEngine::Window::SetWidth   (const int width)   { SetSize(width, GetHeight()); }
 void GalaEngine::Window::SetHeight  (const int height)  { SetSize(GetWidth(), height); }
 
-void GalaEngine::Window::SetSize(const int width, const int height) {
+void GalaEngine::Window::SetSize(const int width, const int height, const bool resizeSurface) {
     _width = width;
     _height = height;
     ::SetWindowSize(width, height);
-    surface.Resize(width, height);
+    
+    if(resizeSurface)
+        surface.Resize(width, height);
 }
 
 void GalaEngine::Window::SetMinSize(const int width, const int height) {
