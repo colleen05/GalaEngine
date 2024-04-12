@@ -23,9 +23,9 @@
 </a>
 
 
-## PLEASE NOTE
-GalaEngine is in a very early development stage. Expect bugs and lack of documentation and cross-platform support. If you run into a bug, please report it in the issues section of the GitHub repository.
-
+## :warning: :rotating_light: DISCONTINUED C++ PROJECT :rotating_light: :warning:
+I'm no longer using C++ for personal projects, thus this project's development has been discontinued.
+Check my GitHub or [**my website**](https://colleen05.me/) for projects coming in the future.
 
 ## Compiling
 ### Linux
